@@ -1,21 +1,20 @@
-import { Outlet } from "react-router-dom";
-import AdminHeader from "~/components/Admin/AdminHeader";
-import Sidebar from "~/components/Admin/Sidebar";
-import styles from "./AdminLayout.module.scss";
+import AdminHeader from '~/components/Admin/AdminHeader';
+import Sidebar from '~/components/Admin/Sidebar';
+import styles from './AdminLayout.module.scss';
+import classNames from 'classnames/bind';
 
-const AdminLayout = ({children}) => {
+const cx = classNames.bind(styles);
+
+function AdminLayout({ children }) {
     return (
-        <div className={styles.adminLayout}>
+        <div className={cx('wrapper')}>
             <AdminHeader />
-            <div className={styles.container}>
+            <div className={cx('container')}>
                 <Sidebar />
-                <main className={styles.content}>
-                    {children}
-                    <Outlet />
-                </main>
+                <main className={cx('content')}>{children}</main>
             </div>
         </div>
     );
-};
+}
 
 export default AdminLayout;
