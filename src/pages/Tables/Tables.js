@@ -12,31 +12,32 @@ function Tables() {
               <tr className={cx('header')}>
                 <th className={cx('header-item')}>TT</th>
                 <th className={cx('header-item')}>Đội</th>
-                <th className={cx('header-item')}>Trận</th>
+                <th className={cx('header-item', 'match-column')}>Trận</th>
                 <th className={cx('header-item')}>Thắng</th>
                 <th className={cx('header-item')}>Hòa</th>
                 <th className={cx('header-item')}>Thua</th>
                 <th className={cx('header-item')}>Bàn thắng</th>
                 <th className={cx('header-item')}>Bàn thua</th>
                 <th className={cx('header-item')}>Hiệu số</th>
-                <th className={cx('header-item')}>Điểm</th>
+                <th className={cx('header-item', 'score-column')}>Điểm</th>
               </tr>
             </thead>
             <tbody>
               {data.sort((a, b) => b.points - a.points).map((team, index) => (
-                <tr key={index} className="content">
-                  <td className="tt">{index + 1}</td>
-                  <td className="ten">
-                    <img src={team.image} alt={team.name} className="logo" />{team.name}
+                <tr key={index} className={cx('table-row')}>
+                  <td className={cx('table-cell')}>{index + 1}</td>
+                  <td className={cx('table-cell', 'team-name')}>
+                    <img src={team.image} alt={team.name} className={cx('logo')} />
+                    <span>{team.name}</span>
                   </td>
-                  <td className="content-item">{team.matches}</td>
-                  <td className="content-item">{team.wins}</td>
-                  <td className="content-item">{team.draws}</td>
-                  <td className="content-item">{team.losses}</td>
-                  <td className="content-item">{team.goalsFor}</td>
-                  <td className="content-item">{team.goalsAgainst}</td>
-                  <td className="content-item">{team.goalDifference}</td>
-                  <td className="content-item">{team.points}</td>
+                  <td className={cx('table-cell', 'match-column')}>{team.matches}</td>
+                  <td className={cx('table-cell')}>{team.wins}</td>
+                  <td className={cx('table-cell')}>{team.draws}</td>
+                  <td className={cx('table-cell')}>{team.losses}</td>
+                  <td className={cx('table-cell')}>{team.goalsFor}</td>
+                  <td className={cx('table-cell')}>{team.goalsAgainst}</td>
+                  <td className={cx('table-cell')}>{team.goalDifference}</td>
+                  <td className={cx('table-cell', 'score-column')}>{team.points}</td>
                 </tr>
               ))}
             </tbody>

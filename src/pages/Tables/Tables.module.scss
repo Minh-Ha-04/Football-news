@@ -1,7 +1,149 @@
-thead{
-    background-color: rgb(239 239 239);
-    height: 40px;
-}
-.header-item{
-    padding: 20px;
-}
+.wrapper {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .bxh {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+    padding-bottom: 1rem;
+  
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #007bff, #00bcd4);
+      border-radius: 2px;
+    }
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  thead {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    height: 48px;
+  }
+  
+  .header-item {
+    padding: 16px 20px;
+    font-weight: 600;
+    color: #2d3748;
+    text-align: left;
+    font-size: 0.95rem;
+    border-bottom: 2px solid #e2e8f0;
+    white-space: nowrap;
+  
+    &.score-column {
+      text-align: center;
+    }
+  
+    &.match-column {
+      text-align: center;
+    }
+  }
+  
+  .table-row {
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background-color: #f8fafc;
+    }
+  }
+  
+  .table-cell {
+    padding: 16px 20px;
+    color: #4a5568;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  
+    &.score-column {
+      text-align: center;
+      font-weight: 700;
+      color: #2d3748;
+    }
+  
+    &.match-column {
+      text-align: center;
+      font-weight: 700;
+      color: #2d3748;
+    }
+  
+    &.team-name {
+      max-width: 250px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+  
+      .logo {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+      }
+  
+      span {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #2d3748;
+      }
+    }
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    .wrapper {
+      padding: 1rem;
+    }
+  
+    .bxh {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+  
+    .header-item, .table-cell {
+      padding: 12px 16px;
+      font-size: 0.9rem;
+    }
+    
+    thead {
+      height: 40px;
+    }
+  
+    .table-cell {
+      max-width: 150px;
+  
+      &.team-name {
+        max-width: 200px;
+        gap: 8px;
+  
+        .logo {
+          width: 28px;
+          height: 28px;
+        }
+  
+        span {
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }
