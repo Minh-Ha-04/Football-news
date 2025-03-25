@@ -1,0 +1,35 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    .team-logo {
+        width: 3.2rem;
+        height: 3.2rem;
+        object-fit: contain;
+    }
+    
+    .team-name {
+        font-weight: 400;
+    }
+}
+
+.reverse {
+    flex-direction: row-reverse;
+}
+
+.small{
+    display: flex;
+    align-items: center;
+    width: 100px;
+    margin: 5px 0;
+    .team-logo {
+        width: 2rem;
+        height: 2rem;
+        object-fit: contain;
+    }
+    
+    .team-name {
+        font-weight: 400;
+        font-size: 12px;
+    }
+}

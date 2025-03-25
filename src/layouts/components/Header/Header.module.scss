@@ -1,0 +1,41 @@
+.wrapper {
+    justify-content: center;
+    width: 100%;
+}
+
+.inner {
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(119 179 60);
+    display: flex;
+    height: 90px;
+    width: 100%;
+}
+
+.logo {
+    width: 130px;
+    height: 160px;
+}
+
+.menu-item {
+    list-style: none;
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 600;
+
+    
+}
+
+.avatar {
+    background-color: #fff;
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    border: 2px solid black;
+}
+.avatar-user {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+}

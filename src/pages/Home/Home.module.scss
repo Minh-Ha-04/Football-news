@@ -1,0 +1,31 @@
+.home {
+    width: 1100px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+// p1
+.content {
+    height: 540px;
+    position: relative;
+    width: 100%;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+// p2
+.wrapper {
+    padding: 0 10px;
+    display: flex;
+}
+
+.hotnews {
+    width: 760px;
+    padding: 0 10px;
+}
+
+.header {
+    margin: 20px 0;
+    display: flex;
+    height: 60px;
+    color: rgb(119 179 60);
+}

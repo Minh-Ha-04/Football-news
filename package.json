@@ -1,0 +1,59 @@
+{
+  "name": "football-news",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/free-regular-svg-icons": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@tippyjs/react": "^4.2.6",
+    "axios": "^1.8.4",
+    "classnames": "^2.5.1",
+    "normalize.css": "^8.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-dropzone": "^14.3.8",
+    "react-hook-form": "^7.54.2",
+    "react-quill": "^2.0.0",
+    "react-router-dom": "^7.4.0",
+    "react-scripts": "5.0.1",
+    "sweetalert2": "^11.17.2",
+    "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "babel-plugin-module-resolver": "^5.0.2",
+    "customize-cra": "^1.0.0",
+    "react-app-rewired": "^2.2.1",
+    "sass": "^1.86.0"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

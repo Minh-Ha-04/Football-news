@@ -1,0 +1,23 @@
+.dashboard {
+    padding: 20px;
+}
+
+.stats {
+    display: flex;
+    gap: 20px;
+}
+
+.statItem {
+    flex: 1;
+    background: #ecf0f1;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon {
+    font-size: 2rem;
+    color: #2c3e50;
+}

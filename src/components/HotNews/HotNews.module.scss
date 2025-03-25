@@ -1,0 +1,33 @@
+.HotNews {
+    display: flex;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    width: 740px;
+    padding: 16px 0 20px;
+    height: 180px;
+}
+.image {
+    width: 210px;
+    height: 144px;
+    object-fit: contain;
+    margin-right: 20px;
+}
+
+.wrapper {
+
+    width: 510px;
+    height: 144px;
+    text-align: left;
+}
+
+.title {
+    font-size: 18px;
+    line-height: 25px;
+    margin-bottom: 10px;
+}
+.des {
+    
+    width: 510px;
+    font-size: 14px;
+    color: #676767;
+    line-height: 20px;
+}

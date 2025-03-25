@@ -1,0 +1,44 @@
+.wrapper {
+    width: 100%;
+    background-color: rgb(120 180 61);
+    display: flex;
+    color: #fff;
+    padding: 20px 48px;
+}
+.left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 700px;
+}
+.logo-footer {
+    width: 150px;
+    height: 150px;
+}
+.rifgt {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.contact {
+    display: flex;
+    list-style: none;
+    width: 100%;
+}
+.contact-item {
+    margin-right: 15px;
+}
+
+.contact-item svg {
+    margin-right: 6px; /* Tạo khoảng cách giữa icon và text */
+}
+
+.social-item {
+    margin-right: 10px;
+}
+
+.contact,
+.social,
+.copyright {
+    margin-bottom: 15px;
+}

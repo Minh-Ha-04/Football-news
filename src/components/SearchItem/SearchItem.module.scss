@@ -1,0 +1,16 @@
+.wrapper {
+    margin: 0;
+    padding: 0;
+    height: 50px;
+    cursor: pointer;
+    & :hover {
+        background-color: rgb(197, 178, 178,0.2);
+        color: #000;
+        font-weight: 500;
+    }
+}
+.title{
+    padding: 10px;
+    width: 100%;
+    
+}

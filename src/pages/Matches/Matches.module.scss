@@ -1,0 +1,94 @@
+.matches{    
+    width: 1100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.container{
+    margin-top: 30px;
+    display: flex;
+    padding: 0 10px;
+}
+
+.content{
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title{
+    font-size: 30px;
+}
+
+
+
+
+.time-post{
+    font-size: 16px;
+    color: rgb(149 149 149);
+    align-self: flex-end; /* Đẩy time ra mép phải mà không cần absolute */
+    margin-bottom: 15px;
+    height: 20px;
+}
+
+.header-result{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(55 0 60);
+    color: #fff;
+    height: 50px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+}
+
+
+.left-header{
+    display: flex;
+    justify-content: center;
+}
+.right-header{
+    width: 180px;
+    font-size:  18px;
+    display: flex;
+    font-weight: 400;
+}
+
+.header-nav{
+    display: flex;
+}
+
+.header-item{
+    list-style: none;
+    font-size:  18px;
+    margin-right: 20px;
+}
+
+.logo-header-result{
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    margin-right: 10px;
+
+}
+
+
+.hotnews {
+    width: 760px;
+    padding: 0 20px;
+}
+.header {
+    margin: 20px 0;
+    display: flex;
+    height: 60px;
+    color: rgb(119 179 60);
+}
+
+.button{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

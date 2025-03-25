@@ -1,0 +1,24 @@
+
+const teams = [
+    { position: 1, name: "Liverpool", matches: 29, wins: 21, draws: 7, losses: 1, goalsFor: 69, goalsAgainst: 27, goalDifference: 42, points: 70, image: "https://resources.premierleague.com/premierleague/badges/50/t14.png" },
+    { position: 2, name: "Arsenal", matches: 29, wins: 16, draws: 10, losses: 3, goalsFor: 53, goalsAgainst: 24, goalDifference: 29, points: 58, image: "https://resources.premierleague.com/premierleague/badges/50/t3.png" },
+    { position: 3, name: "Nottingham Forest", matches: 29, wins: 16, draws: 6, losses: 7, goalsFor: 49, goalsAgainst: 35, goalDifference: 14, points: 54, image: "https://resources.premierleague.com/premierleague/badges/50/t17.png" },
+    { position: 4, name: "Chelsea", matches: 29, wins: 14, draws: 7, losses: 8, goalsFor: 53, goalsAgainst: 37, goalDifference: 16, points: 49, image: "https://resources.premierleague.com/premierleague/badges/50/t8.png" },
+    { position: 5, name: "Manchester City", matches: 29, wins: 14, draws: 6, losses: 9, goalsFor: 55, goalsAgainst: 40, goalDifference: 15, points: 48, image: "https://resources.premierleague.com/premierleague/badges/50/t43.png" },
+    { position: 6, name: "Newcastle United", matches: 28, wins: 14, draws: 5, losses: 9, goalsFor: 47, goalsAgainst: 38, goalDifference: 9, points: 47, image: "https://resources.premierleague.com/premierleague/badges/50/t4.png" },
+    { position: 7, name: "Brighton & Hove Albion", matches: 29, wins: 12, draws: 11, losses: 6, goalsFor: 48, goalsAgainst: 42, goalDifference: 6, points: 47, image: "https://resources.premierleague.com/premierleague/badges/50/t36.png" },
+    { position: 8, name: "Fulham", matches: 29, wins: 12, draws: 9, losses: 8, goalsFor: 43, goalsAgainst: 38, goalDifference: 5, points: 45, image: "https://resources.premierleague.com/premierleague/badges/50/t54.png" },
+    { position: 9, name: "Aston Villa", matches: 29, wins: 12, draws: 9, losses: 8, goalsFor: 41, goalsAgainst: 45, goalDifference: -4, points: 45, image: "https://resources.premierleague.com/premierleague/badges/50/t7.png" },
+    { position: 10, name: "AFC Bournemouth", matches: 29, wins: 12, draws: 8, losses: 9, goalsFor: 48, goalsAgainst: 36, goalDifference: 12, points: 44, image: "https://resources.premierleague.com/premierleague/badges/50/t91.png" },
+    { position: 11, name: "Brentford", matches: 29, wins: 12, draws: 5, losses: 12, goalsFor: 50, goalsAgainst: 45, goalDifference: 5, points: 41, image: "https://resources.premierleague.com/premierleague/badges/50/t94.png" },
+    { position: 12, name: "Crystal Palace", matches: 28, wins: 10, draws: 9, losses: 9, goalsFor: 36, goalsAgainst: 33, goalDifference: 3, points: 39, image: "https://resources.premierleague.com/premierleague/badges/50/t31.png" },
+    { position: 13, name: "Manchester United", matches: 29, wins: 10, draws: 7, losses: 12, goalsFor: 37, goalsAgainst: 40, goalDifference: -3, points: 37, image: "https://resources.premierleague.com/premierleague/badges/50/t1.png" },
+    { position: 14, name: "Tottenham Hotspur", matches: 29, wins: 10, draws: 4, losses: 15, goalsFor: 55, goalsAgainst: 43, goalDifference: 12, points: 34, image: "https://resources.premierleague.com/premierleague/badges/50/t6.png" },
+    { position: 15, name: "Everton", matches: 29, wins: 7, draws: 13, losses: 9, goalsFor: 32, goalsAgainst: 36, goalDifference: -4, points: 34, image: "https://resources.premierleague.com/premierleague/badges/50/t11.png" },
+    { position: 16, name: "West Ham United", matches: 29, wins: 9, draws: 7, losses: 13, goalsFor: 33, goalsAgainst: 49, goalDifference: -16, points: 34, image: "https://resources.premierleague.com/premierleague/badges/50/t21.png" },
+    { position: 17, name: "Wolverhampton Wanderers", matches: 29, wins: 7, draws: 5, losses: 17, goalsFor: 40, goalsAgainst: 58, goalDifference: -18, points: 26, image: "https://resources.premierleague.com/premierleague/badges/50/t39.png" },
+    { position: 18, name: "Ipswich Town", matches: 29, wins: 3, draws: 8, losses: 18, goalsFor: 28, goalsAgainst: 62, goalDifference: -34, points: 17, image: "https://resources.premierleague.com/premierleague/badges/50/t40.png" },
+    { position: 19, name: "Leicester City", matches: 29, wins: 4, draws: 5, losses: 20, goalsFor: 25, goalsAgainst: 65, goalDifference: -40, points: 17, image: "https://resources.premierleague.com/premierleague/badges/50/t13.png" },
+    { position: 20, name: "Southampton", matches: 29, wins: 2, draws: 3, losses: 24, goalsFor: 21, goalsAgainst: 70, goalDifference: -49, points: 9, image: "https://resources.premierleague.com/premierleague/badges/50/t20.png" },
+  ];
+export default teams;

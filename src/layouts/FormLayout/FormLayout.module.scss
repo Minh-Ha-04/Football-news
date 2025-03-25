@@ -1,0 +1,54 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    height: 100vh; /* Chiều cao = 100% viewport */
+}
+
+.container{
+    border-radius: 10px;
+    padding: 20px;
+    background-color: rgb(120 180 61);
+    color: #fff;
+    width: 600px;
+}
+
+.header{
+    font-size: 40px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-input{
+    width: 500px;
+    height: 60px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+.button{
+    color: rgb(120 180 61);
+    margin-bottom: 20px;
+}
+
+.footer{
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.change{
+    cursor: pointer;
+    background-color: rgb(120 180 61);
+    color: #fff;
+}
