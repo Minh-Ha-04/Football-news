@@ -10,7 +10,7 @@ import SiteClub from '~/components/SiteClub';
 import Menu from '~/components/Popper/Menu';
 import config from '~/config';
 const cx = classNames.bind(styles);
-const currentUser = false;
+
 const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faUser} />,
@@ -31,6 +31,7 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
+    const currentUser = false;
     return (
         <header className={cx('wrapper')}>
             <SiteClub></SiteClub>

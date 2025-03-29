@@ -10,8 +10,8 @@ function SiteClub() {
             <ul className={cx('logoContainer')}>
                 {data
                     .sort((a, b) => a.name.localeCompare(b.name))
-                    .map((team) => (
-                        <li className={cx('logo')}>
+                    .map((team,index) => (
+                        <li className={cx('logo')} key={index}>
                             <img src={team.image} alt={team.name}></img>
                         </li>
                     ))}

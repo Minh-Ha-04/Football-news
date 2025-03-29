@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
-import styles from './Sidebar.module.scss';
+import styles from './Userbar.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine,  faHome } from '@fortawesome/free-solid-svg-icons';
-import { faNewspaper, faSoccerBall } from '@fortawesome/free-regular-svg-icons';
+import { faArrowRightFromBracket, faBookBookmark,faEye,faUser} from '@fortawesome/free-solid-svg-icons';
 import routes from '~/config/routes';
 import classNames from 'classnames/bind';
-
 const cx=classNames.bind(styles)
 
 const Sidebar = () => {
@@ -13,23 +11,23 @@ const Sidebar = () => {
         <div className={cx('sidebar')}>
             <ul className={cx('menu')}>
                 <li>
-                    <Link to={routes.dashboard}>
-                        <FontAwesomeIcon icon={faChartLine} /> Thống kê
+                    <Link to={routes.info}>
+                        <FontAwesomeIcon icon={faUser} /> Thông tin tài khoản
                     </Link>
                 </li>
                 <li>
-                    <Link to={routes.post}>
-                        <FontAwesomeIcon icon={faNewspaper} /> Quản lý bài viết
+                    <Link to={routes.saved}>
+                        <FontAwesomeIcon icon={faBookBookmark} /> Bài viết đã lưu
                     </Link>
                 </li>
                 <li>
-                    <Link to={routes.matchscore}>
-                        <FontAwesomeIcon icon={faSoccerBall } /> Quản lý trận đấu
+                    <Link to={routes.viewed}>
+                        <FontAwesomeIcon icon={faEye } /> Bài viết đã xem
                     </Link>
                 </li>
                 <li>
                     <Link to={routes.home}>
-                        <FontAwesomeIcon icon={faHome   } /> Trang chủ
+                        <FontAwesomeIcon icon={faArrowRightFromBracket} /> Đăng xuất
                     </Link>
                 </li>
             </ul>

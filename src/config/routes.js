@@ -5,9 +5,14 @@ const routes = {
     matches: '/matches',
     login: '/login',
     detail: '/detail',
+
+    info: '/user',
+    viewed :'/user/viewed',
+    saved: '/user/saved',
+
     dashboard: '/admin',
-    post :'/admin/posts',
-    matchscore:'/admin/matchscore'
+    post: '/admin/posts',
+    matchscore: '/admin/matchscore'
 };
 
 export default routes;
