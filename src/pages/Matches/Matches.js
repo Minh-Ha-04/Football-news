@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 import MatchList from '~/components/MatchList';
-import ColRight from '~/layouts/components/ColRight';
 import Article from '~/components/Article';
 import Button from '~/components/Button';
 import HotNews from '~/components/HotNews';

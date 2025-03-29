@@ -1,4 +1,29 @@
-.wrapper{
+.wrapper {
     width: 100%;
     height: 100px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 15px;
+    justify-content: flex-end;
+}
+.title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-right: 10px;
+}
+.logoContainer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.logo {
+    list-style: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+    &:hover {
+        transform: scale(1.1);
+    }
 }
