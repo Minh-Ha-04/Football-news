@@ -13,6 +13,8 @@
 .small{
     display: flex;
     margin-bottom: 20px;
+    line-height: 24px;
+    font-size: 15px;
     .article-image {
         object-fit: contain;
         width: 126px;
@@ -22,8 +24,7 @@
     .article{
         width: 160px;
         height: 85px;
-        font-size: 14px;
-        font-weight: 600;
+        font-weight: 400;
         & :hover{
             color: rgb(120 180 61);
         }
