@@ -1,23 +1,142 @@
 .dashboard {
-    padding: 20px;
+    padding: 24px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
 }
 
-.stats {
+.header {
     display: flex;
-    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
 }
 
-.statItem {
-    flex: 1;
-    background: #ecf0f1;
-    padding: 20px;
-    border-radius: 10px;
+.title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c3e50;
+    padding-bottom: 16px;
+    border-bottom: 2px solid rgb(119, 179, 60);
+}
+
+.actions {
+    display: flex;
+    gap: 16px;
+}
+
+.editButton,
+.saveButton {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    svg {
+        font-size: 16px;
+    }
 }
 
-.icon {
-    font-size: 2rem;
-    color: #2c3e50;
+.editButton {
+    background-color: rgb(119, 179, 60);
+    color: white;
+
+    &:hover {
+        background-color: rgb(100, 160, 41);
+    }
+}
+
+.saveButton {
+    background-color: #2c3e50;
+    color: white;
+
+    &:hover {
+        background-color: #34495e;
+    }
+}
+
+.tableContainer {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+        padding: 16px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+
+    th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    td:first-child {
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    td:nth-child(2) {
+        font-weight: 500;
+    }
+}
+
+.teamName {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+}
+
+.teamLogo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.input {
+    width: 60px;
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+
+    &:focus {
+        outline: none;
+        border-color: rgb(119, 179, 60);
+    }
+}
+
+.updateInfo {
+    display: flex;
+    gap: 24px;
+    color: #666;
+    font-size: 14px;
+}
+
+.infoItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .icon {
+        color: rgb(119, 179, 60);
+    }
 }

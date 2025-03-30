@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine,  faHome } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faHome } from '@fortawesome/free-solid-svg-icons';
 import { faNewspaper, faSoccerBall } from '@fortawesome/free-regular-svg-icons';
 import routes from '~/config/routes';
 import classNames from 'classnames/bind';
 
-const cx=classNames.bind(styles)
+const cx = classNames.bind(styles);
 
 const Sidebar = () => {
     return (
@@ -14,7 +14,7 @@ const Sidebar = () => {
             <ul className={cx('menu')}>
                 <li>
                     <Link to={routes.dashboard}>
-                        <FontAwesomeIcon icon={faChartLine} /> Thống kê
+                        <FontAwesomeIcon icon={faChartLine} /> Cập nhật bảng xếp hạng
                     </Link>
                 </li>
                 <li>
@@ -24,12 +24,12 @@ const Sidebar = () => {
                 </li>
                 <li>
                     <Link to={routes.matchscore}>
-                        <FontAwesomeIcon icon={faSoccerBall } /> Quản lý trận đấu
+                        <FontAwesomeIcon icon={faSoccerBall} /> Quản lý trận đấu
                     </Link>
                 </li>
                 <li>
                     <Link to={routes.home}>
-                        <FontAwesomeIcon icon={faHome   } /> Trang chủ
+                        <FontAwesomeIcon icon={faHome} /> Trang chủ
                     </Link>
                 </li>
             </ul>
