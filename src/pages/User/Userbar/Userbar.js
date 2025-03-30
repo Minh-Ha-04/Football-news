@@ -12,22 +12,22 @@ const Sidebar = () => {
             <ul className={cx('menu')}>
                 <li>
                     <Link to={routes.info}>
-                        <FontAwesomeIcon icon={faUser} /> Thông tin tài khoản
+                        <FontAwesomeIcon icon={faUser} className={cx('icon')} /> Thông tin tài khoản
                     </Link>
                 </li>
                 <li>
                     <Link to={routes.saved}>
-                        <FontAwesomeIcon icon={faBookBookmark} /> Bài viết đã lưu
+                        <FontAwesomeIcon icon={faBookBookmark} className={cx('icon')} /> Bài viết đã lưu
                     </Link>
                 </li>
                 <li>
                     <Link to={routes.viewed}>
-                        <FontAwesomeIcon icon={faEye } /> Bài viết đã xem
+                        <FontAwesomeIcon icon={faEye } className={cx('icon')} /> Bài viết đã xem
                     </Link>
                 </li>
                 <li>
                     <Link to={routes.home}>
-                        <FontAwesomeIcon icon={faArrowRightFromBracket} /> Đăng xuất
+                        <FontAwesomeIcon icon={faArrowRightFromBracket} className={cx('icon')} /> Đăng xuất
                     </Link>
                 </li>
             </ul>
