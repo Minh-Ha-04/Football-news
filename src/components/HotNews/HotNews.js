@@ -1,6 +1,7 @@
 import styles from './HotNews.module.scss';
 import classNames from 'classnames/bind';
-
+import { Link } from 'react-router-dom';
+import routes from '~/config/routes';
 const cx = classNames.bind(styles);
 
 const data = {
@@ -11,13 +12,15 @@ const data = {
 
 function HotNews() {
     return (
-        <div className={cx('HotNews')}>
-            <img src={data.image} alt={'ảnh'} className={cx('image')} />
-            <div className={cx('wrapper')}>
-                <h3 className={cx('title')}>{data.title}</h3>
-                <div className={cx('des')}>{data.des}</div>
+        <Link to={routes.detail}>
+            <div className={cx('HotNews')}>
+                <img src={data.image} alt={'ảnh'} className={cx('image')} />
+                <div className={cx('wrapper')}>
+                    <h3 className={cx('title')}>{data.title}</h3>
+                    <div className={cx('des')}>{data.des}</div>
+                </div>
             </div>
-        </div>
+        </Link>
     );
 }
 

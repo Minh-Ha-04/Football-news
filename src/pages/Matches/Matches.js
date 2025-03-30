@@ -9,6 +9,8 @@ import MatchList from '~/components/MatchList';
 import Article from '~/components/Article';
 import Button from '~/components/Button';
 import HotNews from '~/components/HotNews';
+import { Link } from 'react-router-dom';
+import routes from '~/config/routes';
 const cx = classNames.bind(styles);
 
 function Matches() {
@@ -36,7 +38,7 @@ function Matches() {
                                         <FontAwesomeIcon icon={faCalendar} /> Lịch thi đấu
                                     </li>
                                     <li class={cx('header-item')}>
-                                        <FontAwesomeIcon icon={faTrophy} /> Bảng xếp hạng
+                                        <Link to={routes.tables}><FontAwesomeIcon icon={faTrophy} /> Bảng xếp hạng</Link>
                                     </li>
                                 </ul>
                             </div>

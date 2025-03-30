@@ -1,6 +1,7 @@
 import styles from './Article.module.scss';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import routes from '~/config/routes';
 const cx = classNames.bind(styles);
 
 const data = {
@@ -38,10 +39,12 @@ function Article({
         small,
     });
     return (
-        <Comp className={classes} {...props}>
-            <img src={data.image} alt={'ảnh'} className={cx('article-image')} />
-            <h5 className={cx('article-title')}>{data.title}</h5>
-        </Comp>
+       <Link to={routes.detail}>
+            <Comp className={classes} {...props}>
+                <img src={data.image} alt={'ảnh'} className={cx('article-image')} />
+                <h5 className={cx('article-title')}>{data.title}</h5>
+            </Comp>
+       </Link>
     );
 }
 
