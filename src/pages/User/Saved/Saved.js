@@ -26,7 +26,7 @@ function Saved() {
                 <div className={cx('media')}>
                         <Button rounded className={cx('media-item')}>
                             <FontAwesomeIcon icon={faBookBookmark} />
-                            Lưu bài
+                            Bỏ lưu
                         </Button>
                         <Button rounded className={cx('media-item')}>
                             <FontAwesomeIcon icon={faShare} />
@@ -38,7 +38,7 @@ function Saved() {
                 <div className={cx('media')}>
                         <Button rounded className={cx('media-item')}>
                             <FontAwesomeIcon icon={faBookBookmark} />
-                            Lưu bài
+                            Bỏ lưu
                         </Button>
                         <Button rounded className={cx('media-item')}>
                             <FontAwesomeIcon icon={faShare} />

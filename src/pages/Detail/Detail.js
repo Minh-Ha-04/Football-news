@@ -7,11 +7,28 @@ import Ads from '~/components/Ads';
 import Image from '~/components/Image';
 import HotNews from '~/components/HotNews';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookBookmark, faShare } from '@fortawesome/free-solid-svg-icons';
+import { faBookBookmark, faShare, faBookmark, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
+import { useState } from 'react';
 const cx = classNames.bind(styles);
 
 function Detail() {
+    const [isSaved, setIsSaved] = useState(false);
+    const [showFeedback, setShowFeedback] = useState(false);
+    const [feedback, setFeedback] = useState('');
+
+    const handleSave = () => {
+        setIsSaved(!isSaved);
+    };
+
+    const handleFeedbackSubmit = (e) => {
+        e.preventDefault();
+        // Xử lý gửi feedback ở đây
+        console.log('Feedback:', feedback);
+        setFeedback('');
+        setShowFeedback(false);
+    };
+
     return (
         <div className={cx('news')}>
             <Section />
@@ -23,9 +40,9 @@ function Detail() {
                     </h1>
 
                     <div className={cx('media')}>
-                        <Button rounded className={cx('media-item')}>
-                            <FontAwesomeIcon icon={faBookBookmark} />
-                            Lưu bài
+                        <Button rounded className={cx('media-item', { saved: isSaved })} onClick={handleSave}>
+                            <FontAwesomeIcon icon={isSaved ? faBookmark : faBookBookmark} />
+                            {isSaved ? 'Bỏ lưu' : 'Lưu bài'}
                         </Button>
                         <Button rounded className={cx('media-item')}>
                             <FontAwesomeIcon icon={faShare} />
@@ -60,7 +77,7 @@ function Detail() {
                         trong khi ban lãnh đạo MU hy vọng Rashford tiếp tục thể hiện tốt để giúp họ bán được giá hơn.
                         Trước đó, HLV Amorim đã khẳng định lý do để Rashford ra đi là do cả hai không có chung quan điểm
                         về triết lý chơi bóng và tập luyện. Dù vậy, Rashford chưa bao giờ công khai phản đối phương pháp
-                        huấn luyện của chiến lược gia người Bồ Đào Nha. HLV Amorim chia sẻ: “Tôi không thể khiến
+                        huấn luyện của chiến lược gia người Bồ Đào Nha. HLV Amorim chia sẻ: "Tôi không thể khiến
                         Rashford hiểu cách chơi bóng và tập luyện theo cách tôi muốn. Đôi khi một cầu thủ có thể chơi
                         rất tốt dưới thời một HLV này, nhưng với một HLV khác thì lại hoàn toàn khác. Tôi chúc Rashford
                         và Unai Emery những điều tốt đẹp nhất, hy vọng họ có thể kết nối tốt với nhau vì cậu ấy là một
@@ -68,15 +85,15 @@ function Detail() {
                         HLV và cầu thủ đều cảm nhận được. Đây là điều bình thường trong bóng đá, và đã từng xảy ra với
                         rất nhiều HLV khác. Điều quan trọng là tôi đang ở đây để nói rằng đó là quyết định của tôi,
                         giống như việc tôi quyết định cho Tyrell Malacia và Antony ra đi theo dạng cho mượn, hoặc giữ
-                        lại một số cầu thủ dù không có kế hoạch chuyển nhượng nào”.
+                        lại một số cầu thủ dù không có kế hoạch chuyển nhượng nào".
                     </p>
                     <p className={cx('author')}>Tác giả :Tiến Long</p>
                     <div className={cx('media')}>
-                        <Button rounded className={cx('media-item')}>
-                            <FontAwesomeIcon icon={faBookBookmark} />
-                            Lưu bài
+                        <Button rounded className={cx('media-item', { saved: isSaved })} onClick={handleSave}>
+                            <FontAwesomeIcon icon={isSaved ? faBookmark : faBookBookmark} />
+                            {isSaved ? 'Bỏ lưu' : 'Lưu bài'}
                         </Button>
-                        <Button rounded className={cx('media-item')}>
+                        <Button rounded className={cx('media-item')} onClick={() => setShowFeedback(true)}>
                             <FontAwesomeIcon icon={faPaperPlane} />
                             Gửi góp ý
                         </Button>
@@ -85,6 +102,31 @@ function Detail() {
                             Chia sẻ
                         </Button>
                     </div>
+
+                    {/* Feedback Modal */}
+                    {showFeedback && (
+                        <div className={cx('modal-overlay')}>
+                            <div className={cx('modal')}>
+                                <div className={cx('modal-header')}>
+                                    <h3>Gửi góp ý</h3>
+                                    <Button className={cx('close-btn')} onClick={() => setShowFeedback(false)}>
+                                        <FontAwesomeIcon icon={faXmark} />
+                                    </Button>
+                                </div>
+                                <form onSubmit={handleFeedbackSubmit} className={cx('feedback-form')}>
+                                    <textarea
+                                        value={feedback}
+                                        onChange={(e) => setFeedback(e.target.value)}
+                                        placeholder="Nhập góp ý của bạn..."
+                                        required
+                                    />
+                                    <Button type="submit" className={cx('submit-btn')}>
+                                        Gửi
+                                    </Button>
+                                </form>
+                            </div>
+                        </div>
+                    )}
 
                     <div className={cx('hotnews')}>
                         <h2 className={cx('header')}>Tin bóng đá mới nhẩt</h2>

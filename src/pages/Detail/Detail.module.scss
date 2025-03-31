@@ -29,12 +29,6 @@
     padding: 15px 0;
 }
 
-.media{
-    display: flex;
-    justify-content: flex-end;
-    height: 50px;
-}
-
 .media-item svg {
     margin-right: 15px; /* Tạo khoảng cách giữa icon và text */
 }
@@ -58,7 +52,7 @@
     font-size: 15px;
 }
 
-.author{
+.author {
     margin: 20px 0;
     text-align: end;
     padding-right: 30px;
@@ -80,8 +74,120 @@
     align-items: center;
 }
 
-.button{
+.button {
     width: 100%;
     display: flex;
     justify-content: center;
+}
+
+.media {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin: 16px 0;
+
+    .media-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background-color: rgb(119, 179, 60);
+        transition: all 0.3s ease;
+
+        &:hover {
+            background-color: rgb(119, 179, 60);
+        }
+
+        &.saved {
+            background-color: #fff;
+            color: rgb(119, 179, 60);
+
+            &:hover {
+                background-color: #fff;
+            }
+        }
+    }
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    background-color: #fff;
+    border-radius: 8px;
+    width: 500px;
+    max-width: 90%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h3 {
+        margin: 0;
+        color: #333;
+        font-size: 18px;
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        color: #666;
+        transition: color 0.2s;
+
+        &:hover {
+            color: #333;
+        }
+    }
+}
+
+.feedback-form {
+    padding: 16px;
+
+    textarea {
+        width: 100%;
+        min-height: 150px;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 16px;
+        resize: vertical;
+        font-family: inherit;
+        font-size: 14px;
+
+        &:focus {
+            outline: none;
+            border-color: rgb(119, 179, 60);
+        }
+    }
+
+    .submit-btn {
+        background-color: rgb(119, 179, 60);
+        color: white;
+        padding: 8px 24px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: rgb(99, 159, 40);
+        }
+    }
 }
