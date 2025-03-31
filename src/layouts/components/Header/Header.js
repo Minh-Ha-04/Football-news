@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket, faBookBookmark, faEye, faUser } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
@@ -31,7 +31,15 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-    const currentUser = false;
+    const location = useLocation();
+    const isUserPage = location.pathname.startsWith('/user');
+    const currentUser = isUserPage
+        ? {
+              name: 'Minh',
+              avatar: 'https://resources.premierleague.com/premierleague/photos/players/110x140/p118748.png',
+          }
+        : false;
+
     return (
         <header className={cx('wrapper')}>
             <SiteClub></SiteClub>
@@ -66,9 +74,9 @@ function Header() {
                         <Menu items={MENU_ITEMS}>
                             <div className={cx('avatar')}>
                                 <img
-                                    src="https://resources.premierleague.com/premierleague/photos/players/110x140/p118748.png"
+                                    src={currentUser.avatar}
                                     className={cx('avatar-user')}
-                                    alt="minh"
+                                    alt={currentUser.name}
                                 ></img>
                             </div>
                         </Menu>

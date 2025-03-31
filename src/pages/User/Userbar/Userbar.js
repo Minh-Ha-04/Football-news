@@ -6,7 +6,7 @@ import routes from '~/config/routes';
 import classNames from 'classnames/bind';
 const cx=classNames.bind(styles)
 
-const Sidebar = () => {
+const Userbar = () => {
     return (
         <div className={cx('sidebar')}>
             <ul className={cx('menu')}>
@@ -35,4 +35,4 @@ const Sidebar = () => {
     );
 };
 
-export default Sidebar;
+export default Userbar;
