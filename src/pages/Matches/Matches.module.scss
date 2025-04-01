@@ -1,88 +1,187 @@
 .matches {
     width: 1100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .container {
-    margin-top: 30px;
     display: flex;
-    padding: 0 10px;
+    gap: 30px;
+    margin-top: 20px;
 }
 
 .content {
-    padding: 0 10px;
-    display: flex;
-    flex-direction: column;
-}
-
-.title {
-    font-size: 30px;
+    flex: 1;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 20px;
 }
 
 .time-post {
-    font-size: 16px;
-    color: rgb(149 149 149);
-    align-self: flex-end; /* Đẩy time ra mép phải mà không cần absolute */
+    color: #666;
+    font-size: 14px;
+    display: block;
     margin-bottom: 15px;
-    height: 20px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.desc {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.result-list {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #eee;
+    margin-bottom: 30px;
 }
 
 .header-result {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(55 0 60);
+    padding: 15px 20px;
+    background: rgb(119, 179, 60);
     color: #fff;
-    height: 50px;
-    margin-bottom: 20px;
-    border-radius: 6px;
+
+    .left-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .logo-header-result {
+            height: 40px;
+            filter: brightness(0) invert(1);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            .header-item {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+
+                a {
+                    color: #fff;
+                    text-decoration: none;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+            }
+        }
+    }
+
+    .right-header {
+        font-weight: 600;
+        font-size: 16px;
+    }
 }
 
-.left-header {
-    display: flex;
-    justify-content: center;
-}
-.right-header {
-    width: 180px;
-    font-size: 18px;
-    display: flex;
-    font-weight: 400;
-}
-
-.header-nav {
-    display: flex;
-}
-
-.header-item {
-    list-style: none;
-    font-size: 18px;
-    margin-right: 20px;
-}
-
-.logo-header-result {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-    margin-right: 10px;
+.list-match {
+    padding: 20px;
 }
 
 .hotnews {
-    width: 760px;
-    padding: 0 20px;
-}
-.header {
-    margin: 20px 0;
-    display: flex;
-    height: 60px;
-    color: rgb(119 179 60);
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    .header {
+        font-size: 24px;
+        font-weight: 600;
+        color: rgb(119, 179, 60);
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid rgba(119, 179, 60, 0.1);
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background-color: rgb(119, 179, 60);
+        }
+    }
+
+    .button {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
 }
 
-.button {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+.right {
+    width: 300px;
+
+    .more {
+        margin-top: 20px;
+        background: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+}
+
+// Responsive styles
+@media (max-width: 1200px) {
+    .matches {
+        width: 100%;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .right {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-result {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+
+        .left-header {
+            flex-direction: column;
+        }
+    }
+
+    .title {
+        font-size: 24px;
+    }
 }

@@ -29,10 +29,6 @@ function Matches() {
                     <div className={cx('result-list')}>
                         <header className={cx('header-result')}>
                             <div className={cx('left-header')}>
-                                <img
-                                    className={cx('logo-header-result')}
-                                    src="https://www.premierleague.com/resources/rebrand/v7.153.55/i/elements/pl-main-logo.png"
-                                ></img>
                                 <ul className={cx('header-nav')}>
                                     <li class={cx('header-item')}>
                                         <FontAwesomeIcon icon={faCalendar} /> Lịch thi đấu

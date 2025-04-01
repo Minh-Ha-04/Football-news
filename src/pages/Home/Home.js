@@ -17,24 +17,29 @@ function Home() {
             <div className={cx('content')}>
                 <ColLeft>
                     <Article primary/>
+                    <Article primary />
+
                 </ColLeft>
                 <ColMiddle>
                     <Article primary />
                 </ColMiddle>
                 <ColRight>
-                    <Article primary/>
-                    <Article primary/>
+                    <Article primary />
+                    <Article primary />
                 </ColRight>
             </div>
-            <div className={cx('button')}>
-                <Button rounded>Xem thêm</Button>
-            </div>
-            <Section />
+            <Section /> 
             <div className={cx('wrapper')}>
                 <div className={cx('hotnews')}>
                     <h2 className={cx('header')}>Tin bóng đá mới nhẩt</h2>
                     <HotNews />
                     <HotNews />
+                    <HotNews />
+                    <HotNews />
+                    <HotNews />
+                    <HotNews /> 
+                    <HotNews /> 
+                    <HotNews /> 
                     <Button rounded>Xem thêm</Button>
                 </div>
                 <Ads />

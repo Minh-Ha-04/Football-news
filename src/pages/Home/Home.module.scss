@@ -4,28 +4,124 @@
     flex-direction: column;
     text-align: center;
     justify-content: center;
+    margin: 0 auto;
+    padding: 20px 0;
 }
-// p1
+
 .content {
     height: 540px;
     position: relative;
     width: 100%;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    display: flex;
+    gap: 20px;
+    padding: 20px 10px;
+    background: #fff;
+
+    > div {
+        transition: all 0.3s ease;
+
+        &:hover {
+            transform: translateY(-5px);
+        }
+    }
 }
-// p2
+
 .wrapper {
     padding: 0 10px;
     display: flex;
+    gap: 30px;
 }
 
 .hotnews {
     width: 760px;
-    padding: 0 10px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    .header {
+        font-size: 24px;
+        font-weight: 600;
+        color: rgb(119, 179, 60);
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid rgba(119, 179, 60, 0.1);
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background-color: rgb(119, 179, 60);
+        }
+    }
+
+    > *:not(:last-child) {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    button {
+        margin: 20px auto;
+        display: block;
+        padding: 10px 30px;
+        font-size: 16px;
+        font-weight: 500;
+        background: rgb(119, 179, 60);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: darken(rgb(119, 179, 60), 10%);
+            transform: translateY(-2px);
+        }
+    }
 }
 
-.header {
-    margin: 20px 0;
-    display: flex;
-    height: 60px;
-    color: rgb(119 179 60);
+// Responsive styles
+@media (max-width: 1200px) {
+    .home {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .content {
+        height: auto;
+        flex-direction: column;
+    }
+
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .hotnews {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 10px;
+    }
+
+    .hotnews {
+        .header {
+            font-size: 20px;
+        }
+
+        button {
+            width: 100%;
+        }
+    }
 }
