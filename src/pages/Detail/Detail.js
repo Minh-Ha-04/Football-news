@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styles from './Detail.module.scss';
 import classNames from 'classnames/bind';
 import Section from '~/layouts/components/Section';
@@ -9,13 +11,32 @@ import HotNews from '~/components/HotNews';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookBookmark, faShare, faBookmark, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
-import { useState } from 'react';
+
 const cx = classNames.bind(styles);
 
 function Detail() {
+    const { slug } = useParams();
+    const [article, setArticle] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [isSaved, setIsSaved] = useState(false);
     const [showFeedback, setShowFeedback] = useState(false);
     const [feedback, setFeedback] = useState('');
+
+    useEffect(() => {
+        const fetchArticle = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/articles/${slug}`);
+                const data = await response.json();
+                setArticle(data);
+            } catch (error) {
+                console.error('Error fetching article:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchArticle();
+    }, [slug]);
 
     const handleSave = () => {
         setIsSaved(!isSaved);
@@ -29,15 +50,33 @@ function Detail() {
         setShowFeedback(false);
     };
 
+    if (loading) {
+        return <div className={cx('loading')}>Đang tải...</div>;
+    }
+
+    if (!article) {
+        return <div className={cx('error')}>Không tìm thấy bài viết</div>;
+    }
+
     return (
         <div className={cx('news')}>
             <Section />
             <div className={cx('container')}>
                 <div className={cx('left')}>
-                    <time className={cx('time-post')}>Thứ Bảy, ngày 22/03/2025 03:44 AM (GMT+7)</time>
-                    <h1 className={cx('title')}>
-                        HLV Amorim từ chối Rashford, MU ra giá 60 triệu bảng cho Aston Villa
-                    </h1>
+                    <div className={cx('article-header')}>
+                        <h1 className={cx('title')}>{article.title}</h1>
+                        <div className={cx('meta')}>
+                            <span className={cx('date')}>
+                                {new Date(article.createdAt).toLocaleDateString('vi-VN', {
+                                    day: 'numeric',
+                                    month: 'long',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                })}
+                            </span>
+                        </div>
+                    </div>
 
                     <div className={cx('media')}>
                         <Button rounded className={cx('media-item', { saved: isSaved })} onClick={handleSave}>
@@ -51,42 +90,16 @@ function Detail() {
                     </div>
 
                     <strong className={cx('desc')}>
-                        Marcus Rashford sẽ không có cơ hội trở lại MU vào mùa hè này, khi HLV Ruben Amorim quyết định
-                        không đưa tiền đạo người Anh vào kế hoạch tương lai của đội bóng.
+                        {article.description}
                     </strong>
-                    <p className={cx('content')}>
-                        Theo tờ Daily Star (Anh), HLV Amorim vẫn giữ nguyên quan điểm về Rashford và sẵn sàng để tiền
-                        đạo người Anh ra đi theo dạng chuyển nhượng vĩnh viễn vào mùa hè này. Nguồn tin này cũng cho
-                        biết ban lãnh đạo MU đang yêu cầu mức phí 60 triệu bảng từ Aston Villa, mặc dù các thông tin
-                        trước đó khẳng định điều khoản mua đứt trị giá 40 triệu bảng đã được thỏa thuận khi Rashford gia
-                        nhập đội chủ sân Villa Park theo dạng cho mượn ở kỳ chuyển nhượng tháng 1.
-                        <div className="image">
-                            <Image>
-                                {
-                                    'https://cdn.24h.com.vn/upload/1-2025/images/2025-03-23/HLV-Amorim-tu-choi-nhan-lai-Rashford-MU-ra-gia-60-trieu-bang-cho-Aston-Villa-20-1742714061-517-width740height492.jpg'
-                                }
-                            </Image>
-                            <p className={cx('note')}>HLV Amorim không muốn đưa Rashford trở lại MU</p>
-                        </div>
-                        Rashford đã tìm lại phong độ và niềm đam mê với trái bóng trong màu áo Aston Villa, có 4 pha
-                        kiến tạo sau 9 lần ra sân dưới sự dẫn dắt của HLV Unai Emery. Trước khi rời MU, tiền đạo người
-                        Anh từng bị HLV Amorim chỉ trích vì thái độ trong tập luyện và kể từ ngày 12/12 năm ngoái, anh
-                        không có thêm bất kỳ lần ra sân nào cho đội chủ sân Old Trafford. Tuy nhiên, bất chấp những màn
-                        trình diễn ấn tượng của Rashford tại Aston Villa, con đường trở lại Old Trafford dường như đã
-                        khép lại với anh. HLV Amorim đang lên kế hoạch chiêu mộ một tiền đạo đẳng cấp vào mùa hè này,
-                        trong khi ban lãnh đạo MU hy vọng Rashford tiếp tục thể hiện tốt để giúp họ bán được giá hơn.
-                        Trước đó, HLV Amorim đã khẳng định lý do để Rashford ra đi là do cả hai không có chung quan điểm
-                        về triết lý chơi bóng và tập luyện. Dù vậy, Rashford chưa bao giờ công khai phản đối phương pháp
-                        huấn luyện của chiến lược gia người Bồ Đào Nha. HLV Amorim chia sẻ: "Tôi không thể khiến
-                        Rashford hiểu cách chơi bóng và tập luyện theo cách tôi muốn. Đôi khi một cầu thủ có thể chơi
-                        rất tốt dưới thời một HLV này, nhưng với một HLV khác thì lại hoàn toàn khác. Tôi chúc Rashford
-                        và Unai Emery những điều tốt đẹp nhất, hy vọng họ có thể kết nối tốt với nhau vì cậu ấy là một
-                        cầu thủ rất giỏi. Bạn biết đấy, chuyện này không phải lúc nào cũng được nói ra. Nó là điều mà cả
-                        HLV và cầu thủ đều cảm nhận được. Đây là điều bình thường trong bóng đá, và đã từng xảy ra với
-                        rất nhiều HLV khác. Điều quan trọng là tôi đang ở đây để nói rằng đó là quyết định của tôi,
-                        giống như việc tôi quyết định cho Tyrell Malacia và Antony ra đi theo dạng cho mượn, hoặc giữ
-                        lại một số cầu thủ dù không có kế hoạch chuyển nhượng nào".
-                    </p>
+                    <div className={cx('article-image')}>
+                        {article.image && (
+                            <img src={article.image} alt={article.title} />
+                        )}
+                    </div>
+                    <div className={cx('content')}>
+                        {article.content}
+                    </div>
                     <p className={cx('author')}>Tác giả :Tiến Long</p>
                     <div className={cx('media')}>
                         <Button rounded className={cx('media-item', { saved: isSaved })} onClick={handleSave}>
@@ -130,7 +143,6 @@ function Detail() {
 
                     <div className={cx('hotnews')}>
                         <h2 className={cx('header')}>Tin bóng đá mới nhẩt</h2>
-                        <HotNews />
                         <HotNews />
                         <div className={cx('button')}>
                             <Button rounded>Xem thêm</Button>
