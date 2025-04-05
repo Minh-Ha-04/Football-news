@@ -29,40 +29,45 @@ export default function Posts() {
         try {
             // Convert image 
             const imageFile = data.image;
-            const reader = new FileReader();
-            reader.readAsDataURL(imageFile);
-            reader.onloadend = async () => {
-                const picture_post = reader.result;
-                
-                // Prepare data to send
-                const formData = {
-                    title: data.title,
-                    description: data.description,
-                    content: data.content,
-                    image: picture_post
-                };
-                
-                // Send data to API
-                const response = await fetch('http://localhost:5000/articles', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
+            let picture_post = null;
+            
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.readAsDataURL(imageFile);
+                picture_post = await new Promise((resolve) => {
+                    reader.onloadend = () => resolve(reader.result);
                 });
-                
-                if (response.ok) {
-                    alert('Bài viết đã được đăng thành công!');
-                    // Reset form
-                    setValue('title', '');
-                    setValue('description', '');
-                    setValue('content', '');
-                    setPreview(null);
-                } else {
-                    const errorData = await response.json();
-                    alert(`Lỗi: ${errorData.message}`);
-                }
+            }
+            
+            // Prepare data to send
+            const formData = {
+                title: data.title,
+                description: data.description,
+                content: data.content,
+                image: picture_post
             };
+            
+            // Send data to API
+            const response = await fetch('http://localhost:5000/articles', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            
+            const responseData = await response.json();
+            
+            if (response.ok) {
+                alert('Bài viết đã được đăng thành công!');
+                // Reset form
+                setValue('title', '');
+                setValue('description', '');
+                setValue('content', '');
+                setPreview(null);
+            } else {
+                alert(`Lỗi: ${responseData.message || 'Có lỗi xảy ra khi đăng bài viết'}`);
+            }
         } catch (error) {
             console.error('Error submitting form:', error);
             alert('Có lỗi xảy ra khi đăng bài viết');
