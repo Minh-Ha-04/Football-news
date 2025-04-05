@@ -6,7 +6,6 @@ import Section from '~/layouts/components/Section';
 import Button from '~/components/Button';
 import Article from '~/components/Article';
 import Ads from '~/components/Ads';
-import Image from '~/components/Image';
 import HotNews from '~/components/HotNews';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookBookmark, faShare, faBookmark, faXmark } from '@fortawesome/free-solid-svg-icons';
