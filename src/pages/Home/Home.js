@@ -13,7 +13,7 @@ const cx = classNames.bind(styles);
 
 function Home() {
     const [articles, setArticles] = useState([]);
-
+    const [visibleCount, setVisibleCount] = useState(10);
     useEffect(() => {
         const fetchArticles = async () => {
             try {
@@ -33,7 +33,11 @@ function Home() {
     // Lấy 5 bài viết mới nhất cho layout 2-1-2
     const latestArticles = articles.slice(0, 5);
     // Các bài viết còn lại cho phần HotNews
-    const remainingArticles = articles.slice(5);
+    const handleLoadMore = () => {
+        setVisibleCount(prev => prev + 5); // mỗi lần click hiện thêm 5 bài
+      };
+    const remainingArticles = articles.slice(5,visibleCount);
+
 
     return (
         <div className={cx('home')}>
@@ -100,7 +104,7 @@ function Home() {
                                 </Link>
                             ))}
                         </div>
-                    <Button rounded>Xem thêm</Button>
+                    <Button rounded onClick={handleLoadMore}>Xem thêm</Button>
                 </div>
                 <Ads />
             </div>

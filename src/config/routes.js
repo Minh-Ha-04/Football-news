@@ -14,7 +14,9 @@ const routes = {
 
     dashboard: '/admin',
     post: '/admin/posts',
-    matchscore: '/admin/matchscore'
+    matchscore: '/admin/matchscore',
+    ads:'/admin/ads',
+    manager:'/admin/manager'
 };
 
 export default routes;
