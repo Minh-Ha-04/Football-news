@@ -8,12 +8,32 @@ import Button from '~/components/Button';
 import Article from '~/components/Article';
 import HotNews from '~/components/HotNews';
 import Ads from '~/components/Ads';
-
+import { useState,useEffect } from 'react';
 const cx = classNames.bind(styles);
 
 function Home() {
+    const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/articles") // URL API từ backend
+      .then((res) => res.json())
+      .then((data) => setData(data))
+      .catch((err) => console.error("Lỗi API:", err));
+  }, []);
     return (
         <div className={cx('home')}>
+            <div>
+      <h2>Danh sách bài viết</h2>
+      <ul>
+        {data.map((article) => (
+          <li >
+            <h3>{article.title}</h3>
+            <img src={article.image}></img>
+            <p>{article.description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
             <div className={cx('content')}>
                 <ColLeft>
                     <Article primary/>
