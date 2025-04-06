@@ -9,9 +9,13 @@ import Viewed from '~/pages/User/Viewed';
 import Saved from '~/pages/User/Saved';
 import {UserLayout} from '~/layouts';
 import { FormLayout } from '~/layouts';
+
 import Dashboard from '~/pages/Admin/Dashboard';
 import Post from '~/pages/Admin/Posts';
 import MatchScoreForm from '~/pages/Admin/MatchScoreForm';
+import AdminAds from '~/pages/Admin/AdminAds';
+import Manager from '~/pages/Admin/Manager';
+
 import { AdminLayout } from '~/layouts';
 
 import config from '~/config';
@@ -29,9 +33,13 @@ const publicRoutes = [
 
 
     { path: config.routes.login, component: Login, layout: FormLayout },
+
     { path: config.routes.dashboard, component: Dashboard, layout: AdminLayout },
     { path: config.routes.post, component: Post, layout: AdminLayout },
     { path: config.routes.matchscore, component: MatchScoreForm, layout: AdminLayout },
+    { path: config.routes.ads, component: AdminAds, layout: AdminLayout },
+    { path: config.routes.manager, component: Manager, layout: AdminLayout },
+    
 ];
 
 const privateRoutes = [];

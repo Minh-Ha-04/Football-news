@@ -1,26 +1,57 @@
+import { useState, useEffect } from 'react';
 import styles from './HotNews.module.scss';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import routes from '~/config/routes';
+
 const cx = classNames.bind(styles);
 
-const data = {
-    image: 'https://cdn.24h.com.vn/upload/1-2025/images/2025-03-21/255x170/--dfasfasdf-1742553985-870-width740height495.jpg',
-    title: 'Ngôi sao MU khiến Ronaldo ôm hận, Fernandes khó đá nếu sắm vai kép phụ',
-    des: 'Những ngôi sao đang thi đấu tại Ngoại hạng Anh tiếp tục thăng hoa trong màu áo đội tuyển quốc gia.',
-};
-
 function HotNews() {
+    const [articles, setArticles] = useState([]);
+
+    useEffect(() => {
+        const fetchArticles = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/articles');
+                const data = await response.json();
+                // Sắp xếp bài viết theo thời gian đăng mới nhất
+                const sortedArticles = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                setArticles(sortedArticles);
+            } catch (error) {
+                console.error('Error fetching articles:', error);
+            }
+        };
+
+        fetchArticles();
+    }, []);
+
     return (
-        <Link to={routes.detail}>
-            <div className={cx('HotNews')}>
-                <img src={data.image} alt={'ảnh'} className={cx('image')} />
-                <div className={cx('wrapper')}>
-                    <h3 className={cx('title')}>{data.title}</h3>
-                    <div className={cx('des')}>{data.des}</div>
-                </div>
-            </div>
-        </Link>
+        <div className={cx('hot-news-container')}>
+            {articles.map((article) => (
+                <Link key={article._id} to={routes.detail.replace(':slug', article.slug)}>
+                    <div className={cx('hot-news-item')}>
+                        <div className={cx('image-container')}>
+                            <img 
+                                src={article.image || 'https://via.placeholder.com/255x170'} 
+                                alt={article.title} 
+                                className={cx('image')} 
+                            />
+                        </div>
+                        <div className={cx('content')}>
+                            <h3 className={cx('title')}>{article.title}</h3>
+                            <p className={cx('description')}>{article.description}</p>
+                            <div className={cx('time')}>
+                                {new Date(article.createdAt).toLocaleDateString('vi-VN', {
+                                    day: 'numeric',
+                                    month: 'long',
+                                    year: 'numeric'
+                                })}
+                            </div>
+                        </div>
+                    </div>
+                </Link>
+            ))}
+        </div>
     );
 }
 
