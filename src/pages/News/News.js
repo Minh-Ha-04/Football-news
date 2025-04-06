@@ -15,27 +15,12 @@ function News() {
                 <div className={cx('hotnews')}>
                     <h2 className={cx('header')}>Tin bóng đá mới nhẩt</h2>
                     <HotNews />
-                    <HotNews />
-                    <HotNews />
-                    <HotNews />
-                    <HotNews />
-                    <HotNews />
-                    <HotNews />
-                    <HotNews />
-                    <HotNews />
                     <div className={cx('button')}>
                         <Button rounded>Xem thêm</Button>
                     </div>
                 </div>
                 <div className={cx('right')}>
                     <Ads />
-                    <div className={cx('more')}>
-                        <Button text>Tin Tức</Button>
-                        <Article small></Article>
-                        <Article small></Article>
-                        <Article small></Article>
-                        <Article small></Article>
-                    </div>
                 </div>
             </div>
         </div>
