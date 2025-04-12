@@ -38,19 +38,7 @@ function News() {
             <div className={cx('container')}>
                 <div className={cx('hotnews')}>
                     <h2 className={cx('header')}>Tin bóng đá mới nhẩt</h2>
-                    <div className={cx('news-grid')}>
-                            {remainingArticles.map((article) => (
-                                <Link key={article._id} to={routes.detail.replace(':slug', article.slug)} className={cx('news-item')}>
-                                    <div className={cx('image-container')}>
-                                        <img src={article.image || 'https://via.placeholder.com/200x150'} alt={article.title} />
-                                    </div>
-                                    <div className={cx('content')}>
-                                        <h3 className={cx('title')}>{article.title}</h3>
-                                        <p className={cx('description')}>{article.description}</p>
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
+                    <HotNews />
                     <div className={cx('button')}>
                         <Button rounded onClick={handleLoadMore}>Xem thêm</Button>
                     </div>
