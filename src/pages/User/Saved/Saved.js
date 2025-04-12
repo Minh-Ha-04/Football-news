@@ -1,54 +1,49 @@
+import { useState, useEffect } from 'react';
 import styles from './Saved.module.scss';
 import classNames from 'classnames/bind';
+import { useAuth } from '~/contexts/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookBookmark,faShare } from '@fortawesome/free-solid-svg-icons';
-import Button from '~/components/Button';
-import HotNews from '~/components/HotNews';
-const cx= classNames.bind(styles)
+import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+
+const cx = classNames.bind(styles);
+
 function Saved() {
-    return ( 
-        <div className='wrapper'>
-            <div className={cx('title')}>Tin đã lưu</div>
-            <div className={cx('content')}>
-                <div className={cx('item')}><HotNews/>
-                <div className={cx('media')}>
-                        <Button rounded className={cx('media-item')}>
-                            <FontAwesomeIcon icon={faBookBookmark} />
-                            Bỏ lưu
-                        </Button>
-                        <Button rounded className={cx('media-item')}>
-                            <FontAwesomeIcon icon={faShare} />
-                            Chia sẻ
-                        </Button>
+    const { user } = useAuth();
+    const [savedPosts, setSavedPosts] = useState([]);
+
+    useEffect(() => {
+        if (user && user.savedPosts) {
+            setSavedPosts(user.savedPosts);
+        }
+    }, [user]);
+
+    return (
+        <div className={cx('wrapper')}>
+            <div className={cx('container')}>
+                <h2 className={cx('title')}>
+                    Bài viết đã lưu
+                </h2>
+                {savedPosts.length > 0 ? (
+                    <div className={cx('post-list')}>
+                        {savedPosts.map((post) => (
+                            <div key={post._id} className={cx('post-item')}>
+                                <img src={post.thumbnail} alt={post.title} className={cx('thumbnail')} />
+                                <div className={cx('content')}>
+                                    <h3 className={cx('title')}>{post.title}</h3>
+                                    <p className={cx('description')}>{post.description}</p>
+                                    <span className={cx('date')}>
+                                        {new Date(post.createdAt).toLocaleDateString()}
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                </div>
-                <div className={cx('item')}><HotNews/>
-                <div className={cx('media')}>
-                        <Button rounded className={cx('media-item')}>
-                            <FontAwesomeIcon icon={faBookBookmark} />
-                            Bỏ lưu
-                        </Button>
-                        <Button rounded className={cx('media-item')}>
-                            <FontAwesomeIcon icon={faShare} />
-                            Chia sẻ
-                        </Button>
-                    </div>
-                </div>
-                <div className={cx('item')}><HotNews/>
-                <div className={cx('media')}>
-                        <Button rounded className={cx('media-item')}>
-                            <FontAwesomeIcon icon={faBookBookmark} />
-                            Bỏ lưu
-                        </Button>
-                        <Button rounded className={cx('media-item')}>
-                            <FontAwesomeIcon icon={faShare} />
-                            Chia sẻ
-                        </Button>
-                    </div>
-                </div>
+                ) : (
+                    <div className={cx('empty')}>Bạn chưa lưu bài viết nào</div>
+                )}
             </div>
         </div>
-     );
+    );
 }
 
 export default Saved;

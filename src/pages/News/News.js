@@ -1,12 +1,10 @@
 import styles from './News.module.scss';
 import classNames from 'classnames/bind';
 import Section from '~/layouts/components/Section';
-import { Link } from 'react-router-dom';
 import Button from '~/components/Button';
-import Article from '~/components/Article';
 import Ads from '~/components/Ads';
+import HotNews from '~/components/HotNews';
 import { useEffect,useState } from 'react';
-import routes from '~/config/routes';
 const cx = classNames.bind(styles);
 
 function News() {

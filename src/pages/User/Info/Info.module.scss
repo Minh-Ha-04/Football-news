@@ -1,75 +1,87 @@
 .wrapper {
-    width: 100%;
+    padding: 20px;
     min-height: 100vh;
     background-color: #f5f5f5;
-    padding: 20px 0;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
-    display: flex;
-    gap: 20px;
-}
-
-.content {
-    flex: 1;
-    background: #fff;
+    background-color: white;
     border-radius: 8px;
-    padding: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 30px;
 }
 
 .header {
-    margin-bottom: 32px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
 .title {
     font-size: 24px;
     font-weight: 600;
     color: #333;
-    margin-bottom: 8px;
 }
 
-.subtitle {
+.info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: #f0f0f0;
+    }
+}
+
+.icon {
+    font-size: 20px;
     color: #666;
-    font-size: 14px;
+    width: 24px;
+    text-align: center;
 }
 
-.info-form {
-    max-width: 600px;
-}
-
-.form-group {
-    margin-bottom: 24px;
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 14px;
     color: #666;
-    margin-bottom: 8px;
-    text-transform: uppercase;
+}
+
+.value {
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
 }
 
 .input {
-    width: 100%;
-    padding: 12px;
+    padding: 8px 12px;
     border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 15px;
-    color: #333;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
     transition: border-color 0.2s;
-
-    &::placeholder {
-        color: #999;
-    }
 
     &:focus {
         outline: none;
-        border-color: #2196f3;
+        border-color: #78b43d;
     }
 }
 
@@ -175,27 +187,6 @@
     }
 
     .value {
-        font-size: 16px;
-    }
-}
-
-.info-item {
-    display: flex;
-    flex-direction: column;
-    padding: 16px 0;
-    border-bottom: 1px solid #e8e8e8;
-
-    &:last-child {
-        border-bottom: none;
-    }
-
-    .info-label {
-        color: #666;
-        font-size: 14px;
-        margin-bottom: 8px;
-    }
-
-    .info-value {
         font-size: 16px;
     }
 }
