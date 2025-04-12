@@ -3,6 +3,8 @@ import classNames from 'classnames/bind';
 import { faFacebook, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faHome, faNewspaper, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import routes from '~/config/routes';
 const cx = classNames.bind(styles);
 function Footer() {
     return (
@@ -18,36 +20,32 @@ function Footer() {
             </div>
             <div className={cx('right')}>
                 <ul className={cx('contact')}>
-                    <li className={cx('contact-item')}>
+                    <Link to={routes.home} className={cx('contact-item')}>
                         <FontAwesomeIcon icon={faHome} />
                         Trang chủ
-                    </li>
-                    <li className={cx('contact-item')}>
+                    </Link>
+                    <Link to={routes.matches} className={cx('contact-item')}>
                         <FontAwesomeIcon icon={faCalendar} />
                         Lịch thi đấu
-                    </li>
-                    <li className={cx('contact-item')}>
+                    </Link>
+                    <Link to={routes.news} className={cx('contact-item')}>
                         <FontAwesomeIcon icon={faNewspaper} />
                         Tin tức
-                    </li>
-                    <li className={cx('contact-item')}>
-                        <FontAwesomeIcon icon={faPhone} />
-                        Liên hệ
-                    </li>
+                    </Link>
                 </ul>
 
                 <h3 className={cx('text-follow')}>Theo dõi chúng tôi</h3>
                 <div className={cx('social')}>
-                    <a href="#" className={cx('social-item')}>
+                    <a href="https://www.facebook.com/quangminh.ha.2508" target='_blank' className={cx('social-item')}>
                         <FontAwesomeIcon icon={faFacebook} />
                     </a>
-                    <a href="#" className={cx('social-item')}>
+                    <a href="https://www.facebook.com/quangminh.ha.2508" target='_blank' className={cx('social-item')}>
                         <FontAwesomeIcon icon={faTwitter} />
                     </a>
-                    <a href="#" className={cx('social-item')}>
+                    <a href="https://www.instagram.com/quangminh25_08/" target='_blank' className={cx('social-item')}>
                         <FontAwesomeIcon icon={faInstagram} />
                     </a>
-                    <a href="#" className={cx('social-item')}>
+                    <a href="https://www.youtube.com/watch?v=zDNOhR-Ms-I"  target='_blank' className={cx('social-item')}>
                         <FontAwesomeIcon icon={faYoutube} />
                     </a>
                 </div>

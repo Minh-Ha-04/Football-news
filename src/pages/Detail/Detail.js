@@ -150,13 +150,6 @@ function Detail() {
                 </div>
                 <div className={cx('right')}>
                     <Ads />
-                    <div className={cx('more')}>
-                        <Button text>Tin Tức</Button>
-                        <Article small></Article>
-                        <Article small></Article>
-                        <Article small></Article>
-                        <Article small></Article>
-                    </div>
                 </div>
             </div>
         </div>

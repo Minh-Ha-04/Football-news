@@ -1,7 +1,76 @@
 .wrapper {
-    padding: 24px;
-    width: 800px;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    padding: 20px 0;
+}
+
+.container {
+    max-width: 1200px;
     margin: 0 auto;
+    display: flex;
+    gap: 20px;
+}
+
+.content {
+    flex: 1;
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.header {
+    margin-bottom: 32px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 16px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 14px;
+}
+
+.info-form {
+    max-width: 600px;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #333;
+    transition: border-color 0.2s;
+
+    &::placeholder {
+        color: #999;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: #2196f3;
+    }
 }
 
 .profile-section {
@@ -94,12 +163,6 @@
     font-size: 20px
 }
 
-.title {
-    font-size: 40px;
-    font-weight: 600;
-    margin-bottom: 24px;
-}
-
 .email-section {
     margin-bottom: 32px;
     display: flex;
@@ -187,5 +250,16 @@
 
     &:active {
         background-color: rgb(120, 180, 61);
+    }
+}
+
+// Responsive
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .info-form {
+        max-width: 100%;
     }
 }

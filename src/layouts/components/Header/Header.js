@@ -1,54 +1,62 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket, faBookBookmark, faEye, faUser } from '@fortawesome/free-solid-svg-icons';
-import { Link, useLocation } from 'react-router-dom';
-
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
-import Button from '~/components/Button';
 import Search from '../Search';
 import SiteClub from '~/components/SiteClub';
 import Menu from '~/components/Popper/Menu';
+import { useAuth } from '~/hooks'; 
 import config from '~/config';
 const cx = classNames.bind(styles);
 
-const MENU_ITEMS = [
-    {
-        icon: <FontAwesomeIcon icon={faUser} />,
-        title: 'Thông tin tài khoản',
-    },
-    {
-        icon: <FontAwesomeIcon icon={faBookBookmark} />,
-        title: 'Tin đã lưu',
-    },
-    {
-        icon: <FontAwesomeIcon icon={faEye} />,
-        title: 'Tin đã xem',
-    },
-    {
-        icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
-        title: 'Thoát tài khoản',
-    },
-];
-
 function Header() {
     const location = useLocation();
+    const navigate = useNavigate();
+    const { user, logout } = useAuth();
     const isUserPage = location.pathname.startsWith('/user');
-    const currentUser = isUserPage
-        ? {
-              name: 'Minh',
-              avatar: 'https://resources.premierleague.com/premierleague/photos/players/110x140/p118748.png',
-          }
-        : false;
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+            navigate(config.routes.home);
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    };
+
+    const MENU_ITEMS = [
+        {
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: 'Thông tin tài khoản',
+            to: config.routes.info,
+        },
+        {
+            icon: <FontAwesomeIcon icon={faBookBookmark} />,
+            title: 'Tin đã lưu',
+            to: config.routes.saved,
+        },
+        {
+            icon: <FontAwesomeIcon icon={faEye} />,
+            title: 'Tin đã xem',
+            to: config.routes.viewed,
+        },
+        {
+            icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
+            title: 'Đăng xuất',
+            onClick: handleLogout,
+        },
+    ];
 
     return (
         <header className={cx('wrapper')}>
-            <SiteClub></SiteClub>
+            <SiteClub />
             <ul className={cx('inner')}>
                 <Link to={config.routes.home}>
                     <img
                         className={cx('logo')}
                         src="https://www.premierleague.com/resources/rebrand/v7.153.55/i/elements/pl-main-logo.png"
-                        alt="Premier League Logo"
+                        alt="Premier League"
                     />
                 </Link>
                 <Link to={config.routes.home}>
@@ -70,22 +78,26 @@ function Header() {
                 <Search />
 
                 <div className={cx('action')}>
-                    {currentUser ? (
+                    {user ? (
                         <Menu items={MENU_ITEMS}>
-                            <div className={cx('avatar')}>
+                            <div className={cx('user-info')}>
                                 <img
-                                    src={currentUser.avatar}
-                                    className={cx('avatar-user')}
-                                    alt={currentUser.name}
-                                ></img>
+                                    className={cx('user-avatar')}
+                                    src={user.avatar || 'https://via.placeholder.com/150'}
+                                    alt={user.username}
+                                />
+                                <span className={cx('username')}>{user.username}</span>
                             </div>
                         </Menu>
                     ) : (
-                        <Button to="/login">Log in</Button>
+                        <Link to={config.routes.login} className={cx('login-button')}>
+                            Đăng nhập
+                        </Link>
                     )}
                 </div>
             </ul>
         </header>
     );
 }
+
 export default Header;

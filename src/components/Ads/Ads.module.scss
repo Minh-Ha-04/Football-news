@@ -1,3 +1,22 @@
 .wrapper {
     padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 320px;
+}
+
+.ad-item {
+    width: 100%;
+    
+    img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+        
+        &:hover {
+            transform: scale(1.02);
+        }
+    }
 }

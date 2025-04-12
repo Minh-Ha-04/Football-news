@@ -1,6 +1,6 @@
 import styles from './AdminAds.module.scss'
 import classNames from 'classnames/bind';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -13,6 +13,21 @@ function AdminAds() {
     const [showConfirm, setShowConfirm] = useState(false);
     const [deleteId, setDeleteId] = useState(null);
 
+    // Fetch ads when component mounts
+    useEffect(() => {
+        fetchAds();
+    }, []);
+
+    const fetchAds = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/ads');
+            const data = await response.json();
+            setAdsList(data);
+        } catch (error) {
+            console.error('Error fetching ads:', error);
+        }
+    };
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -22,27 +37,60 @@ function AdminAds() {
         }
     };
 
-    const handleUpload = () => {
+    const handleUpload = async () => {
         if (selectedImage) {
-            const newAd = {
-                id: Date.now(),
-                image: previewUrl,
-                fileName: selectedImage.name
-            };
+            try {
+                // Convert image to base64
+                const reader = new FileReader();
+                reader.readAsDataURL(selectedImage);
+                const base64Image = await new Promise((resolve) => {
+                    reader.onloadend = () => resolve(reader.result);
+                });
 
-            if (editingId) {
-                setAdsList(adsList.map(ad => 
-                    ad.id === editingId ? newAd : ad
-                ));
-                setEditingId(null);
-            } else {
-                setAdsList([...adsList, newAd]);
-            }
+                // Prepare data to send
+                const adData = {
+                    image: base64Image,
+                    fileName: selectedImage.name
+                };
 
-            setSelectedImage(null);
-            setPreviewUrl(null);
-            if (fileInputRef.current) {
-                fileInputRef.current.value = '';
+                if (editingId) {
+                    // Update existing ad
+                    const response = await fetch(`http://localhost:5000/ads/${editingId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(adData),
+                    });
+                    if (response.ok) {
+                        const updatedAd = await response.json();
+                        setAdsList(adsList.map(ad => 
+                            ad._id === editingId ? updatedAd : ad
+                        ));
+                        setEditingId(null);
+                    }
+                } else {
+                    // Create new ad
+                    const response = await fetch('http://localhost:5000/ads', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(adData),
+                    });
+                    if (response.ok) {
+                        const newAd = await response.json();
+                        setAdsList([...adsList, newAd]);
+                    }
+                }
+
+                setSelectedImage(null);
+                setPreviewUrl(null);
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = '';
+                }
+            } catch (error) {
+                console.error('Error uploading ad:', error);
             }
         }
     };
@@ -52,8 +100,17 @@ function AdminAds() {
         setShowConfirm(true);
     };
 
-    const handleConfirmDelete = () => {
-        setAdsList(adsList.filter(ad => ad.id !== deleteId));
+    const handleConfirmDelete = async () => {
+        try {
+            const response = await fetch(`http://localhost:5000/ads/${deleteId}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                setAdsList(adsList.filter(ad => ad._id !== deleteId));
+            }
+        } catch (error) {
+            console.error('Error deleting ad:', error);
+        }
         setShowConfirm(false);
         setDeleteId(null);
     };
@@ -64,7 +121,7 @@ function AdminAds() {
     };
 
     const handleEdit = (ad) => {
-        setEditingId(ad.id);
+        setEditingId(ad._id);
         setPreviewUrl(ad.image);
         setSelectedImage({ name: ad.fileName });
     };
@@ -100,13 +157,13 @@ function AdminAds() {
                 <h2>Danh sách quảng cáo</h2>
                 <div className={cx('ads-grid')}>
                     {adsList.map((ad) => (
-                        <div key={ad.id} className={cx('ad-item')}>
+                        <div key={ad._id} className={cx('ad-item')}>
                             <img src={ad.image} alt={ad.fileName} />
                             <div className={cx('ad-actions')}>
                                 <button onClick={() => handleEdit(ad)} className={cx('edit-button')}>
                                     Thay đổi
                                 </button>
-                                <button onClick={() => handleDeleteClick(ad.id)} className={cx('delete-button')}>
+                                <button onClick={() => handleDeleteClick(ad._id)} className={cx('delete-button')}>
                                     Xóa
                                 </button>
                             </div>

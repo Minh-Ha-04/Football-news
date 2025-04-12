@@ -2,21 +2,14 @@ import styles from './UserLayout.module.scss';
 import classNames from 'classnames/bind';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import Userbar from '~/pages/User/Userbar';
-import { useNavigate } from 'react-router-dom';
+import Userbar from '~/pages/User/Userbar';;
 
 const cx = classNames.bind(styles);
 
 function UserLayout({ children }) {
-    const navigate = useNavigate();
-
-    const handleLogout = () => {
-        navigate('/');
-    };
-
     return (
         <div className={cx('wrapper')}>
-            <Header onLogout={handleLogout} />
+            <Header />
             <div className={cx('container')}>
                 <Userbar />
                 <div className={cx('content')}>{children}</div>

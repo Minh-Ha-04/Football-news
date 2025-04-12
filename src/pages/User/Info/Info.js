@@ -21,7 +21,7 @@ function Info() {
     };
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('content')}>
             <div className={cx('profile-section')}>
                 <div className={cx('avatar-container')}>
                     <img src={avatar} alt="Avatar" className={cx('avatar')} />

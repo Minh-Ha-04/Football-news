@@ -1,4 +1,4 @@
-import Detail from '~/pages/Detail';
+
 
 const routes = {
     home: '/',
