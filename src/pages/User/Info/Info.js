@@ -1,22 +1,100 @@
 import styles from './Info.module.scss';
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAuth } from '~/contexts/AuthContext';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
 function Info() {
-    const [avatar, setAvatar] = useState(
-        'https://resources.premierleague.com/premierleague/photos/players/110x140/p118748.png',
-    );
+    const { user, updateUser } = useAuth();
+    const [isEditing, setIsEditing] = useState(false);
+    const [userInfo, setUserInfo] = useState({
+        avatar: '',
+        fullName: '',
+        email: '',
+        phoneNumber: '',
+        address: '',
+        dateOfBirth: '',
+        gender: 'male'
+    });
+
+    useEffect(() => {
+        if (user) {
+            setUserInfo({
+                avatar: user.avatar || 'https://resources.premierleague.com/premierleague/photos/players/110x140/p118748.png',
+                fullName: user.fullName || '',
+                email: user.email || '',
+                phoneNumber: user.phoneNumber || '',
+                address: user.address || '',
+                dateOfBirth: user.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split('T')[0] : '',
+                gender: user.gender || 'male'
+            });
+        }
+    }, [user]);
 
     const handleAvatarChange = (event) => {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setAvatar(reader.result);
+                setUserInfo(prev => ({
+                    ...prev,
+                    avatar: reader.result
+                }));
             };
             reader.readAsDataURL(file);
+        }
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUserInfo(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleSave = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            
+            // Convert dateOfBirth to ISO string if it exists
+            const dateOfBirth = userInfo.dateOfBirth 
+                ? new Date(userInfo.dateOfBirth).toISOString() 
+                : null;
+
+            const dataToSend = {
+                ...userInfo,
+                dateOfBirth
+            };
+            
+            const response = await axios.put('http://localhost:5000/auth/update', dataToSend, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            });
+
+            if (response.data && response.data.success) {
+                // Update the local user data with the response from server
+                const updatedUser = {
+                    ...response.data.data,
+                    // Ensure dateOfBirth is properly formatted for display
+                    dateOfBirth: response.data.data.dateOfBirth 
+                        ? new Date(response.data.data.dateOfBirth).toISOString().split('T')[0]
+                        : ''
+                };
+                updateUser(updatedUser);
+                setIsEditing(false);
+                alert('Cập nhật thông tin thành công!');
+            } else {
+                throw new Error('Cập nhật thông tin thất bại');
+            }
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            alert(error.response?.data?.message || 'Có lỗi xảy ra khi cập nhật thông tin');
         }
     };
 
@@ -24,7 +102,7 @@ function Info() {
         <div className={cx('content')}>
             <div className={cx('profile-section')}>
                 <div className={cx('avatar-container')}>
-                    <img src={avatar} alt="Avatar" className={cx('avatar')} />
+                    <img src={userInfo.avatar} alt="Avatar" className={cx('avatar')} />
                     <div className={cx('avatar-upload')}>
                         <label htmlFor="avatar-input" className={cx('upload-button')}>
                             Đổi ảnh đại diện
@@ -42,10 +120,13 @@ function Info() {
                 <div className={cx('profile-info')}>
                     <span className={cx('member-since')}>Tên hiển thị</span>
                     <div className={cx('name-section')}>
-                        <input type="text" defaultValue="Minh Hà Quang" className={cx('name-input')} />
-                        <button className={cx('edit-button')}>
-                            <i className="fas fa-pencil-alt"></i>
-                        </button>
+                        <input 
+                            type="text" 
+                            name="fullName"
+                            value={userInfo.fullName}
+                            onChange={handleChange}
+                            className={cx('name-input')} 
+                        />
                     </div>
                 </div>
             </div>
@@ -54,7 +135,7 @@ function Info() {
 
             <div className={cx('email-section')}>
                 <span className={cx('label')}>EMAIL</span>
-                <span className={cx('value')}>quangminhh2004@gmail.com</span>
+                <span className={cx('value')}>{userInfo.email}</span>
             </div>
 
             <h1 className={cx('title')}>Thông tin cá nhân</h1>
@@ -64,7 +145,13 @@ function Info() {
                     <span>HỌ VÀ TÊN</span>
                 </div>
                 <div className={cx('info-value')}>
-                    <input type="text" defaultValue="Minh Hà Quang" className={cx('input-field')} />
+                    <input 
+                        type="text" 
+                        name="fullName"
+                        value={userInfo.fullName}
+                        onChange={handleChange}
+                        className={cx('input-field')} 
+                    />
                 </div>
             </div>
 
@@ -73,7 +160,13 @@ function Info() {
                     <span>NGÀY SINH</span>
                 </div>
                 <div className={cx('info-value')}>
-                    <input type="date" className={cx('input-field')} />
+                    <input 
+                        type="date" 
+                        name="dateOfBirth"
+                        value={userInfo.dateOfBirth}
+                        onChange={handleChange}
+                        className={cx('input-field')}
+                    />
                 </div>
             </div>
 
@@ -82,7 +175,12 @@ function Info() {
                     <span>GIỚI TÍNH</span>
                 </div>
                 <div className={cx('info-value')}>
-                    <select className={cx('input-field', 'select-field')}>
+                    <select 
+                        className={cx('input-field', 'select-field')}
+                        name="gender"
+                        value={userInfo.gender}
+                        onChange={handleChange}
+                    >
                         <option value="male">Nam</option>
                         <option value="female">Nữ</option>
                         <option value="other">Khác</option>
@@ -95,7 +193,14 @@ function Info() {
                     <span>SỐ ĐIỆN THOẠI</span>
                 </div>
                 <div className={cx('info-value')}>
-                    <input type="tel" placeholder="Nhập số điện thoại" className={cx('input-field')} />
+                    <input 
+                        type="tel" 
+                        name="phoneNumber"
+                        value={userInfo.phoneNumber}
+                        onChange={handleChange}
+                        placeholder="Nhập số điện thoại" 
+                        className={cx('input-field')} 
+                    />
                 </div>
             </div>
 
@@ -104,12 +209,21 @@ function Info() {
                     <span>ĐỊA CHỈ</span>
                 </div>
                 <div className={cx('info-value')}>
-                    <input type="text" placeholder="Nhập địa chỉ" className={cx('input-field')} />
+                    <input 
+                        type="text" 
+                        name="address"
+                        value={userInfo.address}
+                        onChange={handleChange}
+                        placeholder="Nhập địa chỉ" 
+                        className={cx('input-field')} 
+                    />
                 </div>
             </div>
 
             <div className={cx('button-container')}>
-                <button className={cx('save-button')}>Lưu thay đổi</button>
+                <button onClick={handleSave} className={cx('save-button')}>
+                    Lưu thay đổi
+                </button>
             </div>
         </div>
     );

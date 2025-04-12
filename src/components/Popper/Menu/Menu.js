@@ -6,21 +6,24 @@ import styles from './Menu.module.scss';
 import PropTypes from 'prop-types';
 const cx = classNames.bind(styles);
 
-function Menu({ children, hideOnClick = false, items = [] }) {
+function Menu({ children, items = [] }) {
     const renderItems = () => {
-        return items.map((item, index) => <MenuItem key={index} data={item} />);
+        return items.map((item, index) => (
+            <MenuItem key={index} data={item} />
+        ));
     };
 
     return (
         <Tippy
             interactive
-            hideOnClick={hideOnClick}
-            //  visible
-            //  delay={[0, 700]}
+            hideOnClick={true}
+            delay={[0, 200]}
             placement="bottom-end"
             render={(attrs) => (
                 <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
-                    <PopperWrapper className={cx('menu-popper')}>{renderItems()}</PopperWrapper>
+                    <PopperWrapper className={cx('menu-popper')}>
+                        {renderItems()}
+                    </PopperWrapper>
                 </div>
             )}
         >
@@ -31,7 +34,6 @@ function Menu({ children, hideOnClick = false, items = [] }) {
 
 Menu.propTypes = {
     children: PropTypes.node.isRequired,
-    hideOnClick: PropTypes.bool,
     items: PropTypes.array,
 };
 

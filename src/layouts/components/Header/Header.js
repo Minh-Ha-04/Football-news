@@ -6,15 +6,14 @@ import classNames from 'classnames/bind';
 import Search from '../Search';
 import SiteClub from '~/components/SiteClub';
 import Menu from '~/components/Popper/Menu';
-import { useAuth } from '~/hooks'; 
+import { useAuth } from '~/contexts/AuthContext';
 import config from '~/config';
 const cx = classNames.bind(styles);
 
 function Header() {
     const location = useLocation();
     const navigate = useNavigate();
-    const { user, logout } = useAuth();
-    const isUserPage = location.pathname.startsWith('/user');
+    const { user, logout, isAuthenticated } = useAuth();
 
     const handleLogout = async () => {
         try {
@@ -78,15 +77,14 @@ function Header() {
                 <Search />
 
                 <div className={cx('action')}>
-                    {user ? (
+                    {isAuthenticated && user ? (
                         <Menu items={MENU_ITEMS}>
                             <div className={cx('user-info')}>
                                 <img
                                     className={cx('user-avatar')}
-                                    src={user.avatar || 'https://via.placeholder.com/150'}
-                                    alt={user.username}
+                                    src={user.avatar || 'https://resources.premierleague.com/premierleague/photos/players/110x140/p118748.png'}
+                                    alt={user.fullName || user.username}
                                 />
-                                <span className={cx('username')}>{user.username}</span>
                             </div>
                         </Menu>
                     ) : (

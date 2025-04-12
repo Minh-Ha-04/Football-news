@@ -1,39 +1,60 @@
 .sidebar {
     width: 300px;
-    background-color: white;
-    color: black;
-    display: flex;
-    flex-direction: column;
-    margin: 0 10px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            margin-bottom: 10px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            a, .logout-button {
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                color: #37003c;
+                text-decoration: none;
+                border-radius: 4px;
+                transition: all 0.3s ease;
+                font-size: 16px;
+                width: 100%;
+                background: none;
+                border: none;
+                cursor: pointer;
+                text-align: left;
+
+                &:hover {
+                    background-color: rgba(55, 0, 60, 0.1);
+                }
+
+                .icon {
+                    margin-right: 10px;
+                    width: 20px;
+                }
+            }
+
+            .logout-button {
+                color: #ff2882;
+                
+                &:hover {
+                    background-color: rgba(255, 40, 130, 0.1);
+                }
+            }
+        }
+    }
 }
 
 .title {
     font-size: 1.5rem;
     text-align: center;
     margin-bottom: 20px;
-}
-
-.menu {
-    list-style: none;
-    padding: 0;
-}
-
-.menu li {
-    margin:  0 10px; 
-    line-height: 80px;
-    font-weight: 400;
-}
-
-.menu a {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    transition: 0.3s;
-}
-
-
-
-.icon {
-    margin-right: 20px;
 }

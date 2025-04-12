@@ -1,5 +1,5 @@
-import { createContext, useState, useEffect, useContext } from 'react';
-import { login, register, logout, getCurrentUser } from '~/services/authService';
+import { createContext, useContext, useState, useEffect } from 'react';
+import { register, login, logout, getCurrentUser } from '~/services/authService';
 
 const AuthContext = createContext();
 
@@ -12,66 +12,88 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [user, setUser] = useState(() => {
+        const savedUser = localStorage.getItem('user');
+        return savedUser ? JSON.parse(savedUser) : null;
+    });
+    const [isAuthenticated, setIsAuthenticated] = useState(() => {
+        return !!localStorage.getItem('token');
+    });
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+
+    const loadUserData = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                handleLogout();
+                return false;
+            }
+
+            const response = await getCurrentUser();
+            if (response.success) {
+                const userData = response.data;
+                setUser(userData);
+                localStorage.setItem('user', JSON.stringify(userData));
+                setIsAuthenticated(true);
+                return true;
+            } else {
+                handleLogout();
+                return false;
+            }
+        } catch (error) {
+            console.error('Load user data error:', error);
+            handleLogout();
+            return false;
+        }
+    };
 
     useEffect(() => {
-        const checkAuth = async () => {
+        const initializeAuth = async () => {
             try {
-                const token = localStorage.getItem('token');
-                if (token) {
-                    const response = await getCurrentUser();
-                    if (response.success) {
-                        setUser(response.data.user);
-                        setIsAuthenticated(true);
-                    } else {
-                        localStorage.removeItem('token');
-                        localStorage.removeItem('user');
-                        setUser(null);
-                        setIsAuthenticated(false);
-                    }
-                }
-            } catch (error) {
-                console.error('Auth check error:', error);
-                localStorage.removeItem('token');
-                localStorage.removeItem('user');
-                setUser(null);
-                setIsAuthenticated(false);
+                await loadUserData();
             } finally {
                 setLoading(false);
             }
         };
 
-        checkAuth();
+        initializeAuth();
     }, []);
 
-    const handleLogin = async (credentials) => {
+    const handleRegister = async (userData) => {
         try {
-            setError(null);
-            const response = await login(credentials);
+            const response = await register(userData);
             if (response.success) {
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('user', JSON.stringify(response.data.user));
-                setUser(response.data.user);
-                setIsAuthenticated(true);
-                return { success: true };
+                return { success: true, message: 'Đăng ký thành công' };
             }
             return { success: false, message: response.message };
         } catch (error) {
-            setError(error.message);
             return { success: false, message: error.message };
         }
     };
 
-    const handleRegister = async (userData) => {
+    const handleLogin = async (credentials) => {
         try {
-            setError(null);
-            const response = await register(userData);
-            return response;
+            const response = await login(credentials);
+            if (response.success) {
+                const { token, user: loginUser } = response.data;
+                
+                // Lưu token trước
+                localStorage.setItem('token', token);
+                
+                // Tải dữ liệu user đầy đủ
+                const loadSuccess = await loadUserData();
+                
+                if (!loadSuccess) {
+                    return { 
+                        success: false, 
+                        message: 'Không thể tải thông tin người dùng' 
+                    };
+                }
+
+                return { success: true, message: 'Đăng nhập thành công' };
+            }
+            return { success: false, message: response.message };
         } catch (error) {
-            setError(error.message);
             return { success: false, message: error.message };
         }
     };
@@ -79,12 +101,10 @@ export const AuthProvider = ({ children }) => {
     const handleLogout = async () => {
         try {
             await logout();
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
-            setUser(null);
-            setIsAuthenticated(false);
         } catch (error) {
             console.error('Logout error:', error);
+        } finally {
+            // Luôn xóa dữ liệu local và reset state
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             setUser(null);
@@ -92,15 +112,26 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const handleUpdateUser = async (updatedUser) => {
+        if (updatedUser) {
+            const newUserData = { ...user, ...updatedUser };
+            setUser(newUserData);
+            localStorage.setItem('user', JSON.stringify(newUserData));
+            
+            // Tải lại dữ liệu user từ server để đảm bảo đồng bộ
+            await loadUserData();
+        }
+    };
+
     const value = {
         user,
         isAuthenticated,
         loading,
-        error,
-        login: handleLogin,
         register: handleRegister,
+        login: handleLogin,
         logout: handleLogout,
-        isAdmin: user?.role === 'admin'
+        updateUser: handleUpdateUser,
+        refreshUser: loadUserData // Thêm hàm này để components có thể yêu cầu tải lại dữ liệu user
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
