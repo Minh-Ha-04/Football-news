@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import Search from '../Search';
 import SiteClub from '~/components/SiteClub';
 import Menu from '~/components/Popper/Menu';
-import { useAuth } from '~/contexts/AuthContext';
+import { useAuth } from '~/hooks'; 
 import config from '~/config';
 const cx = classNames.bind(styles);
 
@@ -16,9 +16,13 @@ function Header() {
     const { user, logout } = useAuth();
     const isUserPage = location.pathname.startsWith('/user');
 
-    const handleLogout = () => {
-        logout();
-        navigate(config.routes.home);
+    const handleLogout = async () => {
+        try {
+            await logout();
+            navigate(config.routes.home);
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
     };
 
     const MENU_ITEMS = [

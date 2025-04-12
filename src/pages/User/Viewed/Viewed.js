@@ -1,46 +1,42 @@
-import { useState, useEffect } from 'react';
 import styles from './Viewed.module.scss';
 import classNames from 'classnames/bind';
-import { useAuth } from '~/contexts/AuthContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
+import HotNews from '~/components/HotNews';
 
 const cx = classNames.bind(styles);
 
 function Viewed() {
-    const { user } = useAuth();
-    const [viewedPosts, setViewedPosts] = useState([]);
-
-    useEffect(() => {
-        if (user && user.viewedPosts) {
-            setViewedPosts(user.viewedPosts);
-        }
-    }, [user]);
+    // Giả lập dữ liệu theo ngày
+    const articlesByDate = {
+        'Hôm nay': [
+            { id: 1, title: 'Tin tức 1', time: '2 giờ trước' },
+            { id: 2, title: 'Tin tức 2', time: '5 giờ trước' },
+        ],
+        'Hôm qua': [
+            { id: 3, title: 'Tin tức 3', time: '1 ngày trước' },
+            { id: 4, title: 'Tin tức 4', time: '1 ngày trước' },
+        ],
+        'Tuần này': [
+            { id: 5, title: 'Tin tức 5', time: '2 ngày trước' },
+            { id: 6, title: 'Tin tức 6', time: '3 ngày trước' },
+        ],
+    };
 
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('container')}>
-                <h2 className={cx('title')}>
-                    Bài viết đã xem
-                </h2>
-                {viewedPosts.length > 0 ? (
-                    <div className={cx('post-list')}>
-                        {viewedPosts.map((post) => (
-                            <div key={post._id} className={cx('post-item')}>
-                                <img src={post.thumbnail} alt={post.title} className={cx('thumbnail')} />
-                                <div className={cx('content')}>
-                                    <h3 className={cx('title')}>{post.title}</h3>
-                                    <p className={cx('description')}>{post.description}</p>
-                                    <span className={cx('date')}>
-                                        {new Date(post.createdAt).toLocaleDateString()}
-                                    </span>
+            <div className={cx('title')}>Tin đã xem</div>
+            <div className={cx('content')}>
+                {Object.entries(articlesByDate).map(([date, articles]) => (
+                    <div key={date} className={cx('date-section')}>
+                        <div className={cx('date-header')}>{date}</div>
+                        <div className={cx('articles')}>
+                            {articles.map((article) => (
+                                <div key={article.id} className={cx('article-item')}>
+                                    <HotNews />
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-                ) : (
-                    <div className={cx('empty')}>Bạn chưa xem bài viết nào</div>
-                )}
+                ))}
             </div>
         </div>
     );
