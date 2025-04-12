@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRightFromBracket, faBookBookmark, faEye, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBookBookmark, faEye, faUser, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
@@ -40,10 +40,18 @@ function Header() {
             title: 'Tin đã xem',
             to: config.routes.viewed,
         },
+        ...(user?.role === 'admin' ? [
+            {
+                icon: <FontAwesomeIcon icon={faGaugeHigh} />,
+                title: 'Quản trị',
+                to: config.routes.dashboard,
+            }
+        ] : []),
         {
             icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
             title: 'Đăng xuất',
             onClick: handleLogout,
+            separate: true,
         },
     ];
 

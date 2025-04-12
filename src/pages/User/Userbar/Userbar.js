@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Userbar.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRightFromBracket, faBookBookmark, faEye, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBookBookmark, faEye, faUser, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
 import routes from '~/config/routes';
 import classNames from 'classnames/bind';
 import { useAuth } from '~/contexts/AuthContext';
@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 
 const Userbar = () => {
     const navigate = useNavigate();
-    const { logout } = useAuth();
+    const { logout, user } = useAuth();
 
     const handleLogout = async () => {
         try {
@@ -19,6 +19,10 @@ const Userbar = () => {
         } catch (error) {
             console.error('Logout error:', error);
         }
+    };
+
+    const handleGoToDashboard = () => {
+        window.location.replace('http://localhost:3000/admin');
     };
 
     return (
@@ -39,6 +43,11 @@ const Userbar = () => {
                         <FontAwesomeIcon icon={faEye} className={cx('icon')} /> Bài viết đã xem
                     </Link>
                 </li>
+                {user?.role === 'admin' && (
+                    <li>
+                        <Link to={routes.dashboard}><FontAwesomeIcon icon={faGaugeHigh} className={cx('icon')} /> Quản trị</Link>
+                    </li>
+                )}
                 <li>
                     <button onClick={handleLogout} className={cx('logout-button')}>
                         <FontAwesomeIcon icon={faArrowRightFromBracket} className={cx('icon')} /> Đăng xuất

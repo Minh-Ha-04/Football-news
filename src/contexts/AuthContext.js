@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
             const token = localStorage.getItem('token');
             if (!token) {
                 handleLogout();
-                return false;
+                return { success: false, data: null };
             }
 
             const response = await getCurrentUser();
@@ -35,22 +35,27 @@ export const AuthProvider = ({ children }) => {
                 setUser(userData);
                 localStorage.setItem('user', JSON.stringify(userData));
                 setIsAuthenticated(true);
-                return true;
+                return { success: true, data: userData };
             } else {
                 handleLogout();
-                return false;
+                return { success: false, data: null };
             }
         } catch (error) {
             console.error('Load user data error:', error);
             handleLogout();
-            return false;
+            return { success: false, data: null };
         }
     };
 
     useEffect(() => {
         const initializeAuth = async () => {
             try {
-                await loadUserData();
+                const { success, data } = await loadUserData();
+                if (success && data?.role === 'admin') {
+                    if (!window.location.pathname.startsWith('/admin')) {
+                        window.location.replace('http://localhost:3000/admin');
+                    }
+                }
             } finally {
                 setLoading(false);
             }
@@ -77,17 +82,19 @@ export const AuthProvider = ({ children }) => {
             if (response.success) {
                 const { token, user: loginUser } = response.data;
                 
-                // Lưu token trước
                 localStorage.setItem('token', token);
                 
-                // Tải dữ liệu user đầy đủ
-                const loadSuccess = await loadUserData();
+                const { success, data } = await loadUserData();
                 
-                if (!loadSuccess) {
+                if (!success) {
                     return { 
                         success: false, 
                         message: 'Không thể tải thông tin người dùng' 
                     };
+                }
+
+                if (data.role === 'admin') {
+                    window.location.replace('http://localhost:3000/admin');
                 }
 
                 return { success: true, message: 'Đăng nhập thành công' };
@@ -104,7 +111,6 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error('Logout error:', error);
         } finally {
-            // Luôn xóa dữ liệu local và reset state
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             setUser(null);
@@ -118,7 +124,6 @@ export const AuthProvider = ({ children }) => {
             setUser(newUserData);
             localStorage.setItem('user', JSON.stringify(newUserData));
             
-            // Tải lại dữ liệu user từ server để đảm bảo đồng bộ
             await loadUserData();
         }
     };
@@ -131,7 +136,7 @@ export const AuthProvider = ({ children }) => {
         login: handleLogin,
         logout: handleLogout,
         updateUser: handleUpdateUser,
-        refreshUser: loadUserData // Thêm hàm này để components có thể yêu cầu tải lại dữ liệu user
+        refreshUser: loadUserData
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
