@@ -11,6 +11,7 @@ function Info() {
     const [isEditing, setIsEditing] = useState(false);
     const [userInfo, setUserInfo] = useState({
         avatar: '',
+        nickName :'',
         fullName: '',
         email: '',
         phoneNumber: '',
@@ -23,6 +24,7 @@ function Info() {
         if (user) {
             setUserInfo({
                 avatar: user.avatar || 'https://resources.premierleague.com/premierleague/photos/players/110x140/p118748.png',
+                nickName:user.nickName || '',
                 fullName: user.fullName || '',
                 email: user.email || '',
                 phoneNumber: user.phoneNumber || '',
@@ -122,8 +124,8 @@ function Info() {
                     <div className={cx('name-section')}>
                         <input 
                             type="text" 
-                            name="fullName"
-                            value={userInfo.fullName}
+                            name="nickName"
+                            value={userInfo.nickName}
                             onChange={handleChange}
                             className={cx('name-input')} 
                         />
@@ -135,7 +137,15 @@ function Info() {
 
             <div className={cx('email-section')}>
                 <span className={cx('label')}>EMAIL</span>
-                <span className={cx('value')}>{userInfo.email}</span>
+                <div className={cx('info-value')}>
+                    <input 
+                        type="email" 
+                        name="email"
+                        value={userInfo.email}
+                        onChange={handleChange}
+                        className={cx('input-field')} 
+                    />
+                </div>
             </div>
 
             <h1 className={cx('title')}>Thông tin cá nhân</h1>
