@@ -33,14 +33,14 @@ export const publicRoutes = [
 // Private routes - chỉ có thể truy cập khi đã đăng nhập
 export const privateRoutes = [
     // User routes
-    { path: config.routes.info, component: Info, layout: UserLayout },
-    { path: config.routes.viewed, component: Viewed, layout: UserLayout },
-    { path: config.routes.saved, component: Saved, layout: UserLayout },
+    { path: config.routes.info, component: Info, layout: UserLayout, requiredRole: 'user' },
+    { path: config.routes.viewed, component: Viewed, layout: UserLayout, requiredRole: 'user' },
+    { path: config.routes.saved, component: Saved, layout: UserLayout , requiredRole: 'user'},
 
     // Admin routes
-    { path: config.routes.dashboard, component: Dashboard, layout: AdminLayout },
-    { path: config.routes.post, component: Post, layout: AdminLayout },
-    { path: config.routes.matchscore, component: MatchScoreForm, layout: AdminLayout },
-    { path: config.routes.ads, component: AdminAds, layout: AdminLayout },
-    { path: config.routes.manager, component: Manager, layout: AdminLayout },
+    { path: config.routes.dashboard, component: Dashboard, layout: AdminLayout, requiredRole: 'admin' },
+    { path: config.routes.post, component: Post, layout: AdminLayout, requiredRole: 'admin' },
+    { path: config.routes.matchscore, component: MatchScoreForm, layout: AdminLayout , requiredRole: 'admin'},
+    { path: config.routes.ads, component: AdminAds, layout: AdminLayout , requiredRole: 'admin'},
+    { path: config.routes.manager, component: Manager, layout: AdminLayout , requiredRole: 'admin'},
 ];

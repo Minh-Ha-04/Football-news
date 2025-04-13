@@ -3,7 +3,7 @@ import { Fragment, useEffect } from 'react';
 import { publicRoutes, privateRoutes } from '~/routes';
 import { DefaultLayout } from '~/layouts';
 import { AuthProvider } from '~/contexts/AuthContext';
-
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 // Component để xử lý cuộn trang
 function ScrollToTop() {
     const { pathname } = useLocation();
@@ -65,9 +65,11 @@ function App() {
                                     key={index}
                                     path={route.path}
                                     element={
-                                        <Layout>
-                                            <Page />
-                                        </Layout>
+                                        <ProtectedRoute requiredRole={route.requiredRole}>
+                                            <Layout>
+                                                <Page />
+                                            </Layout>
+                                        </ProtectedRoute>
                                     }
                                 />
                             );
