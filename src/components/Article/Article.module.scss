@@ -30,3 +30,62 @@
         }
     }
 }
+
+.wrapper {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    
+    &:hover {
+        .article-title {
+            color: var(--primary-color);
+        }
+    }
+}
+
+.article-container {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.article-image {
+    width: 255px;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.article-content {
+    flex: 1;
+}
+
+.article-category {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.article-title {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0;
+    color: #333;
+    transition: color 0.2s ease;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.article-description {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 8px 0 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

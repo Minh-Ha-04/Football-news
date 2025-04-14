@@ -4,12 +4,12 @@ import styles from './Detail.module.scss';
 import classNames from 'classnames/bind';
 import Section from '~/layouts/components/Section';
 import Button from '~/components/Button';
-import Article from '~/components/Article';
 import Ads from '~/components/Ads';
 import HotNews from '~/components/HotNews';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookBookmark, faShare, faBookmark, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
@@ -20,22 +20,49 @@ function Detail() {
     const [isSaved, setIsSaved] = useState(false);
     const [showFeedback, setShowFeedback] = useState(false);
     const [feedback, setFeedback] = useState('');
+    const [user] = useState(JSON.parse(localStorage.getItem('user')));
 
     useEffect(() => {
+        let isMounted = true;
+
         const fetchArticle = async () => {
             try {
                 const response = await fetch(`http://localhost:5000/articles/${slug}`);
                 const data = await response.json();
-                setArticle(data);
+                
+                if (isMounted) {
+                    setArticle(data);
+
+                    // Lưu bài viết đã xem nếu người dùng đã đăng nhập
+                    if (user) {
+                        try {
+                            const token = localStorage.getItem('token');
+                            await axios.post(`http://localhost:5000/article/${data._id}/view`, {}, {
+                                headers: {
+                                    Authorization: `Bearer ${token}`
+                                }
+                            });
+                            console.log('Đã lưu bài viết đã xem');
+                        } catch (error) {
+                            console.error('Lỗi khi lưu bài viết đã xem:', error);
+                        }
+                    }
+                }
             } catch (error) {
-                console.error('Error fetching article:', error);
+                console.error('Lỗi khi lấy bài viết:', error);
             } finally {
-                setLoading(false);
+                if (isMounted) {
+                    setLoading(false);
+                }
             }
         };
 
         fetchArticle();
-    }, [slug]);
+
+        return () => {
+            isMounted = false;
+        };
+    }, [slug, user]);
 
     const handleSave = () => {
         setIsSaved(!isSaved);

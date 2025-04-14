@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import HotNews from '~/components/HotNews';
 import { useAuth } from '~/contexts/AuthContext';
 import axios from 'axios';
+import Article from '~/components/Article';
 
 const cx = classNames.bind(styles);
 
@@ -14,27 +15,26 @@ function Viewed() {
 
     useEffect(() => {
         const fetchViewedPosts = async () => {
+            if (!user) return;
+            
             try {
-                if (user && user.viewedPosts && user.viewedPosts.length > 0) {
-                    const token = localStorage.getItem('token');
-                    const response = await axios.get('http://localhost:5000/posts/viewed', {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    });
-
-                    if (response.data.success) {
-                        // Nhóm bài viết theo ngày
-                        const posts = response.data.data;
-                        const grouped = groupPostsByDate(posts);
-                        setViewedPosts(grouped);
+                const token = localStorage.getItem('token');
+                const response = await axios.get('http://localhost:5000/article', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
                     }
-                } else {
-                    setViewedPosts({});
+                });
+                
+                if (response.data && response.data.data) {
+                    // Sắp xếp bài viết theo thời gian xem mới nhất
+                    const sortedPosts = response.data.data.sort((a, b) => 
+                        new Date(b.viewedAt) - new Date(a.viewedAt)
+                    );
+                    setViewedPosts(sortedPosts);
                 }
             } catch (error) {
                 console.error('Error fetching viewed posts:', error);
-                setViewedPosts({});
+                setViewedPosts([]);
             } finally {
                 setLoading(false);
             }
@@ -43,76 +43,38 @@ function Viewed() {
         fetchViewedPosts();
     }, [user]);
 
-    // Hàm nhóm bài viết theo ngày
-    const groupPostsByDate = (posts) => {
-        const grouped = {};
-        const today = new Date();
-        const yesterday = new Date(today);
-        yesterday.setDate(yesterday.getDate() - 1);
-
-        posts.forEach(post => {
-            const viewedDate = new Date(post.viewedAt || post.createdAt);
-            let dateGroup;
-
-            if (isSameDay(viewedDate, today)) {
-                dateGroup = 'Hôm nay';
-            } else if (isSameDay(viewedDate, yesterday)) {
-                dateGroup = 'Hôm qua';
-            } else if (isThisWeek(viewedDate, today)) {
-                dateGroup = 'Tuần này';
-            } else {
-                dateGroup = 'Cũ hơn';
-            }
-
-            if (!grouped[dateGroup]) {
-                grouped[dateGroup] = [];
-            }
-            grouped[dateGroup].push(post);
-        });
-
-        return grouped;
-    };
-
-    // Hàm kiểm tra cùng ngày
-    const isSameDay = (date1, date2) => {
+    if (!user) {
         return (
-            date1.getDate() === date2.getDate() &&
-            date1.getMonth() === date2.getMonth() &&
-            date1.getFullYear() === date2.getFullYear()
+            <div className={cx('wrapper')}>
+                <div className={cx('title')}>Tin đã xem</div>
+                <div className={cx('content')}>
+                    <div className={cx('empty-message')}>
+                        Vui lòng đăng nhập để xem lịch sử bài viết đã xem
+                    </div>
+                </div>
+            </div>
         );
-    };
-
-    // Hàm kiểm tra cùng tuần
-    const isThisWeek = (date, today) => {
-        const weekStart = new Date(today);
-        weekStart.setDate(today.getDate() - today.getDay());
-        weekStart.setHours(0, 0, 0, 0);
-
-        const weekEnd = new Date(weekStart);
-        weekEnd.setDate(weekStart.getDate() + 6);
-        weekEnd.setHours(23, 59, 59, 999);
-
-        return date >= weekStart && date <= weekEnd;
-    };
+    }
 
     if (loading) {
-        return <div className={cx('loading')}>Đang tải...</div>;
+        return (
+            <div className={cx('wrapper')}>
+                <div className={cx('title')}>Tin đã xem</div>
+                <div className={cx('loading')}>Đang tải...</div>
+            </div>
+        );
     }
 
     return (
         <div className={cx('wrapper')}>
             <div className={cx('title')}>Tin đã xem</div>
             <div className={cx('content')}>
-                {Object.keys(viewedPosts).length > 0 ? (
-                    Object.entries(viewedPosts).map(([date, posts]) => (
-                        <div key={date} className={cx('date-section')}>
-                            <div className={cx('date-header')}>{date}</div>
-                            <div className={cx('articles')}>
-                                {posts.map((post) => (
-                                    <div key={post._id} className={cx('article-item')}>
-                                        <HotNews data={post} />
-                                    </div>
-                                ))}
+                {viewedPosts.length > 0 ? (
+                    viewedPosts.map((post) => (
+                        <div key={post.article._id} className={cx('article-item')}>
+                            <Article data={post.article}/>
+                            <div className={cx('viewed-time')}>
+                                Đã xem: {new Date(post.viewedAt).toLocaleString('vi-VN')}
                             </div>
                         </div>
                     ))
