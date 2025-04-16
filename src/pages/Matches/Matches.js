@@ -5,15 +5,47 @@ import Ads from '~/components/Ads';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
-import MatchList from '~/components/MatchList';
-import Article from '~/components/Article';
 import Button from '~/components/Button';
 import HotNews from '~/components/HotNews';
 import { Link } from 'react-router-dom';
 import routes from '~/config/routes';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 const cx = classNames.bind(styles);
 
 function Matches() {
+    const [matches, setMatches] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchMatches = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/match');
+                if (response.data.success) {
+                    setMatches(response.data.data);
+                }
+            } catch (err) {
+                setError('Failed to fetch matches');
+                console.error('Error fetching matches:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchMatches();
+    }, []);
+
+    // Group matches by round
+    const matchesByRound = matches.reduce((acc, match) => {
+        const round = match.round;
+        if (!acc[round]) {
+            acc[round] = [];
+        }
+        acc[round].push(match);
+        return acc;
+    }, {});
+
     return (
         <div className={cx('matches')}>
             <Section />
@@ -30,10 +62,10 @@ function Matches() {
                         <header className={cx('header-result')}>
                             <div className={cx('left-header')}>
                                 <ul className={cx('header-nav')}>
-                                    <li class={cx('header-item')}>
+                                    <li className={cx('header-item')}>
                                         <FontAwesomeIcon icon={faCalendar} /> Lịch thi đấu
                                     </li>
-                                    <li class={cx('header-item')}>
+                                    <li className={cx('header-item')}>
                                         <Link to={routes.tables}><FontAwesomeIcon icon={faTrophy} /> Bảng xếp hạng</Link>
                                     </li>
                                 </ul>
@@ -41,16 +73,62 @@ function Matches() {
                             <div className={cx('right-header')}>Mùa giải 2024/2025</div>
                         </header>
                         <div className={cx('list-match')}>
-                            <MatchList />
-                            <MatchList />
-                            <MatchList />
-                            <MatchList />
-                            <MatchList />
+                            {loading ? (
+                                <div className={cx('loading')}>Đang tải dữ liệu...</div>
+                            ) : error ? (
+                                <div className={cx('error')}>{error}</div>
+                            ) : (
+                                Object.entries(matchesByRound).map(([round, roundMatches]) => (
+                                    <div key={round} className={cx('round-section')}>
+                                        <h3 className={cx('round-title')}>Vòng {round}</h3>
+                                        <div className={cx('matches-container')}>
+                                            {roundMatches.map((match) => (
+                                                <div key={match._id} className={cx('match-item')}>
+                                                    <div className={cx('match-time')}>
+                                                        {new Date(match.matchDate).toLocaleString('vi-VN', {
+                                                            day: '2-digit',
+                                                            month: '2-digit',
+                                                            year: 'numeric',
+                                                            hour: '2-digit',
+                                                            minute: '2-digit'
+                                                        })}
+                                                    </div>
+                                                    <div className={cx('match-teams')}>
+                                                        <div className={cx('team')}>
+                                                            <span className={cx('team-name')}>
+                                                                
+                                                                {typeof match.homeTeam === 'object' ? match.homeTeam.name : match.homeTeam}
+                                                                <img src={match.logoHomeTeam} alt={match.homeTeam.name} className={cx('team-logo')} />
+                                                            </span>
+                                                        </div>
+                                                        <div className={cx('match-score')}>
+                                                        
+                                                        {match.status === 'completed'
+                                                            ? `${match.score?.home} - ${match.score?.away}`
+                                                            : '-'}
+                                                        <div className={cx('match-stadium')}>
+                                                            {match.stadium}
+                                                        </div>
+                                                        </div>
+                                                        <div className={cx('team')}>
+                                                            <span className={cx('team-name')}>
+                                                                <img src={match.logoAwayTeam} alt={match.awayTeam.name} className={cx('team-logo')} />
+                                                                {typeof match.awayTeam === 'object' ? match.awayTeam.name : match.awayTeam}
+                                                            </span>
+                                                        </div>
+                                                        
+                                                    </div>
+
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))
+                            )}
                         </div>
                     </div>
                     <div className={cx('hotnews')}>
                         <h2 className={cx('header')}>Tin bóng đá mới nhẩt</h2>
-                        <HotNews />
                         <HotNews />
                         <div className={cx('button')}><Button rounded>Xem thêm</Button></div>
                     </div>

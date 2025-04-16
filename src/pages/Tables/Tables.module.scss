@@ -1,149 +1,122 @@
 .wrapper {
-    padding: 2rem;
+    padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
-  }
-  
-  .bxh {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #2d3748;
-    margin-bottom: 2rem;
+}
+
+.bxh {
     text-align: center;
-    position: relative;
-    padding-bottom: 1rem;
-  
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: linear-gradient(90deg, #007bff, #00bcd4);
-      border-radius: 2px;
-    }
-  }
-  
-  .table {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+}
+
+.tables {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    background: white;
-    border-radius: 12px;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  }
-  
-  thead {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    height: 48px;
-  }
-  
-  .header-item {
-    padding: 16px 20px;
-    font-weight: 600;
-    color: #2d3748;
-    text-align: left;
-    font-size: 0.95rem;
-    border-bottom: 2px solid #e2e8f0;
-    white-space: nowrap;
-  
-    &.score-column {
-      text-align: center;
-    }
-  
+}
+
+.header {
+    background-color: rgb(119, 179, 60);
+    color: white;
+}
+
+.header-item {
+    padding: 12px;
+    text-align: center;
+    font-weight: 500;
+
     &.match-column {
-      text-align: center;
+        width: 60px;
     }
-  }
-  
-  .table-row {
-    transition: all 0.2s ease;
-    
+
+    &.score-column {
+        width: 80px;
+    }
+}
+
+.table-row {
+    &:nth-child(even) {
+        background-color: #f8f9fa;
+    }
+
     &:hover {
-      background-color: #f8fafc;
+        background-color: #f1f1f1;
     }
-  }
-  
-  .table-cell {
-    padding: 16px 20px;
-    color: #4a5568;
-    font-size: 0.95rem;
-    border-bottom: 1px solid #e2e8f0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 200px;
-  
-    &.score-column {
-      text-align: center;
-      font-weight: 700;
-      color: #2d3748;
-    }
-  
-    &.match-column {
-      text-align: center;
-      font-weight: 700;
-      color: #2d3748;
-    }
-  
+}
+
+.table-cell {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+
     &.team-name {
-      max-width: 250px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-  
-      .logo {
-        width: 32px;
-        height: 32px;
-        object-fit: contain;
-      }
-  
-      span {
-        font-size: 1rem;
-        font-weight: 500;
-        color: #2d3748;
-      }
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-align: left;
     }
-  }
-  
-  // Responsive adjustments
-  @media (max-width: 768px) {
+}
+
+.logo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+    color: #666;
+}
+
+.error {
+    text-align: center;
+    padding: 20px;
+    color: #dc3545;
+    font-size: 18px;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
     .wrapper {
-      padding: 1rem;
+        padding: 1rem;
     }
-  
+
     .bxh {
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
     }
-  
+
     .header-item, .table-cell {
-      padding: 12px 16px;
-      font-size: 0.9rem;
+        padding: 12px 16px;
+        font-size: 0.9rem;
     }
     
     thead {
-      height: 40px;
+        height: 40px;
     }
-  
+
     .table-cell {
-      max-width: 150px;
-  
-      &.team-name {
-        max-width: 200px;
-        gap: 8px;
-  
-        .logo {
-          width: 28px;
-          height: 28px;
+        max-width: 150px;
+
+        &.team-name {
+            max-width: 200px;
+            gap: 8px;
+
+            .logo {
+                width: 28px;
+                height: 28px;
+            }
+
+            span {
+                font-size: 0.95rem;
+            }
         }
-  
-        span {
-          font-size: 0.95rem;
-        }
-      }
     }
-  }
+}

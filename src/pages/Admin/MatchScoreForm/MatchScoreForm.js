@@ -1,46 +1,330 @@
 import { useForm } from "react-hook-form";
 import Button from "~/components/Button";
-import Data from "~/Data";
 import styles from './MatchScoreForm.module.scss'
 import classNames from 'classnames/bind';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-const cx= classNames.bind(styles)
-const teams = Data.map(team=>team.name)
+const cx = classNames.bind(styles);
 
 export default function MatchScoreForm() {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, watch, setValue } = useForm();
+  const [matches, setMatches] = useState([]);
+  const [teams, setTeams] = useState([]);
+  const [selectedMatch, setSelectedMatch] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [previewHomeTeam, setPreviewHomeTeam] = useState(null);
+  const [previewAwayTeam, setPreviewAwayTeam] = useState(null);
 
-  const onSubmit = (data) => {
-    console.log("Tỷ số trận đấu:", data);
-    alert("Tỷ số trận đấu đã được đăng tải thành công!");
-    reset();
+  const status = watch('status', 'upcoming');
+
+  useEffect(() => {
+    fetchMatches();
+    fetchTeams();
+  }, []);
+
+  const fetchMatches = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/match');
+      if (response.data.success) {
+        setMatches(response.data.data);
+      }
+    } catch (error) {
+      console.error('Lỗi khi lấy danh sách trận đấu:', error);
+    }
+  };
+
+  const fetchTeams = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/team');
+      if (response.data.success) {
+        setTeams(response.data.data);
+      }
+    } catch (error) {
+      console.error('Lỗi khi lấy danh sách đội bóng:', error);
+    }
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      const token = localStorage.getItem('token');
+      // Ensure time is in HH:mm format
+      const timeParts = data.matchTime.split(':');
+      const formattedTime = `${timeParts[0].padStart(2, '0')}:${timeParts[1].padStart(2, '0')}`;
+      
+      // Lấy thông tin đội bóng từ danh sách teams
+      const homeTeam = teams.find(team => team._id === data.teamA);
+      const awayTeam = teams.find(team => team._id === data.teamB);
+      
+      const matchData = {
+        homeTeam: data.teamA,
+        awayTeam: data.teamB,
+        logoHomeTeam: homeTeam?.logo || '',
+        logoAwayTeam: awayTeam?.logo || '',
+        matchDate: `${data.matchDate}T${formattedTime}:00`,
+        stadium: data.stadium,
+        status: data.status,
+        round: parseInt(data.round) || 1,
+        score: data.status === 'completed' ? {
+          home: parseInt(data.homeScore) || 0,
+          away: parseInt(data.awayScore) || 0
+        } : null
+      };
+
+      console.log('Sending match data:', matchData);
+
+      if (isEditing && selectedMatch) {
+        await axios.put(`http://localhost:5000/match/${selectedMatch._id}`, matchData, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        alert('Đã cập nhật trận đấu thành công!');
+      } else {
+        await axios.post('http://localhost:5000/match', matchData, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        alert('Đã thêm trận đấu thành công!');
+      }
+
+      reset();
+      fetchMatches();
+      setIsEditing(false);
+      setSelectedMatch(null);
+      setPreviewHomeTeam(null);
+      setPreviewAwayTeam(null);
+    } catch (error) {
+      console.error('Lỗi khi lưu trận đấu:', error);
+      alert('Có lỗi xảy ra khi lưu trận đấu!');
+    }
+  };
+
+  const handleEdit = (match) => {
+    setSelectedMatch(match);
+    setIsEditing(true);
+    const matchDateTime = new Date(match.matchDate);
+    const hours = matchDateTime.getHours().toString().padStart(2, '0');
+    const minutes = matchDateTime.getMinutes().toString().padStart(2, '0');
+    const formattedTime = `${hours}:${minutes}`;
+    
+    reset({
+      teamA: match.homeTeam._id,
+      teamB: match.awayTeam._id,
+      logoHomeTeam: match.logoHomeTeam,
+      logoAwayTeam: match.logoAwayTeam,
+      matchDate: match.matchDate.split('T')[0],
+      matchTime: formattedTime,
+      stadium: match.stadium,
+      status: match.status,
+      round: parseInt(match.round) || 1,
+      homeScore: match.score?.home || 0,
+      awayScore: match.score?.away || 0
+    });
+
+    // Set preview states
+    setPreviewHomeTeam({ ...match.homeTeam, logo: match.logoHomeTeam });
+    setPreviewAwayTeam({ ...match.awayTeam, logo: match.logoAwayTeam });
+  };
+
+  const handleDelete = async (matchId) => {
+    if (window.confirm('Bạn có chắc chắn muốn xóa trận đấu này?')) {
+      try {
+        const token = localStorage.getItem('token');
+        await axios.delete(`http://localhost:5000/match/${matchId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        alert('Đã xóa trận đấu thành công!');
+        fetchMatches();
+      } catch (error) {
+        console.error('Lỗi khi xóa trận đấu:', error);
+        alert('Có lỗi xảy ra khi xóa trận đấu!');
+      }
+    }
+  };
+
+  const handleTeamChange = (e) => {
+    const { name, value } = e.target;
+    const selectedTeam = teams.find(team => team._id === value);
+    
+    if (name === 'teamA') {
+      if (selectedTeam) {
+        setValue('stadium', selectedTeam.stadium);
+        setPreviewHomeTeam(selectedTeam);
+      } else {
+        setPreviewHomeTeam(null);
+      }
+    } else if (name === 'teamB') {
+      if (selectedTeam) {
+        setPreviewAwayTeam(selectedTeam);
+      } else {
+        setPreviewAwayTeam(null);
+      }
+    }
   };
 
   return (
     <div className={cx('container')}>
       <div className={cx('form-wrapper')}>
-        <h2 className={cx('title')}>Đăng Tỷ Số Trận Đấu</h2>
+        <h2 className={cx('title')}>{isEditing ? 'Chỉnh Sửa Trận Đấu' : 'Thêm Trận Đấu Mới'}</h2>
         <div>
           <form onSubmit={handleSubmit(onSubmit)} className={cx('form')}>
-            <select {...register("teamA", { required: true })} className={cx('select')}>
-              <option value="">Chọn đội A</option>
-              {teams.map((teams) => (
-                <option key={teams} value={teams}>{teams}</option>
-              ))}
+            <div className={cx('team-selection')}>
+              <div className={cx('team-select-group')}>
+                {previewHomeTeam && (
+                  <div className={cx('team-preview')}>
+                    <img src={previewHomeTeam.logo} alt={previewHomeTeam.name} className={cx('preview-logo')} />
+                  </div>
+                )}
+                <select 
+                  {...register("teamA", { required: true })} 
+                  className={cx('select')}
+                  name="teamA"
+                  onChange={handleTeamChange}
+                >
+                  <option value="">Chọn đội nhà</option>
+                  {teams.map((team) => (
+                    <option key={team._id} value={team._id}>{team.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              {(previewHomeTeam || previewAwayTeam) && <span className={cx('vs-text')}>VS</span>}
+
+              <div className={cx('team-select-group')}>
+                {previewAwayTeam && (
+                  <div className={cx('team-preview')}>
+                    <img src={previewAwayTeam.logo} alt={previewAwayTeam.name} className={cx('preview-logo')} />
+                  </div>
+                )}
+                <select 
+                  {...register("teamB", { required: true })} 
+                  className={cx('select')}
+                  name="teamB"
+                  onChange={handleTeamChange}
+                >
+                  <option value="">Chọn đội khách</option>
+                  {teams.map((team) => (
+                    <option key={team._id} value={team._id}>{team.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <input 
+              type="text" 
+              placeholder="Sân vận động" 
+              {...register("stadium", { required: true })} 
+              className={cx('input')}
+              readOnly={isEditing}
+            />
+
+            <input 
+              type="number" 
+              placeholder="Vòng đấu" 
+              {...register("round", { required: true })} 
+              className={cx('input')}
+            />
+
+            <select {...register("status", { required: true })} className={cx('select')}>
+              <option value="upcoming">Sắp diễn ra</option>
+              <option value="completed">Đã kết thúc</option>
             </select>
-            <input type="number" placeholder="Bàn thắng đội A" {...register("scoreA", { required: true })} className={cx('input')} />
-            <select {...register("teamB", { required: true })} className={cx('select')}>
-              <option value="">Chọn đội B</option>
-              {teams.map((team) => (
-                <option key={team} value={team}>{team}</option>
-              ))}
-            </select>
-            <input type="number" placeholder="Bàn thắng đội B" {...register("scoreB", { required: true })} className={cx('input')} />
+
             <input type="date" {...register("matchDate", { required: true })} className={cx('input')} />
             <input type="time" {...register("matchTime", { required: true })} className={cx('input')} />
-            <Button type="submit" className={cx('submit-btn')}>Đăng Tỷ Số</Button>
+
+            {status === 'completed' && (
+              <>
+                <input 
+                  type="number" 
+                  placeholder="Tỷ số đội nhà" 
+                  {...register("homeScore", { min: 0 })} 
+                  className={cx('input')}
+                />
+                <input 
+                  type="number" 
+                  placeholder="Tỷ số đội khách" 
+                  {...register("awayScore", { min: 0 })} 
+                  className={cx('input')}
+                />
+              </>
+            )}
+            
+            <Button type="submit" className={cx('submit-btn')}>
+              {isEditing ? 'Cập nhật' : 'Thêm mới'}
+            </Button>
+            {isEditing && (
+              <Button type="button" onClick={() => {
+                setIsEditing(false);
+                setSelectedMatch(null);
+                reset();
+              }} className={cx('cancel-btn')}>
+                Hủy
+              </Button>
+            )}
           </form>
         </div>
+      </div>
+
+      <div className={cx('matches-list')}>
+        <h3>Danh sách trận đấu</h3>
+        <table className={cx('matches-table')}>
+          <thead>
+            <tr>
+              <th>Vòng đấu</th>
+              <th>Đội nhà</th>
+              <th>Đội khách</th>
+              <th>Tỷ số</th>
+              <th>Sân vận động</th>
+              <th>Ngày giờ</th>
+              <th>Trạng thái</th>
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            {matches.map((match) => (
+              <tr key={match._id}>
+                <td>{match.round}</td>
+                <td>
+                  <div className={cx('team-cell')}>
+                    <img 
+                      src={match.logoHomeTeam}
+                      alt={match.homeTeam.name} 
+                      className={cx('team-logo')} 
+                    />
+                    <span>{match.homeTeam.name}</span>
+                  </div>
+                </td>
+                <td>
+                  <div className={cx('team-cell')}>
+                    <img 
+                      src={match.logoAwayTeam}
+                      alt={match.awayTeam.name} 
+                      className={cx('team-logo')} 
+                    />
+                    <span>{match.awayTeam.name}</span>
+                  </div>
+                </td>
+                <td>
+                  {match.status === 'completed' 
+                    ? `${match.score?.home || 0} - ${match.score?.away || 0}`
+                    : 'Chưa diễn ra'}
+                </td>
+                <td>{match.stadium}</td>
+                <td>{new Date(match.matchDate).toLocaleString()}</td>
+                <td>{match.status === 'upcoming' ? 'Sắp diễn ra' : 'Đã kết thúc'}</td>
+                <td>
+                  <button onClick={() => handleEdit(match)} className={cx('action-btn', 'edit-btn')}>
+                    <FontAwesomeIcon icon={faEdit} />
+                  </button>
+                  <button onClick={() => handleDelete(match._id)} className={cx('action-btn', 'delete-btn')}>
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

@@ -17,7 +17,8 @@ const Dashboard = () => {
     const [newTeam, setNewTeam] = useState({
         name: '',
         shortName: '',
-        logo: ''
+        logo: '',
+        stadium: ''
     });
 
     useEffect(() => {
@@ -159,7 +160,8 @@ const Dashboard = () => {
                 setNewTeam({
                     name: '',
                     shortName: '',
-                    logo: ''
+                    logo: '',
+                    stadium: ''
                 });
                 await fetchTeams();
                 alert('Đã thêm đội bóng thành công');
@@ -383,6 +385,16 @@ const Dashboard = () => {
                                     placeholder="https://example.com/logo.png"
                                 />
                             </div>
+                            <div className={styles.formGroup}>
+                                <label>Sân vận động:</label>
+                                <input
+                                    type="text"
+                                    value={newTeam.stadium}
+                                    onChange={(e) => setNewTeam({...newTeam, stadium: e.target.value.trim()})}
+                                    required
+                                    placeholder="Nhập tên sân vận động"
+                                />
+                            </div>
                             <div className={styles.modalActions}>
                                 <button type="submit" className={styles.submitButton}>
                                     <FontAwesomeIcon icon={faSave} /> Lưu
@@ -395,7 +407,8 @@ const Dashboard = () => {
                                         setNewTeam({
                                             name: '',
                                             shortName: '',
-                                            logo: ''
+                                            logo: '',
+                                            stadium: ''
                                         });
                                     }}
                                 >
@@ -437,6 +450,15 @@ const Dashboard = () => {
                                     type="text"
                                     value={selectedTeam.logo}
                                     onChange={(e) => setSelectedTeam({...selectedTeam, logo: e.target.value})}
+                                    required
+                                />
+                            </div>
+                            <div className={styles.formGroup}>
+                                <label>Sân vận động:</label>
+                                <input
+                                    type="text"
+                                    value={selectedTeam.stadium}
+                                    onChange={(e) => setSelectedTeam({...selectedTeam, stadium: e.target.value})}
                                     required
                                 />
                             </div>
