@@ -25,7 +25,7 @@ function Header() {
     };
 
     const MENU_ITEMS = [
-        {
+        ...(user?.role === 'user' ? [{
             icon: <FontAwesomeIcon icon={faUser} />,
             title: 'Thông tin tài khoản',
             to: config.routes.info,
@@ -39,7 +39,8 @@ function Header() {
             icon: <FontAwesomeIcon icon={faEye} />,
             title: 'Tin đã xem',
             to: config.routes.viewed,
-        },
+        }] :[]) 
+        ,
         ...(user?.role === 'admin' ? [
             {
                 icon: <FontAwesomeIcon icon={faGaugeHigh} />,
