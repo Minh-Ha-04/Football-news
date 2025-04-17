@@ -3,7 +3,6 @@ import classNames from 'classnames/bind';
 import Section from '~/layouts/components/Section';
 import { Link } from 'react-router-dom';
 import Button from '~/components/Button';
-import Article from '~/components/Article';
 import Ads from '~/components/Ads';
 import { useEffect,useState } from 'react';
 import routes from '~/config/routes';
@@ -34,7 +33,7 @@ function News() {
     const remainingArticles = articles.slice(0,visibleCount);
     return (
         <div className={cx('news')}>
-            <Section />
+            <Section/>
             <div className={cx('container')}>
                 <div className={cx('hotnews')}>
                     <h2 className={cx('header')}>Tin bóng đá mới nhẩt</h2>

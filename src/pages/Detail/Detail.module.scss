@@ -55,11 +55,11 @@
             }
 
             &.saved {
-                background: #e8f5e9;
-                color: rgb(119, 179, 60);
+                background: rgb(119, 179, 60);
+                color: #fff;
 
                 &:hover {
-                    background: #c8e6c9;
+                    background: rgb(119, 179, 60,0.8);
                 }
             }
         }
@@ -236,7 +236,7 @@
             transition: all 0.3s;
 
             &:hover {
-                background: darken(rgb(119, 179, 60), 10%);
+                background: rgb(119, 179, 60);
                 transform: translateY(-2px);
             }
         }

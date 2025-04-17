@@ -52,7 +52,6 @@ function Matches() {
 
             <div className={cx('container')}>
                 <div className={cx('content')}>
-                    <time className={cx('time-post')}>Thứ Bảy, ngày 22/03/2025 03:44 AM (GMT+7)</time>
                     <h1 className={cx('title')}>Kết quả BÓNG ĐÁ giải Ngoại Hạng Anh 2024/2025 mới nhất</h1>
                     <p className={cx('desc')}>
                         Trân trọng giới thiệu tới độc giả kết quả thi đấu bóng đá Anh giải Ngoại Hạng Anh - Premier

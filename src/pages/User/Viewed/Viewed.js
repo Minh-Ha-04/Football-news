@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './Viewed.module.scss';
 import classNames from 'classnames/bind';
-import HotNews from '~/components/HotNews';
 import { useAuth } from '~/contexts/AuthContext';
 import axios from 'axios';
 import Article from '~/components/Article';
@@ -19,7 +18,7 @@ function Viewed() {
             
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('http://localhost:5000/article', {
+                const response = await axios.get('http://localhost:5000/article/viewed', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

@@ -7,7 +7,7 @@ const routes = {
     matches: '/matches',
     login: '/login',
     detail: '/detail/:slug',
-
+    team: '/team/:id',
     info: '/user',
     viewed :'/user/viewed',
     saved: '/user/saved',

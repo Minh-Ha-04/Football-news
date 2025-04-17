@@ -3,13 +3,14 @@ import { useParams } from 'react-router-dom';
 import styles from './Detail.module.scss';
 import classNames from 'classnames/bind';
 import Section from '~/layouts/components/Section';
-import Button from '~/components/Button';
 import Ads from '~/components/Ads';
 import HotNews from '~/components/HotNews';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookBookmark, faShare, faBookmark, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const cx = classNames.bind(styles);
 
@@ -27,29 +28,42 @@ function Detail() {
 
         const fetchArticle = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/articles/${slug}`);
-                const data = await response.json();
+                const response = await axios.get(`http://localhost:5000/articles/${slug}`);
+                const data = response.data;
                 
                 if (isMounted) {
                     setArticle(data);
 
-                    // Lưu bài viết đã xem nếu người dùng đã đăng nhập
+                    // Kiểm tra xem bài viết đã được lưu chưa
                     if (user) {
                         try {
                             const token = localStorage.getItem('token');
+                            // Lưu bài viết đã xem
                             await axios.post(`http://localhost:5000/article/${data._id}/view`, {}, {
                                 headers: {
                                     Authorization: `Bearer ${token}`
                                 }
                             });
-                            console.log('Đã lưu bài viết đã xem');
+
+                            // Kiểm tra trạng thái lưu bài
+                            const savedResponse = await axios.get(`http://localhost:5000/article/saved`, {
+                                headers: {
+                                    Authorization: `Bearer ${token}`
+                                }
+                            });
+                            // Kiểm tra xem bài viết hiện tại có trong danh sách đã lưu không
+                            const isArticleSaved = savedResponse.data.data.some(
+                                savedArticle => savedArticle.article._id === data._id
+                            );
+                            setIsSaved(isArticleSaved);
                         } catch (error) {
-                            console.error('Lỗi khi lưu bài viết đã xem:', error);
+                            console.error('Lỗi khi kiểm tra trạng thái bài viết:', error);
                         }
                     }
                 }
             } catch (error) {
                 console.error('Lỗi khi lấy bài viết:', error);
+                toast.error('Không thể tải bài viết');
             } finally {
                 if (isMounted) {
                     setLoading(false);
@@ -64,8 +78,36 @@ function Detail() {
         };
     }, [slug, user]);
 
-    const handleSave = () => {
-        setIsSaved(!isSaved);
+    const handleSave = async () => {
+        if (!user) {
+            toast.error('Vui lòng đăng nhập để lưu bài viết');
+            return;
+        }
+
+        try {
+            const token = localStorage.getItem('token');
+            if (isSaved) {
+                // Gửi request DELETE để bỏ lưu bài viết
+                await axios.delete(`http://localhost:5000/article/${article._id}/unsave`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                toast.success('Đã bỏ lưu bài viết');
+            } else {
+                // Gửi request POST để lưu bài viết, không cần gửi dữ liệu
+                await axios.post(`http://localhost:5000/article/${article._id}/save`, {}, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                toast.success('Đã lưu bài viết');
+            }
+            setIsSaved(!isSaved);
+        } catch (error) {
+            console.error('Lỗi khi thực hiện thao tác:', error);
+            toast.error('Có lỗi xảy ra, vui lòng thử lại sau');
+        }
     };
 
     const handleFeedbackSubmit = (e) => {
@@ -86,6 +128,7 @@ function Detail() {
 
     return (
         <div className={cx('news')}>
+            <ToastContainer />
             <Section />
             <div className={cx('container')}>
                 <div className={cx('left')}>
@@ -105,14 +148,14 @@ function Detail() {
                     </div>
 
                     <div className={cx('media')}>
-                        <Button rounded className={cx('media-item', { saved: isSaved })} onClick={handleSave}>
+                        <button className={cx('media-item', { saved: isSaved })} onClick={handleSave}>
                             <FontAwesomeIcon icon={isSaved ? faBookmark : faBookBookmark} />
                             {isSaved ? 'Bỏ lưu' : 'Lưu bài'}
-                        </Button>
-                        <Button rounded className={cx('media-item')}>
+                        </button>
+                        <button className={cx('media-item')}>
                             <FontAwesomeIcon icon={faShare} />
                             Chia sẻ
-                        </Button>
+                        </button>
                     </div>
 
                     <strong className={cx('desc')}>
@@ -126,20 +169,19 @@ function Detail() {
                     <div className={cx('content')}>
                         {article.content}
                     </div>
-                    <p className={cx('author')}>Tác giả :Tiến Long</p>
                     <div className={cx('media')}>
-                        <Button rounded className={cx('media-item', { saved: isSaved })} onClick={handleSave}>
+                        <button rounded className={cx('media-item', { saved: isSaved })} onClick={handleSave}>
                             <FontAwesomeIcon icon={isSaved ? faBookmark : faBookBookmark} />
                             {isSaved ? 'Bỏ lưu' : 'Lưu bài'}
-                        </Button>
-                        <Button rounded className={cx('media-item')} onClick={() => setShowFeedback(true)}>
+                        </button>
+                        <button rounded className={cx('media-item')} onClick={() => setShowFeedback(true)}>
                             <FontAwesomeIcon icon={faPaperPlane} />
                             Gửi góp ý
-                        </Button>
-                        <Button rounded className={cx('media-item')}>
+                        </button>
+                        <button rounded className={cx('media-item')}>
                             <FontAwesomeIcon icon={faShare} />
                             Chia sẻ
-                        </Button>
+                        </button>
                     </div>
 
                     {/* Feedback Modal */}
@@ -148,9 +190,9 @@ function Detail() {
                             <div className={cx('modal')}>
                                 <div className={cx('modal-header')}>
                                     <h3>Gửi góp ý</h3>
-                                    <Button className={cx('close-btn')} onClick={() => setShowFeedback(false)}>
+                                    <button className={cx('close-btn')} onClick={() => setShowFeedback(false)}>
                                         <FontAwesomeIcon icon={faXmark} />
-                                    </Button>
+                                    </button>
                                 </div>
                                 <form onSubmit={handleFeedbackSubmit} className={cx('feedback-form')}>
                                     <textarea
@@ -159,9 +201,9 @@ function Detail() {
                                         placeholder="Nhập góp ý của bạn..."
                                         required
                                     />
-                                    <Button type="submit" className={cx('submit-btn')}>
+                                    <button type="submit" className={cx('submit-btn')}>
                                         Gửi
-                                    </Button>
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -171,7 +213,7 @@ function Detail() {
                         <h2 className={cx('header')}>Tin bóng đá mới nhẩt</h2>
                         <HotNews />
                         <div className={cx('button')}>
-                            <Button rounded>Xem thêm</Button>
+                            <button rounded>Xem thêm</button>
                         </div>
                     </div>
                 </div>

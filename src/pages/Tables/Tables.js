@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from './Tables.module.scss'
 import classNames from 'classnames/bind';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -69,8 +70,10 @@ function Tables() {
                         <tr key={team._id} className={cx('table-row')}>
                             <td className={cx('table-cell')}>{index + 1}</td>
                             <td className={cx('table-cell', 'team-name')}>
-                                <img src={team.logo} alt={team.name} className={cx('logo')} />
-                                <span>{team.name}</span>
+                                <Link to={`/team/${team._id}`} className={cx('team-link')}>
+                                    <img src={team.logo} alt={team.name} className={cx('logo')} />
+                                    <span>{team.name}</span>
+                                </Link>
                             </td>
                             <td className={cx('table-cell', 'match-column')}>
                                 {team.seasonStats.matchesPlayed}

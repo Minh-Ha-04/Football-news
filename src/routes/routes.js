@@ -7,6 +7,7 @@ import Detail from '~/pages/Detail';
 import Info from '~/pages/User/Info';
 import Viewed from '~/pages/User/Viewed';
 import Saved from '~/pages/User/Saved';
+import Team from '~/pages/Team';
 import { UserLayout } from '~/layouts';
 import { FormLayout } from '~/layouts';
 import { AdminLayout } from '~/layouts';
@@ -28,6 +29,7 @@ export const publicRoutes = [
     { path: config.routes.matches, component: Matches, layout: DefaultLayout },
     { path: config.routes.detail, component: Detail, layout: DefaultLayout },
     { path: config.routes.login, component: Login, layout: FormLayout },
+    { path: config.routes.team, component: Team, layout: DefaultLayout },
 ];
 
 // Private routes - chỉ có thể truy cập khi đã đăng nhập

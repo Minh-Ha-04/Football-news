@@ -82,6 +82,19 @@
     font-size: 18px;
 }
 
+.team-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: var(--primary-color);
+    }
+}
+
 // Responsive adjustments
 @media (max-width: 768px) {
     .wrapper {
@@ -118,5 +131,10 @@
                 font-size: 0.95rem;
             }
         }
+    }
+
+    .logo {
+        width: 25px;
+        height: 25px;
     }
 }

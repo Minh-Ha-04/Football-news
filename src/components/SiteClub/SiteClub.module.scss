@@ -23,7 +23,62 @@
     height: 40px;
     border-radius: 50%;
     transition: transform 0.2s ease;
+
+    a {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
     &:hover {
         transform: scale(1.1);
+        cursor: pointer;
+    }
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-size: 16px;
+}
+
+.error {
+    text-align: center;
+    padding: 20px;
+    color: #dc3545;
+    font-size: 16px;
+    background-color: #f8d7da;
+    border-radius: 8px;
+}
+
+// Responsive
+@media (max-width: 768px) {
+    .wrapper {
+        height: auto;
+        padding: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .title {
+        margin-bottom: 10px;
+    }
+
+    .logoContainer {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .logo {
+        width: 35px;
+        height: 35px;
     }
 }
