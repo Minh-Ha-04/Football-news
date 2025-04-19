@@ -311,7 +311,7 @@ export default function MatchScoreForm() {
                     : 'Chưa diễn ra'}
                 </td>
                 <td>{match.stadium}</td>
-                <td>{new Date(match.matchDate).toLocaleString()}</td>
+                <td>{new Date(match.matchDate).toLocaleString('vi-VN')}</td>
                 <td>{match.status === 'upcoming' ? 'Sắp diễn ra' : 'Đã kết thúc'}</td>
                 <td>
                   <button onClick={() => handleEdit(match)} className={cx('action-btn', 'edit-btn')}>
