@@ -2,6 +2,7 @@
     height: 100%;
     display: flex;
     align-items: center;
+
 }
 
 .search {
@@ -18,7 +19,7 @@
         flex: 1;
         height: 100%;
         color: #000;
-        font-size: 1.6rem;
+        font-size: 1.3rem;
         background-color: transparent;
         padding-right: 40px;
     }
@@ -46,4 +47,17 @@
 
 .search-result {
     width: 400px;
+}
+
+.no-result {
+    height: 100px;
+    padding: 8px 16px;
+    color: #78b43d;
+    font-size: 1.4rem;
+    text-align: center;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

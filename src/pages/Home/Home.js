@@ -41,6 +41,7 @@ function Home() {
 
     return (
         <div className={cx('home')}>
+                        <Section /> 
             <div className={cx('content')}>                
                         {/* Cột trái - 2 bài viết */}
                         <div className={cx('col-left')}>
@@ -87,7 +88,7 @@ function Home() {
                             ))}
                         </div>
             </div>
-            <Section /> 
+
             <div className={cx('wrapper')}>
                 <div className={cx('hotnews')}>
                 <h2 className={cx('section-title')}>Tin tức mới nhất</h2>

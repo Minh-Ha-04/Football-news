@@ -91,8 +91,8 @@ function Header() {
                             <div className={cx('user-info')}>
                                 <img
                                     className={cx('user-avatar')}
-                                    src={user.avatar || 'https://resources.premierleague.com/premierleague/photos/players/110x140/p118748.png'}
-                                    alt={user.fullName || user.username}
+                                    src={user.avatar}
+                                    alt={"avatar"}
                                 />
                             </div>
                         </Menu>
