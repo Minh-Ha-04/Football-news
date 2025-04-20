@@ -5,6 +5,7 @@ import Ads from '~/components/Ads';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import Button from '~/components/Button';
 import HotNews from '~/components/HotNews';
 import { Link } from 'react-router-dom';
@@ -17,6 +18,26 @@ function Matches() {
     const [matches, setMatches] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const [articles, setArticles] = useState([]);
+    const [visibleArticles, setVisibleArticles] = useState(5);
+
+    useEffect(() => {
+        const fetchArticles = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/articles');
+                const data = await response.json();
+                // Sắp xếp bài viết theo thời gian đăng mới nhất
+                const sortedArticles = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                setArticles(sortedArticles);
+            } catch (error) {
+                console.error('Error fetching articles:', error);
+            }
+        };
+
+        fetchArticles();
+    }, []);
+
 
     useEffect(() => {
         const fetchMatches = async () => {
@@ -128,8 +149,18 @@ function Matches() {
                     </div>
                     <div className={cx('hotnews')}>
                         <h2 className={cx('header')}>Tin bóng đá mới nhẩt</h2>
-                        <HotNews />
-                        <div className={cx('button')}><Button rounded>Xem thêm</Button></div>
+                        <div className={cx('hot-news')}>
+                        {articles.slice(0, visibleArticles).map((art) => (
+                             <HotNews key={art._id} article={art} />
+                        ))}                
+                        </div>
+                        {articles.length > visibleArticles && (
+                            <div className={cx('button')}>
+                                <Button rounded onClick={() => setVisibleArticles(prev => prev + 5)}>
+                                    Xem thêm <FontAwesomeIcon icon={faChevronDown} />
+                                </Button>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className={cx('right')}>

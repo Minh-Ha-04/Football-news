@@ -8,6 +8,7 @@ const routes = {
     login: '/login',
     detail: '/detail/:slug',
     team: '/team/:id',
+    result: '/result',
     info: '/user',
     viewed :'/user/viewed',
     saved: '/user/saved',

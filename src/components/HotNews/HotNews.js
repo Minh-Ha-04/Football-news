@@ -1,33 +1,16 @@
 import { useState, useEffect } from 'react';
 import styles from './HotNews.module.scss';
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import routes from '~/config/routes';
 
 const cx = classNames.bind(styles);
 
-function HotNews() {
-    const [articles, setArticles] = useState([]);
+function HotNews({article}) {
 
-    useEffect(() => {
-        const fetchArticles = async () => {
-            try {
-                const response = await fetch('http://localhost:5000/articles');
-                const data = await response.json();
-                // Sắp xếp bài viết theo thời gian đăng mới nhất
-                const sortedArticles = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-                setArticles(sortedArticles);
-            } catch (error) {
-                console.error('Error fetching articles:', error);
-            }
-        };
-
-        fetchArticles();
-    }, []);
 
     return (
-        <div className={cx('hot-news-container')}>
-            {articles.map((article) => (
+        <div className={cx('hot-news-container')}>          
                 <Link key={article._id} to={routes.detail.replace(':slug', article.slug)}>
                     <div className={cx('hot-news-item')}>
                         <div className={cx('image-container')}>
@@ -50,7 +33,6 @@ function HotNews() {
                         </div>
                     </div>
                 </Link>
-            ))}
         </div>
     );
 }

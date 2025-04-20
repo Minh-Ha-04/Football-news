@@ -1,4 +1,4 @@
-import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import {  faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
@@ -7,15 +7,15 @@ import styles from './Search.module.scss';
 import classNames from 'classnames/bind';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function Search() {
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [showResult, setShowResult] = useState(true);
     const inputRef = useRef();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchSearchResults = async () => {
@@ -24,15 +24,12 @@ function Search() {
                 return;
             }
 
-            setLoading(true);
             try {
                 const response = await axios.get(`http://localhost:5000/articles/search?tag=${searchValue}`);
                 setSearchResult(response.data);
             } catch (error) {
                 console.error('Error searching articles:', error);
                 setSearchResult([]);
-            } finally {
-                setLoading(false);
             }
         };
 
@@ -40,15 +37,20 @@ function Search() {
         return () => clearTimeout(debounceTimer);
     }, [searchValue]);
 
-    const handleClear = () => {
-        setSearchValue('');
-        setSearchResult([]);
-        inputRef.current.focus();
-    };
 
     const handleHideResult = () => {
         setSearchValue('');
         setSearchResult([]);
+    };
+
+    const handleSearchItemClick = () => {
+        handleHideResult();
+    };
+
+    const handleSearch = () => {
+        if (searchResult.length > 0) {
+            navigate('/result', { state: { results: searchResult, searchTerm: searchValue } });
+        }
     };
 
     return (
@@ -60,13 +62,16 @@ function Search() {
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                         <PopperWrapper>
                             {searchResult.length > 0 ? (
-                                searchResult.map((article) => (
-                                    <SearchItem
-                                        key={article._id}
-                                        slug={article.slug}
-                                        title={article.title}
-                                        image={article.image}
-                                    />
+                                searchResult.slice(0, 5).map((article) => (
+                                    <div key={article._id} onClick={handleSearchItemClick}>
+                                        <SearchItem
+                                            slug={article.slug}
+                                            title={article.title}
+                                            image={article.image}
+                                            description={article.description}
+
+                                        />
+                                    </div>
                                 ))
                             ) : (
                                 <div className={cx('no-result')}>Không tìm thấy kết quả</div>
@@ -82,14 +87,12 @@ function Search() {
                         value={searchValue}
                         placeholder="Tìm kiếm bài viết"
                         onChange={(e) => setSearchValue(e.target.value)}
-                        onFocus={() => setShowResult(true)}
                     />
-                    {!!searchValue && (
-                        <button className={cx('clear')} onClick={handleClear}>
-                            <FontAwesomeIcon icon={faCircleXmark} />
-                        </button>
-                    )}
-                    <button className={cx('search-btn')}>
+                    <button 
+                        className={cx('search-btn', { disabled: searchResult.length === 0 })}
+                        onClick={handleSearch}
+                        disabled={searchResult.length === 0}
+                    >
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </button>
                 </div>

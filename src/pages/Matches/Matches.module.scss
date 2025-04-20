@@ -239,10 +239,27 @@
         }
     }
 
-    .button {
+
+    button {
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
         display: flex;
-        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin: 0 auto;
         margin-top: 20px;
+        &:hover {
+            background-color: rgb(99, 159, 40);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(119, 179, 60, 0.2);
+        }
+
+        svg {
+            font-size: 14px;
+        }
     }
 }
 

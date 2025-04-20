@@ -25,23 +25,25 @@
     }
 }
 
-.clear{
-    position: absolute;
-    right: 60px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
 .search-btn {
     width: 50px;
     height: 100%;
-    border-top-right-radius: 92px;
-    border-bottom-right-radius: 92px;
+    border-top-right-radius: 22px;
+    border-bottom-right-radius: 22px;
     font-size: 1.8rem;
-
+    background-color: transparent;
+    
     &:hover {
         cursor: pointer;
-        opacity: 0.6;
+        color: #78b43d;
+    }
+
+    &.disabled {
+        cursor: default;
+
+        &:hover {
+            color: rgba(16, 16, 16, 0.3);   
+        }    
     }
 }
 

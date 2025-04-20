@@ -1,11 +1,10 @@
 import styles from './News.module.scss';
 import classNames from 'classnames/bind';
 import Section from '~/layouts/components/Section';
-import { Link } from 'react-router-dom';
 import Button from '~/components/Button';
 import Ads from '~/components/Ads';
 import { useEffect,useState } from 'react';
-import routes from '~/config/routes';
+import HotNews from '~/components/HotNews';
 const cx = classNames.bind(styles);
 
 function News() {
@@ -39,15 +38,7 @@ function News() {
                     <h2 className={cx('header')}>Tin bóng đá mới nhẩt</h2>
                     <div className={cx('news-grid')}>
                             {remainingArticles.map((article) => (
-                                <Link key={article._id} to={routes.detail.replace(':slug', article.slug)} className={cx('news-item')}>
-                                    <div className={cx('image-container')}>
-                                        <img src={article.image || 'https://via.placeholder.com/200x150'} alt={article.title} />
-                                    </div>
-                                    <div className={cx('content')}>
-                                        <h3 className={cx('title')}>{article.title}</h3>
-                                        <p className={cx('description')}>{article.description}</p>
-                                    </div>
-                                </Link>
+                                <HotNews key={article._id} article={article} />
                             ))}
                         </div>
                     <div className={cx('button')}>
