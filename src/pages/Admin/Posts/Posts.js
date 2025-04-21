@@ -68,12 +68,12 @@ export default function Posts() {
     });
 
     // Xử lý chọn/bỏ chọn tag
-    const handleTagToggle = (shortName) => {
+    const handleTagToggle = (name) => {
         setSelectedTags(prev => {
-            if (prev.includes(shortName.toLowerCase())) {
-                return prev.filter(tag => tag !== shortName.toLowerCase());
+            if (prev.includes(name.toLowerCase())) {
+                return prev.filter(tag => tag !== name.toLowerCase());
             } else {
-                return [...prev, shortName.toLowerCase()];
+                return [...prev, name.toLowerCase()];
             }
         });
     };
@@ -203,12 +203,12 @@ export default function Posts() {
                                 key={team._id}
                                 type="button"
                                 className={cx('tagButton', { 
-                                    selected: selectedTags.includes(team.shortName.toLowerCase()) 
+                                    selected: selectedTags.includes(team.name.toLowerCase()) 
                                 })}
-                                onClick={() => handleTagToggle(team.shortName)}
+                                onClick={() => handleTagToggle(team.name)}
                             >
                                 <img src={team.logo} alt={team.name} className={cx('teamLogo')} />
-                                {team.shortName}
+                                {team.name}
                             </button>
                         ))}
                     </div>

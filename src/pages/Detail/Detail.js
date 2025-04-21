@@ -6,11 +6,12 @@ import Section from '~/layouts/components/Section';
 import Ads from '~/components/Ads';
 import HotNews from '~/components/HotNews';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookBookmark, faShare, faBookmark, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faBookBookmark, faShare, faBookmark, faXmark,faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Button from '~/components/Button';
 
 const cx = classNames.bind(styles);
 
@@ -22,6 +23,25 @@ function Detail() {
     const [showFeedback, setShowFeedback] = useState(false);
     const [feedback, setFeedback] = useState('');
     const [user] = useState(JSON.parse(localStorage.getItem('user')));
+    
+    const [articles, setArticles] = useState([]);
+    const [visibleArticles, setVisibleArticles] = useState(5);
+
+    useEffect(() => {
+        const fetchArticles = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/articles');
+                const data = await response.json();
+                // Sắp xếp bài viết theo thời gian đăng mới nhất
+                const sortedArticles = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                setArticles(sortedArticles);
+            } catch (error) {
+                console.error('Error fetching articles:', error);
+            }
+        };
+
+        fetchArticles();
+    }, []);
 
     useEffect(() => {
         let isMounted = true;
@@ -126,6 +146,9 @@ function Detail() {
         return <div className={cx('error')}>Không tìm thấy bài viết</div>;
     }
 
+
+    
+
     return (
         <div className={cx('news')}>
             <ToastContainer />
@@ -210,11 +233,19 @@ function Detail() {
                     )}
 
                     <div className={cx('hotnews')}>
-                        <h2 className={cx('header')}>Tin bóng đá mới nhẩt</h2>
-                        <HotNews />
-                        <div className={cx('button')}>
-                            <button rounded>Xem thêm</button>
+                    <h2 className={cx('header')}>Tin bóng đá mới nhẩt</h2>
+                        <div className={cx('hot-news')}>
+                        {articles.slice(0, visibleArticles).map((art) => (
+                             <HotNews key={art._id} article={art} />
+                        ))}                
                         </div>
+                        {articles.length > visibleArticles && (
+                            <div className={cx('button')}>
+                                <Button rounded onClick={() => setVisibleArticles(prev => prev + 5)}>
+                                    Xem thêm <FontAwesomeIcon icon={faChevronDown} />
+                                </Button>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className={cx('right')}>

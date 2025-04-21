@@ -2,7 +2,6 @@ import {  faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
-import SearchItem from '~/components/SearchItem';
 import styles from './Search.module.scss';
 import classNames from 'classnames/bind';
 import { useEffect, useState, useRef } from 'react';
@@ -14,42 +13,110 @@ const cx = classNames.bind(styles);
 function Search() {
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
+    const [teams, setTeams] = useState([]);
     const inputRef = useRef();
     const navigate = useNavigate();
 
+    // Lấy danh sách đội bóng
     useEffect(() => {
-        const fetchSearchResults = async () => {
-            if (!searchValue.trim()) {
-                setSearchResult([]);
-                return;
-            }
-
+        const fetchTeams = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/articles/search?tag=${searchValue}`);
-                setSearchResult(response.data);
+                const response = await axios.get('http://localhost:5000/team');
+                if (response.data.success) {
+                    setTeams(response.data.data);
+                }
             } catch (error) {
-                console.error('Error searching articles:', error);
-                setSearchResult([]);
+                console.error('Lỗi khi lấy danh sách đội bóng:', error);
             }
         };
+        fetchTeams();
+    }, []);
 
-        const debounceTimer = setTimeout(fetchSearchResults, 500);
-        return () => clearTimeout(debounceTimer);
-    }, [searchValue]);
+    useEffect(() => {
+        if (!searchValue.trim()) {
+            setSearchResult([]);
+            return;
+        }
 
+        // Tìm kiếm đội bóng dựa trên tên
+        const filteredTeams = teams.filter(team => 
+            team.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+            team.shortName.toLowerCase().includes(searchValue.toLowerCase())
+        );
+        setSearchResult(filteredTeams);
+    }, [searchValue, teams]);
 
     const handleHideResult = () => {
         setSearchValue('');
         setSearchResult([]);
     };
 
-    const handleSearchItemClick = () => {
+    const handleSearchItemClick = async (team) => {
+        try {
+            // Lấy các bài viết có tag trùng với tên đội bóng
+            const response = await axios.get(`http://localhost:5000/articles/search?tag=${team.name}`);
+            navigate('/result', { 
+                state: { 
+                    results: response.data || [], // Đảm bảo luôn có mảng, ngay cả khi không có kết quả
+                    searchTerm: team.name,
+                    teamInfo: team
+                } 
+            });
+        } catch (error) {
+            console.error('Lỗi khi tìm bài viết:', error);
+            // Vẫn chuyển đến trang Result với mảng rỗng khi có lỗi
+            navigate('/result', { 
+                state: { 
+                    results: [],
+                    searchTerm: team.name,
+                    teamInfo: team
+                } 
+            });
+        }
         handleHideResult();
     };
 
-    const handleSearch = () => {
+    const handleSearch = async () => {
         if (searchResult.length > 0) {
-            navigate('/result', { state: { results: searchResult, searchTerm: searchValue } });
+            try {
+                // Lấy tất cả bài viết liên quan đến các đội bóng trong kết quả tìm kiếm
+                const allArticles = [];
+                const searchPromises = searchResult.map(team => 
+                    axios.get(`http://localhost:5000/articles/search?tag=${team.name}`)
+                );
+
+                const responses = await Promise.all(searchPromises);
+                responses.forEach((response, index) => {
+                    if (response.data && response.data.length > 0) {
+                        // Thêm thông tin đội bóng vào mỗi bài viết
+                        const articlesWithTeam = response.data.map(article => ({
+                            ...article,
+                            teamInfo: searchResult[index]
+                        }));
+                        allArticles.push(...articlesWithTeam);
+                    }
+                });
+
+                // Luôn chuyển hướng đến trang kết quả, kể cả khi không có bài viết
+                navigate('/result', {
+                    state: {
+                        results: allArticles,
+                        searchTerm: searchValue,
+                        teams: searchResult // Gửi thông tin tất cả đội bóng tìm thấy
+                    }
+                });
+            } catch (error) {
+                console.error('Lỗi khi tìm bài viết:', error);
+                // Vẫn chuyển đến trang Result với mảng rỗng khi có lỗi
+                navigate('/result', {
+                    state: {
+                        results: [],
+                        searchTerm: searchValue,
+                        teams: searchResult
+                    }
+                });
+            }
+            handleHideResult();
         }
     };
 
@@ -62,19 +129,21 @@ function Search() {
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                         <PopperWrapper>
                             {searchResult.length > 0 ? (
-                                searchResult.slice(0, 5).map((article) => (
-                                    <div key={article._id} onClick={handleSearchItemClick}>
-                                        <SearchItem
-                                            slug={article.slug}
-                                            title={article.title}
-                                            image={article.image}
-                                            description={article.description}
-
-                                        />
+                                searchResult.slice(0, 5).map((team) => (
+                                    <div 
+                                        key={team._id} 
+                                        onClick={() => handleSearchItemClick(team)}
+                                        className={cx('team-item')}
+                                    >
+                                        <img src={team.logo} alt={team.name} className={cx('team-logo')} />
+                                        <div className={cx('team-info')}>
+                                            <span className={cx('team-name')}>{team.name}</span>
+                                            <span className={cx('team-shortname')}>{team.shortName}</span>
+                                        </div>
                                     </div>
                                 ))
                             ) : (
-                                <div className={cx('no-result')}>Không tìm thấy kết quả</div>
+                                <div className={cx('no-result')}>Không tìm thấy đội bóng</div>
                             )}
                         </PopperWrapper>
                     </div>
@@ -85,7 +154,7 @@ function Search() {
                     <input
                         ref={inputRef}
                         value={searchValue}
-                        placeholder="Tìm kiếm bài viết"
+                        placeholder="Tìm kiếm đội bóng"
                         onChange={(e) => setSearchValue(e.target.value)}
                     />
                     <button 
