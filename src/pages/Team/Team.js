@@ -4,24 +4,33 @@ import classNames from 'classnames/bind';
 import styles from './Team.module.scss';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShirt, faRulerVertical, faWeightScale } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
 function Team() {
     const { id } = useParams();
     const [team, setTeam] = useState(null);
+    const [players, setPlayers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchTeam = async () => {
+        const fetchTeamData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/team/${id}`);
-                if (response.data.success) {
-                    setTeam(response.data.data);
+                // Lấy thông tin đội bóng
+                const teamResponse = await axios.get(`http://localhost:5000/team/${id}`);
+                if (teamResponse.data.success) {
+                    setTeam(teamResponse.data.data);
                 }
+
+                // Lấy danh sách cầu thủ của đội
+                const playersResponse = await axios.get(`http://localhost:5000/player/team/${id}`);
+                setPlayers(playersResponse.data || []);
+
             } catch (err) {
-                console.error('Error fetching team:', err);
+                console.error('Error fetching team data:', err);
                 setError('Không thể tải thông tin đội bóng');
                 toast.error('Không thể tải thông tin đội bóng');
             } finally {
@@ -29,7 +38,7 @@ function Team() {
             }
         };
 
-        fetchTeam();
+        fetchTeamData();
     }, [id]);
 
     if (loading) {
@@ -95,6 +104,39 @@ function Team() {
                         <span className={cx('stat-label')}>Hiệu số</span>
                         <span className={cx('stat-value')}>{team.seasonStats.goalDifference}</span>
                     </div>
+                </div>
+            </div>
+
+            <div className={cx('players')}>
+                <h2 className={cx('title')}>Danh sách cầu thủ</h2>
+                <div className={cx('players-grid')}>
+                    {players.map(player => (
+                        <div key={player._id} className={cx('player-card')}>
+                            <div className={cx('player-image')}>
+                                <img src={player.image} alt={player.name} />
+                            </div>
+                            <div className={cx('player-info')}>
+                                <h3 className={cx('player-name')}>{player.name}</h3>
+                                <div className={cx('player-details')}>
+                                    <div className={cx('detail-item')}>
+                                        <FontAwesomeIcon icon={faShirt} />
+                                        <span>Số áo: {player.number}</span>
+                                    </div>
+                                    <div className={cx('detail-item')}>
+                                        <span>Vị trí: {player.position}</span>
+                                    </div>
+                                    <div className={cx('detail-item')}>
+                                        <FontAwesomeIcon icon={faRulerVertical} />
+                                        <span>Chiều cao: {player.height} cm</span>
+                                    </div>
+                                    <div className={cx('detail-item')}>
+                                        <FontAwesomeIcon icon={faWeightScale} />
+                                        <span>Cân nặng: {player.weight} kg</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

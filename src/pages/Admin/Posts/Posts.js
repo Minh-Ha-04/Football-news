@@ -3,7 +3,6 @@ import { useDropzone } from 'react-dropzone';
 import { useState, useEffect } from 'react';
 import styles from './Posts.module.scss';
 import classNames from 'classnames/bind';
-import Button from '~/components/Button';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';

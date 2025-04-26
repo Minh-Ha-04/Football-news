@@ -1,303 +1,322 @@
 [
-    {
-      "name": "Liverpool",
-      "shortName": "LIV",
-      "logo": "https://resources.premierleague.com/premierleague/badges/50/t14.png",
-      "seasonStats": {
-        "matchesPlayed": 29,
-        "wins": 21,
-        "draws": 7,
-        "losses": 1,
-        "points": 70,
-        "goalDifference": 42,
-        "goalsConceded": 27,
-        "goalsScored": 69
-      }
-    },
-    {
-      "name": "Arsenal",
-      "shortName": "ARS",
-      "logo": "https://resources.premierleague.com/premierleague/badges/50/t3.png",
-      "seasonStats": {
-        "matchesPlayed": 29,
-        "wins": 16,
-        "draws": 10,
-        "losses": 3,
-        "points": 58,
-        "goalDifference": 29,
-        "goalsConceded": 24,
-        "goalsScored": 53
-      }
-    },
-    {
-      "name": "Nottingham Forest",
-      "shortName": "NOT",
-      "logo": "https://resources.premierleague.com/premierleague/badges/50/t17.png",
-      "seasonStats": {
-        "matchesPlayed": 29,
-        "wins": 16,
-        "draws": 6,
-        "losses": 7,
-        "points": 54,
-        "goalDifference": 14,
-        "goalsConceded": 35,
-        "goalsScored": 49
-      }
-    },
-    {
-      "name": "Chelsea",
-      "shortName": "CHE",
-      "logo": "https://resources.premierleague.com/premierleague/badges/50/t8.png",
-      "seasonStats": {
-        "matchesPlayed": 29,
-        "wins": 14,
-        "draws": 7,
-        "losses": 8,
-        "points": 49,
-        "goalDifference": 16,
-        "goalsConceded": 37,
-        "goalsScored": 53
-      }
-    },
-    {
-      "name": "Manchester City",
-      "shortName": "MCI",
-      "logo": "https://resources.premierleague.com/premierleague/badges/50/t43.png",
-      "seasonStats": {
-        "matchesPlayed": 29,
-        "wins": 14,
-        "draws": 6,
-        "losses": 9,
-        "points": 48,
-        "goalDifference": 15,
-        "goalsConceded": 40,
-        "goalsScored": 55
-      }
-    },
-    {
-      "name": "Newcastle United",
-      "shortName": "NEW",
-      "logo": "https://resources.premierleague.com/premierleague/badges/50/t4.png",
-      "seasonStats": {
-        "matchesPlayed": 28,
-        "wins": 14,
-        "draws": 5,
-        "losses": 9,
-        "points": 47,
-        "goalDifference": 9,
-        "goalsConceded": 38,
-        "goalsScored": 47
-      }
-    },
-    {
-      "name": "Brighton & Hove Albion",
-      "shortName": "BHA",
-      "logo": "https://resources.premierleague.com/premierleague/badges/50/t36.png",
-      "seasonStats": {
-        "matchesPlayed": 29,
-        "wins": 12,
-        "draws": 11,
-        "losses": 6,
-        "points": 47,
-        "goalDifference": 6,
-        "goalsConceded": 42,
-        "goalsScored": 48
-      }
-    },
-        {
-          "name": "Fulham",
-          "shortName": "FUL",
-          "logo": "https://resources.premierleague.com/premierleague/badges/50/t54.png",
-          "seasonStats": {
-            "matchesPlayed": 29,
-            "wins": 12,
-            "draws": 9,
-            "losses": 8,
-            "points": 45,
-            "goalDifference": 5,
-            "goalsConceded": 38,
-            "goalsScored": 43
-          }
-        },
-        {
-          "name": "Aston Villa",
-          "shortName": "AVL",
-          "logo": "https://resources.premierleague.com/premierleague/badges/50/t7.png",
-          "seasonStats": {
-            "matchesPlayed": 29,
-            "wins": 12,
-            "draws": 9,
-            "losses": 8,
-            "points": 45,
-            "goalDifference": -4,
-            "goalsConceded": 45,
-            "goalsScored": 41
-          }
-        },
-        {
-          "name": "AFC Bournemouth",
-          "shortName": "BOU",
-          "logo": "https://resources.premierleague.com/premierleague/badges/50/t91.png",
-          "seasonStats": {
-            "matchesPlayed": 29,
-            "wins": 12,
-            "draws": 8,
-            "losses": 9,
-            "points": 44,
-            "goalDifference": 12,
-            "goalsConceded": 36,
-            "goalsScored": 48
-          }
-        },
-        {
-          "name": "Brentford",
-          "shortName": "BRE",
-          "logo": "https://resources.premierleague.com/premierleague/badges/50/t94.png",
-          "seasonStats": {
-            "matchesPlayed": 29,
-            "wins": 12,
-            "draws": 5,
-            "losses": 12,
-            "points": 41,
-            "goalDifference": 5,
-            "goalsConceded": 45,
-            "goalsScored": 50
-          }
-        },
-        {
-          "name": "Crystal Palace",
-          "shortName": "CRY",
-          "logo": "https://resources.premierleague.com/premierleague/badges/50/t31.png",
-          "seasonStats": {
-            "matchesPlayed": 28,
-            "wins": 10,
-            "draws": 9,
-            "losses": 9,
-            "points": 39,
-            "goalDifference": 3,
-            "goalsConceded": 33,
-            "goalsScored": 36
-          }
-        },
-        {
-          "name": "Manchester United",
-          "shortName": "MUN",
-          "logo": "https://resources.premierleague.com/premierleague/badges/50/t1.png",
-          "seasonStats": {
-            "matchesPlayed": 29,
-            "wins": 10,
-            "draws": 7,
-            "losses": 12,
-            "points": 37,
-            "goalDifference": -3,
-            "goalsConceded": 40,
-            "goalsScored": 37
-          }
-        },
-        {
-          "name": "Tottenham Hotspur",
-          "shortName": "TOT",
-          "logo": "https://resources.premierleague.com/premierleague/badges/50/t6.png",
-          "seasonStats": {
-            "matchesPlayed": 29,
-            "wins": 10,
-            "draws": 4,
-            "losses": 15,
-            "points": 34,
-            "goalDifference": 12,
-            "goalsConceded": 43,
-            "goalsScored": 55
-          }
-        },
-            {
-              "name": "Everton",
-              "shortName": "EVE",
-              "logo": "https://resources.premierleague.com/premierleague/badges/50/t11.png",
-              "seasonStats": {
-                "matchesPlayed": 29,
-                "wins": 7,
-                "draws": 13,
-                "losses": 9,
-                "points": 34,
-                "goalDifference": -4,
-                "goalsConceded": 36,
-                "goalsScored": 32
-              }
-            },
-            {
-              "name": "West Ham United",
-              "shortName": "WES",
-              "logo": "https://resources.premierleague.com/premierleague/badges/50/t21.png",
-              "seasonStats": {
-                "matchesPlayed": 29,
-                "wins": 9,
-                "draws": 7,
-                "losses": 13,
-                "points": 34,
-                "goalDifference": -16,
-                "goalsConceded": 49,
-                "goalsScored": 33
-              }
-            },
-            {
-              "name": "Wolverhampton Wanderers",
-              "shortName": "WOL",
-              "logo": "https://resources.premierleague.com/premierleague/badges/50/t39.png",
-              "seasonStats": {
-                "matchesPlayed": 29,
-                "wins": 7,
-                "draws": 5,
-                "losses": 17,
-                "points": 26,
-                "goalDifference": -18,
-                "goalsConceded": 58,
-                "goalsScored": 40
-              }
-            },
-            {
-              "name": "Ipswich Town",
-              "shortName": "IPS",
-              "logo": "https://resources.premierleague.com/premierleague/badges/50/t40.png",
-              "seasonStats": {
-                "matchesPlayed": 29,
-                "wins": 3,
-                "draws": 8,
-                "losses": 18,
-                "points": 17,
-                "goalDifference": -34,
-                "goalsConceded": 62,
-                "goalsScored": 28
-              }
-            },
-            {
-              "name": "Leicester City",
-              "shortName": "LEI",
-              "logo": "https://resources.premierleague.com/premierleague/badges/50/t13.png",
-              "seasonStats": {
-                "matchesPlayed": 29,
-                "wins": 4,
-                "draws": 5,
-                "losses": 20,
-                "points": 17,
-                "goalDifference": -40,
-                "goalsConceded": 65,
-                "goalsScored": 25
-              }
-            },
-            {
-              "name": "Southampton",
-              "shortName": "SOU",
-              "logo": "https://resources.premierleague.com/premierleague/badges/50/t20.png",
-              "seasonStats": {
-                "matchesPlayed": 29,
-                "wins": 2,
-                "draws": 3,
-                "losses": 24,
-                "points": 9,
-                "goalDifference": -49,
-                "goalsConceded": 70,
-                "goalsScored": 21
-              }
-            }
-  ]
-  
+  { 
+    "name": "Liverpool", 
+    "shortName": "LIV", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t14.png", 
+    "stadium": "Anfield",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 21, 
+      "draws": 7, 
+      "losses": 1, 
+      "goalsScored": 69, 
+      "goalsConceded": 27, 
+      "goalDifference": 42, 
+      "points": 70 
+    }
+  },
+  { 
+    "name": "Arsenal", 
+    "shortName": "ARS", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t3.png", 
+    "stadium": "Emirates Stadium",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 16, 
+      "draws": 10, 
+      "losses": 3, 
+      "goalsScored": 53, 
+      "goalsConceded": 24, 
+      "goalDifference": 29, 
+      "points": 58 
+    }
+  },
+  { 
+    "name": "Nottingham Forest", 
+    "shortName": "NFO", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t17.png", 
+    "stadium": "City Ground",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 16, 
+      "draws": 6, 
+      "losses": 7, 
+      "goalsScored": 49, 
+      "goalsConceded": 35, 
+      "goalDifference": 14, 
+      "points": 54 
+    }
+  },
+  { 
+    "name": "Chelsea", 
+    "shortName": "CHE", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t8.png", 
+    "stadium": "Stamford Bridge",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 14, 
+      "draws": 7, 
+      "losses": 8, 
+      "goalsScored": 53, 
+      "goalsConceded": 37, 
+      "goalDifference": 16, 
+      "points": 49 
+    }
+  },
+  { 
+    "name": "Manchester City", 
+    "shortName": "MCI", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t43.png", 
+    "stadium": "Etihad Stadium",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 14, 
+      "draws": 6, 
+      "losses": 9, 
+      "goalsScored": 55, 
+      "goalsConceded": 40, 
+      "goalDifference": 15, 
+      "points": 48 
+    }
+  },
+  { 
+    "name": "Newcastle United", 
+    "shortName": "NEW", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t4.png", 
+    "stadium": "St James' Park",
+    "seasonStats": {
+      "matchesPlayed": 28, 
+      "wins": 14, 
+      "draws": 5, 
+      "losses": 9, 
+      "goalsScored": 47, 
+      "goalsConceded": 38, 
+      "goalDifference": 9, 
+      "points": 47 
+    }
+  },
+  { 
+    "name": "Brighton & Hove Albion", 
+    "shortName": "BHA", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t36.png", 
+    "stadium": "Amex Stadium",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 12, 
+      "draws": 11, 
+      "losses": 6, 
+      "goalsScored": 48, 
+      "goalsConceded": 42, 
+      "goalDifference": 6, 
+      "points": 47 
+    }
+  },
+  { 
+    "name": "Fulham", 
+    "shortName": "FUL", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t54.png", 
+    "stadium": "Craven Cottage",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 12, 
+      "draws": 9, 
+      "losses": 8, 
+      "goalsScored": 43, 
+      "goalsConceded": 38, 
+      "goalDifference": 5, 
+      "points": 45 
+    }
+  },
+  { 
+    "name": "Aston Villa", 
+    "shortName": "AVL", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t7.png", 
+    "stadium": "Villa Park",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 12, 
+      "draws": 9, 
+      "losses": 8, 
+      "goalsScored": 41, 
+      "goalsConceded": 45, 
+      "goalDifference": -4, 
+      "points": 45 
+    }
+  },
+  { 
+    "name": "AFC Bournemouth", 
+    "shortName": "BOU", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t91.png", 
+    "stadium": "Vitality Stadium",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 12, 
+      "draws": 8, 
+      "losses": 9, 
+      "goalsScored": 48, 
+      "goalsConceded": 36, 
+      "goalDifference": 12, 
+      "points": 44 
+    }
+  },
+  { 
+    "name": "Brentford", 
+    "shortName": "BRE", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t94.png", 
+    "stadium": "Gtech Community Stadium",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 12, 
+      "draws": 5, 
+      "losses": 12, 
+      "goalsScored": 50, 
+      "goalsConceded": 45, 
+      "goalDifference": 5, 
+      "points": 41 
+    }
+  },
+  { 
+    "name": "Crystal Palace", 
+    "shortName": "CPL", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t31.png", 
+    "stadium": "Selhurst Park",
+    "seasonStats": {
+      "matchesPlayed": 28, 
+      "wins": 10, 
+      "draws": 9, 
+      "losses": 9, 
+      "goalsScored": 36, 
+      "goalsConceded": 33, 
+      "goalDifference": 3, 
+      "points": 39 
+    }
+  },
+  { 
+    "name": "Manchester United", 
+    "shortName": "MUN", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t1.png", 
+    "stadium": "Old Trafford",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 10, 
+      "draws": 7, 
+      "losses": 12, 
+      "goalsScored": 37, 
+      "goalsConceded": 40, 
+      "goalDifference": -3, 
+      "points": 37 
+    }
+  },
+  { 
+    "name": "Tottenham Hotspur", 
+    "shortName": "TOT", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t6.png", 
+    "stadium": "Tottenham Hotspur Stadium",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 10, 
+      "draws": 4, 
+      "losses": 15, 
+      "goalsScored": 55, 
+      "goalsConceded": 43, 
+      "goalDifference": 12, 
+      "points": 34 
+    }
+  },
+  { 
+    "name": "Everton", 
+    "shortName": "EVE", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t11.png", 
+    "stadium": "Goodison Park",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 7, 
+      "draws": 13, 
+      "losses": 9, 
+      "goalsScored": 32, 
+      "goalsConceded": 36, 
+      "goalDifference": -4, 
+      "points": 34 
+    }
+  },
+  { 
+    "name": "West Ham United", 
+    "shortName": "WHU", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t21.png", 
+    "stadium": "London Stadium",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 9, 
+      "draws": 7, 
+      "losses": 13, 
+      "goalsScored": 33, 
+      "goalsConceded": 49, 
+      "goalDifference": -16, 
+      "points": 34 
+    }
+  },
+  { 
+    "name": "Wolverhampton Wanderers", 
+    "shortName": "WOL", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t39.png", 
+    "stadium": "Molineux Stadium",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 7, 
+      "draws": 5, 
+      "losses": 17, 
+      "goalsScored": 40, 
+      "goalsConceded": 58, 
+      "goalDifference": -18, 
+      "points": 26 
+    }
+  },
+  { 
+    "name": "Ipswich Town", 
+    "shortName": "IPS", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t40.png", 
+    "stadium": "Portman Road",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 3, 
+      "draws": 8, 
+      "losses": 18, 
+      "goalsScored": 28, 
+      "goalsConceded": 62, 
+      "goalDifference": -34, 
+      "points": 17 
+    }
+  },
+  { 
+    "name": "Leicester City", 
+    "shortName": "LEI", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t13.png", 
+    "stadium": "King Power Stadium",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 4, 
+      "draws": 5, 
+      "losses": 20, 
+      "goalsScored": 25, 
+      "goalsConceded": 65, 
+      "goalDifference": -40, 
+      "points": 17 
+    }
+  },
+  { 
+    "name": "Southampton", 
+    "shortName": "SOU", 
+    "logo": "https://resources.premierleague.com/premierleague/badges/50/t20.png", 
+    "stadium": "St Mary's Stadium",
+    "seasonStats": {
+      "matchesPlayed": 29, 
+      "wins": 2, 
+      "draws": 3, 
+      "losses": 24, 
+      "goalsScored": 21, 
+      "goalsConceded": 70, 
+      "goalDifference": -49, 
+      "points": 9 
+    }
+  }
+]

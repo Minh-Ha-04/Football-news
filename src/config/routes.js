@@ -14,6 +14,7 @@ const routes = {
     saved: '/user/saved',
 
     dashboard: '/admin',
+    adminplayer:'/admin/player',
     post: '/admin/posts',
     matchscore: '/admin/matchscore',
     ads:'/admin/ads',

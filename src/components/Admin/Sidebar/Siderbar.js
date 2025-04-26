@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine, faHome, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faHome, faPersonRunning, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faNewspaper, faSoccerBall } from '@fortawesome/free-regular-svg-icons';
 import routes from '~/config/routes';
 import classNames from 'classnames/bind';
@@ -25,6 +25,11 @@ const Sidebar = () => {
                 <li>
                     <Link to={routes.matchscore}>
                         <FontAwesomeIcon icon={faSoccerBall} /> Quản lý trận đấu
+                    </Link>
+                </li>
+                <li>
+                    <Link to={routes.adminplayer}>
+                        <FontAwesomeIcon icon={faPersonRunning} /> Quản lý cầu thủ
                     </Link>
                 </li>
                 <li>

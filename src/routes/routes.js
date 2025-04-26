@@ -19,6 +19,7 @@ import Post from '~/pages/Admin/Posts';
 import MatchScoreForm from '~/pages/Admin/MatchScoreForm';
 import AdminAds from '~/pages/Admin/AdminAds';
 import Manager from '~/pages/Admin/Manager';
+import AdminPlayer from '~/pages/Admin/AdminPlayer';
 
 import config from '~/config';
 
@@ -48,4 +49,5 @@ export const privateRoutes = [
     { path: config.routes.matchscore, component: MatchScoreForm, layout: AdminLayout , requiredRole: 'admin'},
     { path: config.routes.ads, component: AdminAds, layout: AdminLayout , requiredRole: 'admin'},
     { path: config.routes.manager, component: Manager, layout: AdminLayout , requiredRole: 'admin'},
+    { path: config.routes.adminplayer, component: AdminPlayer, layout: AdminLayout , requiredRole: 'admin'},
 ];
