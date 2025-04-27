@@ -5,7 +5,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const cx= classNames.bind(styles)
-
+const API_URL = process.env.REACT_APP_API_URL 
 function Manager() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -16,7 +16,7 @@ function Manager() {
         const fetchUsers = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('http://localhost:5000/auth', {
+                const response = await axios.get(`${API_URL}/auth`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -43,7 +43,7 @@ function Manager() {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.delete(`http://localhost:5000/auth/${userId}`, {
+            const response = await axios.delete(`${API_URL}/auth/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -63,7 +63,7 @@ function Manager() {
         try {
             const token = localStorage.getItem('token');
             const response = await axios.put(
-                `http://localhost:5000/auth/${userId}/role`,
+                `${API_URL}/auth/${userId}/role`,
                 { role: newRole },
                 {
                     headers: {

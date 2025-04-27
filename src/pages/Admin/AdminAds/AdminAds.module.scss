@@ -118,11 +118,11 @@
         transition: background-color 0.3s;
 
         &.edit-button {
-            background-color: #2196F3;
+            background-color: rgb(119, 179, 60);
             color: white;
 
             &:hover {
-                background-color: #1976D2;
+                background-color: rgba(119, 179, 60,0.8);
             }
         }
 

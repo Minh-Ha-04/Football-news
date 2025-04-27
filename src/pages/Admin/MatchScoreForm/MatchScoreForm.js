@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
+const API_URL = process.env.REACT_APP_API_URL;
 
 export default function MatchScoreForm() {
   const { register, handleSubmit, reset, watch, setValue } = useForm();
@@ -27,7 +28,7 @@ export default function MatchScoreForm() {
 
   const fetchMatches = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/match');
+      const response = await axios.get(`${API_URL}/match`);
       if (response.data.success) {
         setMatches(response.data.data);
       }
@@ -38,7 +39,7 @@ export default function MatchScoreForm() {
 
   const fetchTeams = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/team');
+      const response = await axios.get(`${API_URL}/team`);
       if (response.data.success) {
         setTeams(response.data.data);
       }
@@ -73,33 +74,49 @@ export default function MatchScoreForm() {
         } : null
       };
 
-      console.log('Sending match data:', matchData);
-
       if (isEditing && selectedMatch) {
-        await axios.put(`http://localhost:5000/match/${selectedMatch._id}`, matchData, {
+        await axios.put(`${API_URL}/match/${selectedMatch._id}`, matchData, {
           headers: { Authorization: `Bearer ${token}` }
         });
         alert('Đã cập nhật trận đấu thành công!');
       } else {
-        await axios.post('http://localhost:5000/match', matchData, {
+        await axios.post(`${API_URL}/match`, matchData, {
           headers: { Authorization: `Bearer ${token}` }
         });
         alert('Đã thêm trận đấu thành công!');
       }
 
-      reset();
+      // Reset form và state
+      resetForm();
       fetchMatches();
-      setIsEditing(false);
-      setSelectedMatch(null);
-      setPreviewHomeTeam(null);
-      setPreviewAwayTeam(null);
     } catch (error) {
       console.error('Lỗi khi lưu trận đấu:', error);
       alert('Có lỗi xảy ra khi lưu trận đấu!');
     }
   };
 
+  const resetForm = () => {
+    reset({
+      teamA: '',
+      teamB: '',
+      matchDate: '',
+      matchTime: '',
+      stadium: '',
+      status: 'upcoming',
+      round: 0,
+      homeScore: 0,
+      awayScore: 0
+    });
+    setIsEditing(false);
+    setSelectedMatch(null);
+    setPreviewHomeTeam(null);
+    setPreviewAwayTeam(null);
+  };
+
   const handleEdit = (match) => {
+    // Cuộn lên đầu trang
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
     setSelectedMatch(match);
     setIsEditing(true);
     const matchDateTime = new Date(match.matchDate);
@@ -130,7 +147,7 @@ export default function MatchScoreForm() {
     if (window.confirm('Bạn có chắc chắn muốn xóa trận đấu này?')) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/match/${matchId}`, {
+        await axios.delete(`${API_URL}/match/${matchId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         alert('Đã xóa trận đấu thành công!');
@@ -172,7 +189,7 @@ export default function MatchScoreForm() {
               <div className={cx('team-select-group')}>
                 {previewHomeTeam && (
                   <div className={cx('team-preview')}>
-                    <img src={previewHomeTeam.logo} alt={previewHomeTeam.name} className={cx('preview-logo')} />
+                    <img src={`${API_URL}${previewHomeTeam.logo}`} alt={previewHomeTeam.name} className={cx('preview-logo')} />
                   </div>
                 )}
                 <select 
@@ -193,7 +210,7 @@ export default function MatchScoreForm() {
               <div className={cx('team-select-group')}>
                 {previewAwayTeam && (
                   <div className={cx('team-preview')}>
-                    <img src={previewAwayTeam.logo} alt={previewAwayTeam.name} className={cx('preview-logo')} />
+                    <img src={`${API_URL}${previewAwayTeam.logo}`} alt={previewAwayTeam.name} className={cx('preview-logo')} />
                   </div>
                 )}
                 <select 
@@ -254,11 +271,7 @@ export default function MatchScoreForm() {
               {isEditing ? 'Cập nhật' : 'Thêm mới'}
             </Button>
             {isEditing && (
-              <Button type="button" onClick={() => {
-                setIsEditing(false);
-                setSelectedMatch(null);
-                reset();
-              }} className={cx('cancel-btn')}>
+              <Button type="button" onClick={resetForm} className={cx('cancel-btn')}>
                 Hủy
               </Button>
             )}
@@ -288,7 +301,7 @@ export default function MatchScoreForm() {
                 <td>
                   <div className={cx('team-cell')}>
                     <img 
-                      src={match.logoHomeTeam}
+                      src={`${API_URL}${match.logoHomeTeam}`}
                       alt={match.homeTeam.name} 
                       className={cx('team-logo')} 
                     />
@@ -298,7 +311,7 @@ export default function MatchScoreForm() {
                 <td>
                   <div className={cx('team-cell')}>
                     <img 
-                      src={match.logoAwayTeam}
+                      src={`${API_URL}${match.logoAwayTeam}`}
                       alt={match.awayTeam.name} 
                       className={cx('team-logo')} 
                     />

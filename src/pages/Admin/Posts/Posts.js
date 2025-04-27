@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-
+const API_URL=process.env.REACT_APP_API_URL
 const cx = classNames.bind(styles);
 
 export default function Posts() {
@@ -21,7 +21,7 @@ export default function Posts() {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/team');
+                const response = await axios.get(`${API_URL}/team`);
                 if (response.data.success) {
                     setTeams(response.data.data);
                 }
@@ -36,7 +36,7 @@ export default function Posts() {
     useEffect(() => {
         const fetchArticles = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/articles', {
+                const response = await axios.get(`${API_URL}/articles`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
@@ -102,7 +102,7 @@ export default function Posts() {
     const handleDelete = async (id) => {
         if (window.confirm('Bạn có chắc chắn muốn xóa bài viết này?')) {
             try {
-                const response = await axios.delete(`http://localhost:5000/articles/${id}`, {
+                const response = await axios.delete(`${API_URL}/articles/${id}`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
@@ -145,7 +145,7 @@ export default function Posts() {
             let response;
             if (editingArticle) {
                 // Update existing article
-                response = await axios.put(`http://localhost:5000/articles/${editingArticle._id}`, formData, {
+                response = await axios.put(`${API_URL}/articles/${editingArticle._id}`, formData, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
                         'Content-Type': 'application/json'
@@ -153,7 +153,7 @@ export default function Posts() {
                 });
             } else {
                 // Create new article
-                response = await axios.post('http://localhost:5000/articles', formData, {
+                response = await axios.post(`${API_URL}/articles`, formData, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
                         'Content-Type': 'application/json'
@@ -172,7 +172,7 @@ export default function Posts() {
                 setEditingArticle(null);
                 
                 // Refresh articles list
-                const articlesResponse = await axios.get('http://localhost:5000/articles', {
+                const articlesResponse = await axios.get(`${API_URL}/articles`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
@@ -206,7 +206,7 @@ export default function Posts() {
                                 })}
                                 onClick={() => handleTagToggle(team.name)}
                             >
-                                <img src={team.logo} alt={team.name} className={cx('teamLogo')} />
+                                <img src={`${API_URL}${team.logo}`} alt={team.name} className={cx('teamLogo')} />
                                 {team.name}
                             </button>
                         ))}

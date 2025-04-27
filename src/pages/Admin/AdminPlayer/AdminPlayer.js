@@ -19,7 +19,8 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-// Thêm API_URL nếu ch
+// Thêm API_URL nếu chưa có
+const API_URL = process.env.REACT_APP_API_URL ;
 
 function AdminPlayer() {
     const [players, setPlayers] = useState([]);
@@ -45,7 +46,7 @@ function AdminPlayer() {
 
     const fetchPlayers = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/player');
+            const response = await axios.get(`${API_URL}/player`);
             setPlayers(response.data);
         } catch (error) {
             console.error('Lỗi khi tải danh sách cầu thủ:', error);
@@ -55,14 +56,14 @@ function AdminPlayer() {
 
     const fetchTeams = async () => {
         try {
-          const response = await axios.get('http://localhost:5000/team');
-          if (response.data.success) {
-            setTeams(response.data.data);
-          }
+            const response = await axios.get(`${API_URL}/team`);
+            if (response.data.success) {
+                setTeams(response.data.data);
+            }
         } catch (error) {
-          console.error('Lỗi khi lấy danh sách đội bóng:', error);
+            console.error('Lỗi khi lấy danh sách đội bóng:', error);
         }
-      };
+    };
     
 
     const handleAdd = () => {
@@ -89,7 +90,7 @@ function AdminPlayer() {
             height: player.height,
             weight: player.weight,
             team: player.team,
-            image: player.image,
+            image: player.image ? `${API_URL}${player.image}` : '',
             imageFile: null
         });
         setIsModalVisible(true);
@@ -98,7 +99,7 @@ function AdminPlayer() {
     const handleDelete = async (id) => {
         if (window.confirm('Bạn có chắc chắn muốn xóa cầu thủ này?')) {
             try {
-                await axios.delete(`http://localhost:5000/player/${id}`);
+                await axios.delete(`${API_URL}/player/${id}`);
                 alert('Xóa cầu thủ thành công');
                 fetchPlayers();
             } catch (error) {
@@ -124,7 +125,7 @@ function AdminPlayer() {
             setFormData(prev => ({
                 ...prev,
                 image: imageUrl,
-                imageFile: file // Lưu file để chuyển đổi sau
+                imageFile: file
             }));
         }
     };
@@ -132,64 +133,54 @@ function AdminPlayer() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Tạo object dữ liệu để gửi
-            const dataToSend = {
-                name: formData.name,
-                number: formData.number,
-                position: formData.position,
-                height: formData.height,
-                weight: formData.weight,
-                team: formData.team
-            };
-
-            // Nếu có file ảnh mới, chuyển thành base64
+            const formDataToSend = new FormData();
+            formDataToSend.append('type', 'player');
+            formDataToSend.append('name', formData.name);
+            formDataToSend.append('number', formData.number);
+            formDataToSend.append('position', formData.position);
+            formDataToSend.append('height', formData.height);
+            formDataToSend.append('weight', formData.weight);
+            formDataToSend.append('team', formData.team);
+            
             if (formData.imageFile) {
-                const reader = new FileReader();
-                reader.onloadend = async () => {
-                    dataToSend.image = reader.result; // base64 string
-                    
-                    if (editingPlayer) {
-                        await axios.put(`http://localhost:5000/player/${editingPlayer._id}`, dataToSend, {
-                            headers: {
-                                'Content-Type': 'application/json'
-                            }
-                        });
-                        alert('Cập nhật cầu thủ thành công');
-                    } else {
-                        await axios.post('http://localhost:5000/player', dataToSend, {
-                            headers: {
-                                'Content-Type': 'application/json'
-                            }
-                        });
-                        alert('Thêm cầu thủ thành công');
-                    }
-                    setIsModalVisible(false);
-                    fetchPlayers();
-                };
-                reader.readAsDataURL(formData.imageFile);
-            } else {
-                // Nếu không có ảnh mới, gửi ngay
-                if (editingPlayer) {
-                    await axios.put(`http://localhost:5000/player/${editingPlayer._id}`, dataToSend, {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    alert('Cập nhật cầu thủ thành công');
-                } else {
-                    await axios.post('http://localhost:5000/player', dataToSend, {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    alert('Thêm cầu thủ thành công');
-                }
-                setIsModalVisible(false);
-                fetchPlayers();
+                formDataToSend.append('image', formData.imageFile);
             }
+
+            let response;
+            if (editingPlayer) {
+                response = await axios.put(`${API_URL}/player/${editingPlayer._id}`, formDataToSend, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                alert('Cập nhật cầu thủ thành công!');
+            } else {
+                response = await axios.post(`${API_URL}/player`, formDataToSend, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                alert('Thêm cầu thủ thành công!');
+            }
+
+            // Fetch lại danh sách cầu thủ để có đầy đủ thông tin đội bóng
+            await fetchPlayers();
+
+            setIsModalVisible(false);
+            setFormData({
+                name: '',
+                number: '',
+                position: '',
+                height: '',
+                weight: '',
+                team: '',
+                image: '',
+                imageFile: null
+            });
+            setEditingPlayer(null);
         } catch (error) {
-            console.error('Lỗi khi lưu cầu thủ:', error);
-            alert('Lỗi khi lưu cầu thủ: ' + (error.response?.data?.message || error.message));
+            console.error('Error saving player:', error);
+            alert('Có lỗi xảy ra khi lưu cầu thủ');
         }
     };
     

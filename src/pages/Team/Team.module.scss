@@ -1,219 +1,224 @@
 .wrapper {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 2rem;
 }
 
+// Header Section
 .header {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    margin-bottom: 40px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-.logo {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    .team-info {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
 
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-}
+        .logo-container {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #fff;
+            padding: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-.info {
-    flex: 1;
-
-    .name {
-        font-size: 32px;
-        font-weight: 700;
-        margin-bottom: 10px;
-        color: #333;
-    }
-
-    .stadium {
-        font-size: 18px;
-        color: #666;
-    }
-}
-
-.stats {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-
-    .title {
-        font-size: 24px;
-        font-weight: 600;
-        margin-bottom: 20px;
-        color: #333;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #eee;
-    }
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-}
-
-.stat-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    transition: transform 0.2s ease;
-
-    &:hover {
-        transform: translateY(-2px);
-    }
-
-    .stat-label {
-        font-size: 14px;
-        color: #666;
-        margin-bottom: 5px;
-    }
-
-    .stat-value {
-        font-size: 24px;
-        font-weight: 700;
-        color: #333;
-    }
-}
-
-.loading {
-    text-align: center;
-    padding: 40px;
-    font-size: 18px;
-    color: #666;
-}
-
-.error {
-    text-align: center;
-    padding: 40px;
-    font-size: 18px;
-    color: #dc3545;
-    background-color: #f8d7da;
-    border-radius: 8px;
-}
-
-.players {
-    margin-top: 40px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-    .title {
-        font-size: 24px;
-        color: #333;
-        margin-bottom: 20px;
-    }
-}
-
-.players-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-}
-
-.player-card {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease;
-
-    &:hover {
-        transform: translateY(-5px);
-    }
-}
-
-.player-image {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-}
-
-.player-info {
-    padding: 15px;
-
-    .player-name {
-        font-size: 18px;
-        color: #333;
-        margin-bottom: 10px;
-    }
-}
-
-.player-details {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.detail-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #666;
-    font-size: 14px;
-
-    svg {
-        color: #1890ff;
-        width: 16px;
-    }
-}
-
-// Responsive
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        text-align: center;
-        gap: 20px;
-    }
-
-    .logo {
-        width: 120px;
-        height: 120px;
-    }
-
-    .info {
-        .name {
-            font-size: 24px;
+            .logo {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
         }
 
-        .stadium {
-            font-size: 16px;
+        .details {
+            .name {
+                font-size: 2.5rem;
+                color: #fff;
+                margin-bottom: 1rem;
+            }
+
+            .stadium {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: #ccc;
+                font-size: 1.2rem;
+
+                svg {
+                    color: #ffd700;
+                }
+            }
+        }
+    }
+}
+
+// Stats Section
+.stats-section {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    .section-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.8rem;
+        color: #333;
+        margin-bottom: 2rem;
+
+        svg {
+            color: #ff6b6b;
+        }
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+
+        .stat-card {
+            background: #f8f9fa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: translateY(-5px);
+            }
+
+            svg {
+                font-size: 2rem;
+                color: #ff6b6b;
+                margin-bottom: 0.5rem;
+            }
+
+            .stat-value {
+                display: block;
+                font-size: 2rem;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 0.5rem;
+            }
+
+            .stat-label {
+                color: #666;
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+// Players Section
+.players-section {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    .section-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.8rem;
+        color: #333;
+        margin-bottom: 2rem;
+
+        svg {
+            color: #4dabf7;
+        }
+    }
+
+    .players-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+
+        .player-card {
+            background: #f8f9fa;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: translateY(-5px);
+            }
+
+            .player-image {
+                width: 100%;
+                height: 200px;
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
+            }
+
+            .player-info {
+                padding: 1.5rem;
+
+                .player-name {
+                    font-size: 1.2rem;
+                    color: #333;
+                    margin-bottom: 1rem;
+                }
+
+                .player-details {
+                    .detail-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        margin-bottom: 0.5rem;
+                        color: #666;
+
+                        svg {
+                            color: #4dabf7;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Loading and Error States
+.loading, .error {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+    .wrapper {
+        padding: 1rem;
+    }
+
+    .header {
+        .team-info {
+            flex-direction: column;
+            text-align: center;
+
+            .logo-container {
+                width: 120px;
+                height: 120px;
+            }
         }
     }
 
     .stats-grid {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 15px;
     }
 
-    .stat-item {
-        .stat-value {
-            font-size: 20px;
-        }
+    .players-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 } 

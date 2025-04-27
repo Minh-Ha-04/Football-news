@@ -57,12 +57,12 @@
     }
 
     &.selected {
-        background-color: #2196F3;
+        background-color: rgb(119, 179, 60);
         color: white;
-        border-color: #2196F3;
+        border-color: rgb(119, 179, 60);
 
         &:hover {
-            background-color: #1976D2;
+            background-color: rgba(119, 179, 60,0.8);
         }
     }
 }
@@ -83,7 +83,7 @@
     transition: all 0.2s ease;
 
     &:hover {
-        border-color: #2196F3;
+        border-color: rgb(119, 179, 60);
     }
 }
 
@@ -230,11 +230,11 @@
 }
 
 .editBtn {
-    background-color: #2196F3;
+    background-color: rgb(119, 179, 60);
     color: white;
 
     &:hover {
-        background-color: #1976D2;
+        background-color: rgb(119, 179, 60);
     }
 }
 

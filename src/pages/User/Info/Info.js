@@ -16,7 +16,6 @@ function Info() {
         email: '',
         phoneNumber: '',
         address: '',
-        dateOfBirth: '',
         gender: 'male'
     });
 
@@ -29,7 +28,6 @@ function Info() {
                 email: user.email || '',
                 phoneNumber: user.phoneNumber || '',
                 address: user.address || '',
-                dateOfBirth: user.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split('T')[0] : '',
                 gender: user.gender || 'male'
             });
         }
@@ -71,7 +69,7 @@ function Info() {
                 dateOfBirth
             };
             
-            const response = await axios.put('http://localhost:5000/auth/update', dataToSend, {
+            const response = await axios.put('http://localhost:5000/auth/me', dataToSend, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -84,9 +82,6 @@ function Info() {
                 const updatedUser = {
                     ...response.data.data,
                     // Ensure dateOfBirth is properly formatted for display
-                    dateOfBirth: response.data.data.dateOfBirth 
-                        ? new Date(response.data.data.dateOfBirth).toISOString().split('T')[0]
-                        : ''
                 };
                 updateUser(updatedUser);
                 setIsEditing(false);
@@ -165,20 +160,6 @@ function Info() {
                 </div>
             </div>
 
-            <div className={cx('info-item')}>
-                <div className={cx('info-label')}>
-                    <span>NGÀY SINH</span>
-                </div>
-                <div className={cx('info-value')}>
-                    <input 
-                        type="date" 
-                        name="dateOfBirth"
-                        value={userInfo.dateOfBirth}
-                        onChange={handleChange}
-                        className={cx('input-field')}
-                    />
-                </div>
-            </div>
 
             <div className={cx('info-item')}>
                 <div className={cx('info-label')}>

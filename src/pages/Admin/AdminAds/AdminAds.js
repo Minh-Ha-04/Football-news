@@ -1,8 +1,10 @@
 import styles from './AdminAds.module.scss'
 import classNames from 'classnames/bind';
 import { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
+const API_URL = process.env.REACT_APP_API_URL ;
 
 function AdminAds() {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -20,9 +22,8 @@ function AdminAds() {
 
     const fetchAds = async () => {
         try {
-            const response = await fetch('http://localhost:5000/ads');
-            const data = await response.json();
-            setAdsList(data);
+            const response = await axios.get(`${API_URL}/ads`);
+            setAdsList(response.data);
         } catch (error) {
             console.error('Error fetching ads:', error);
         }
@@ -55,33 +56,23 @@ function AdminAds() {
 
                 if (editingId) {
                     // Update existing ad
-                    const response = await fetch(`http://localhost:5000/ads/${editingId}`, {
-                        method: 'PUT',
+                    const response = await axios.put(`${API_URL}/ads/${editingId}`, adData, {
                         headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(adData),
+                            'Content-Type': 'application/json'
+                        }
                     });
-                    if (response.ok) {
-                        const updatedAd = await response.json();
-                        setAdsList(adsList.map(ad => 
-                            ad._id === editingId ? updatedAd : ad
-                        ));
-                        setEditingId(null);
-                    }
+                    setAdsList(adsList.map(ad => 
+                        ad._id === editingId ? response.data : ad
+                    ));
+                    setEditingId(null);
                 } else {
                     // Create new ad
-                    const response = await fetch('http://localhost:5000/ads', {
-                        method: 'POST',
+                    const response = await axios.post(`${API_URL}/ads`, adData, {
                         headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(adData),
+                            'Content-Type': 'application/json'
+                        }
                     });
-                    if (response.ok) {
-                        const newAd = await response.json();
-                        setAdsList([...adsList, newAd]);
-                    }
+                    setAdsList([...adsList, response.data]);
                 }
 
                 setSelectedImage(null);
@@ -102,12 +93,8 @@ function AdminAds() {
 
     const handleConfirmDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/ads/${deleteId}`, {
-                method: 'DELETE',
-            });
-            if (response.ok) {
-                setAdsList(adsList.filter(ad => ad._id !== deleteId));
-            }
+            await axios.delete(`${API_URL}/ads/${deleteId}`);
+            setAdsList(adsList.filter(ad => ad._id !== deleteId));
         } catch (error) {
             console.error('Error deleting ad:', error);
         }
