@@ -16,6 +16,9 @@ export default function Posts() {
     const [selectedTags, setSelectedTags] = useState([]);
     const [articles, setArticles] = useState([]);
     const [editingArticle, setEditingArticle] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [totalArticles, setTotalArticles] = useState(0);
 
     // Lấy danh sách đội bóng
     useEffect(() => {
@@ -32,24 +35,27 @@ export default function Posts() {
         fetchTeams();
     }, []);
 
-    // Lấy danh sách bài viết
+    // Lấy danh sách bài viết với phân trang
     useEffect(() => {
         const fetchArticles = async () => {
             try {
-                const response = await axios.get(`${API_URL}/articles`, {
+                const response = await axios.get(`${API_URL}/articles?page=${currentPage}&limit=10`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
                 });
-                console.log('Articles response:', response.data);
-                setArticles(response.data);
+                if (response.data) {
+                    setArticles(response.data.articles);
+                    setTotalPages(response.data.totalPages);
+                    setTotalArticles(response.data.total);
+                }
             } catch (error) {
                 console.error('Lỗi khi lấy danh sách bài viết:', error);
                 alert('Không thể tải danh sách bài viết');
             }
         };
         fetchArticles();
-    }, []);
+    }, [currentPage]);
 
     // Xem ảnh
     const { getRootProps, getInputProps } = useDropzone({
@@ -86,7 +92,6 @@ export default function Posts() {
         
         // Hiển thị các tag đã chọn
         if (article.tags && article.tags.length > 0) {
-            // Chuyển đổi tags thành chữ thường để so sánh
             const lowercaseTags = article.tags.map(tag => tag.toLowerCase());
             setSelectedTags(lowercaseTags);
         } else {
@@ -94,7 +99,17 @@ export default function Posts() {
         }
         
         if (article.image) {
-            setPreview(article.image);
+            setPreview(`${API_URL}${article.image}`);
+            // Tạo một File object từ URL ảnh để giữ lại ảnh cũ
+            try {
+                const response = await axios.get(`${API_URL}${article.image}`, {
+                    responseType: 'blob'
+                });
+                const file = new File([response.data], 'current-image.jpg', { type: response.data.type });
+                setValue('image', file);
+            } catch (error) {
+                console.error('Lỗi khi tải ảnh:', error);
+            }
         }
     };
 
@@ -108,7 +123,15 @@ export default function Posts() {
                     }
                 });
                 if (response.data) {
-                    setArticles(articles.filter(article => article._id !== id));
+                    // Refresh articles list
+                    const articlesResponse = await axios.get(`${API_URL}/articles?page=${currentPage}&limit=10`, {
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        }
+                    });
+                    setArticles(articlesResponse.data.articles);
+                    setTotalPages(articlesResponse.data.totalPages);
+                    setTotalArticles(articlesResponse.data.total);
                     alert('Xóa bài viết thành công!');
                 }
             } catch (error) {
@@ -121,42 +144,34 @@ export default function Posts() {
     // Xử lý submit form
     const onSubmit = async (data) => {
         try {
-            // Convert image 
-            const imageFile = data.image;
-            let picture_post = null;
+            const formDataToSend = new FormData();
             
-            if (imageFile) {
-                const reader = new FileReader();
-                reader.readAsDataURL(imageFile);
-                picture_post = await new Promise((resolve) => {
-                    reader.onloadend = () => resolve(reader.result);
-                });
+            // Thêm các trường dữ liệu vào FormData
+            formDataToSend.append('title', data.title);
+            formDataToSend.append('description', data.description);
+            formDataToSend.append('content', data.content);
+            formDataToSend.append('tags', JSON.stringify(selectedTags.map(tag => tag.toLowerCase())));
+            
+            // Thêm ảnh nếu có
+            if (data.image) {
+                formDataToSend.append('image', data.image);
             }
-            
-            // Prepare data to send
-            const formData = {
-                title: data.title,
-                description: data.description,
-                content: data.content,
-                image: picture_post,
-                tags: selectedTags.map(tag => tag.toLowerCase())
-            };
 
             let response;
             if (editingArticle) {
                 // Update existing article
-                response = await axios.put(`${API_URL}/articles/${editingArticle._id}`, formData, {
+                response = await axios.put(`${API_URL}/articles/${editingArticle._id}`, formDataToSend, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'multipart/form-data'
                     }
                 });
             } else {
                 // Create new article
-                response = await axios.post(`${API_URL}/articles`, formData, {
+                response = await axios.post(`${API_URL}/articles`, formDataToSend, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'multipart/form-data'
                     }
                 });
             }
@@ -172,12 +187,14 @@ export default function Posts() {
                 setEditingArticle(null);
                 
                 // Refresh articles list
-                const articlesResponse = await axios.get(`${API_URL}/articles`, {
+                const articlesResponse = await axios.get(`${API_URL}/articles?page=${currentPage}&limit=10`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
                 });
-                setArticles(articlesResponse.data);
+                setArticles(articlesResponse.data.articles);
+                setTotalPages(articlesResponse.data.totalPages);
+                setTotalArticles(articlesResponse.data.total);
             }
         } catch (error) {
             console.error('Error submitting form:', error);
@@ -236,12 +253,12 @@ export default function Posts() {
 
             {/* Danh sách bài viết */}
             <div className={cx('articlesList')}>
-                <h2>Danh sách bài viết</h2>
+                <h2>Danh sách bài viết ({totalArticles} bài)</h2>
                 <div className={cx('articlesGrid')}>
                     {articles.map(article => (
                         <div key={article._id} className={cx('articleCard')}>
                             <div className={cx('articleImage')}>
-                                <img src={article.image} alt={article.title} />
+                                <img src={`${API_URL}${article.image}`} alt={article.title} />
                             </div>
                             <div className={cx('articleContent')}>
                                 <h3>{article.title}</h3>
@@ -268,6 +285,23 @@ export default function Posts() {
                             </div>
                         </div>
                     ))}
+                </div>
+                
+                {/* Phân trang */}
+                <div className={cx('pagination')}>
+                    <button 
+                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                        disabled={currentPage === 1}
+                    >
+                        Trang trước
+                    </button>
+                    <span>Trang {currentPage} / {totalPages}</span>
+                    <button 
+                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                        disabled={currentPage === totalPages}
+                    >
+                        Trang sau
+                    </button>
                 </div>
             </div>
         </div>

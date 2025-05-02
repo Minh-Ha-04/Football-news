@@ -1,224 +1,189 @@
-.wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-// Header Section
 .header {
-    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-    border-radius: 1rem;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-    .team-info {
-        display: flex;
-        align-items: center;
-        gap: 2rem;
-
-        .logo-container {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            overflow: hidden;
-            background: #fff;
-            padding: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-            .logo {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-            }
-        }
-
-        .details {
-            .name {
-                font-size: 2.5rem;
-                color: #fff;
-                margin-bottom: 1rem;
-            }
-
-            .stadium {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                color: #ccc;
-                font-size: 1.2rem;
-
-                svg {
-                    color: #ffd700;
-                }
-            }
-        }
-    }
-}
-
-// Stats Section
-.stats-section {
-    background: #fff;
-    border-radius: 1rem;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-    .section-title {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 1.8rem;
-        color: #333;
-        margin-bottom: 2rem;
-
-        svg {
-            color: #ff6b6b;
-        }
-    }
-
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1.5rem;
-
-        .stat-card {
-            background: #f8f9fa;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            text-align: center;
-            transition: transform 0.3s ease;
-
-            &:hover {
-                transform: translateY(-5px);
-            }
-
-            svg {
-                font-size: 2rem;
-                color: #ff6b6b;
-                margin-bottom: 0.5rem;
-            }
-
-            .stat-value {
-                display: block;
-                font-size: 2rem;
-                font-weight: bold;
-                color: #333;
-                margin-bottom: 0.5rem;
-            }
-
-            .stat-label {
-                color: #666;
-                font-size: 1rem;
-            }
-        }
-    }
-}
-
-// Players Section
-.players-section {
-    background: #fff;
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-    .section-title {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 1.8rem;
-        color: #333;
-        margin-bottom: 2rem;
-
-        svg {
-            color: #4dabf7;
-        }
-    }
-
-    .players-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 1.5rem;
-
-        .player-card {
-            background: #f8f9fa;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-
-            &:hover {
-                transform: translateY(-5px);
-            }
-
-            .player-image {
-                width: 100%;
-                height: 200px;
-                overflow: hidden;
-
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: contain;
-                }
-            }
-
-            .player-info {
-                padding: 1.5rem;
-
-                .player-name {
-                    font-size: 1.2rem;
-                    color: #333;
-                    margin-bottom: 1rem;
-                }
-
-                .player-details {
-                    .detail-item {
-                        display: flex;
-                        align-items: center;
-                        gap: 0.5rem;
-                        margin-bottom: 0.5rem;
-                        color: #666;
-
-                        svg {
-                            color: #4dabf7;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-// Loading and Error States
-.loading, .error {
+    width: 1400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: rgba(119, 179, 60, 0.8);
+    border-radius: 32px;
+    padding: 32px 48px 32px 32px;
+    margin: 32px 0;
+    min-height: 220px;
+    gap: 40px;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  
+  .logo-container {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .logo {
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+  }
+  
+  .team-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .name {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: 400;
+  }
+  
+  .header-right {
+    flex: 1;
+    min-width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .section-title {
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    width: 100%;
+  }
+  
+  .stat-card {
+    background: rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 12px 0;
     text-align: center;
-    padding: 2rem;
-    font-size: 1.2rem;
-    color: #666;
+    color: #fff;
+  }
+  
+  .stat-value {
+    font-size: 1.3rem;
+    font-weight: 700;
+    display: block;
+  }
+  
+  .stat-label {
+    font-size: 0.95rem;
+    opacity: 0.85;
+  }
+
+.players-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
 }
 
-// Responsive Design
-@media (max-width: 768px) {
-    .wrapper {
-        padding: 1rem;
-    }
+.player-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  padding: 0 0 18px 0;
+  overflow: hidden;
+  position: relative;
+  min-height: 380px;
+}
 
-    .header {
-        .team-info {
-            flex-direction: column;
-            text-align: center;
+.player-bg {
+  display: flex;
+  align-items: flex-start;
+  border-radius: 18px 18px 0 0;
+  padding: 18px 18px 0 18px;
+  min-height: 220px;
+  position: relative;
+}
 
-            .logo-container {
-                width: 120px;
-                height: 120px;
-            }
-        }
-    }
+.player-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: flex-start;
+}
 
-    .stats-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
+.info-label {
+  font-size: 1rem;
+  color: #555;
+  display: block;
+  width: 100px;
+}
 
-    .players-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-} 
+.info-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d004d;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.player-image {
+  flex: 0 0 140px;
+  margin-left: 18px;
+  z-index: 2;
+}
+.player-image img {
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.player-name-block {
+  margin: 18px 0 0 18px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #2d004d;
+  line-height: 1.1;
+  display: flex;
+  flex-direction: column;
+}
+
+.player-name-bold {
+  font-weight: 900;
+  font-size: 2.2rem;
+  color: #2d004d;
+}
+
+.player-name-light {
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: #2d004d;
+  opacity: 0.7;
+}
+
+.player-position {
+  margin-left: 18px;
+  margin-top: 4px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.player-number {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #e6001a;
+  margin-right: 4px;
+}

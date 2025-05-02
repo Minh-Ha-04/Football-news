@@ -36,7 +36,7 @@
 }
 
 .editButton {
-    background-color: #2196F3;
+    background-color: rgb(119 179 60 / 90%);
     color: white;
 }
 
@@ -90,11 +90,11 @@
     }
 
     .editBtn {
-        background-color: #2196F3;
+        background-color: rgb(119 179 60 / 90%);
         color: white;
 
         &:hover {
-            background-color: #1976D2;
+            background-color: rgb(119 179 60 / 80%);
             transform: translateY(-1px);
         }
     }
@@ -225,4 +225,12 @@
 
 .error {
     color: #f44336;
+}
+
+.previewImage {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
 }

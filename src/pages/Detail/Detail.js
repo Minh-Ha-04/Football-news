@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Button from '~/components/Button';
 
 const cx = classNames.bind(styles);
-
+const API_URL=process.env.REACT_APP_API_URL;
 function Detail() {
     const { slug } = useParams();
     const [article, setArticle] = useState(null);
@@ -30,7 +30,7 @@ function Detail() {
     useEffect(() => {
         const fetchArticles = async () => {
             try {
-                const response = await fetch('http://localhost:5000/articles');
+                const response = await fetch(`${API_URL}/articles`);
                 const data = await response.json();
                 // Sắp xếp bài viết theo thời gian đăng mới nhất
                 const sortedArticles = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -48,7 +48,7 @@ function Detail() {
 
         const fetchArticle = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/articles/${slug}`);
+                const response = await axios.get(`${API_URL}/articles/${slug}`);
                 const data = response.data;
                 
                 if (isMounted) {
@@ -59,14 +59,14 @@ function Detail() {
                         try {
                             const token = localStorage.getItem('token');
                             // Lưu bài viết đã xem
-                            await axios.post(`http://localhost:5000/article/${data._id}/view`, {}, {
+                            await axios.post(`${API_URL}/article/${data._id}/view`, {}, {
                                 headers: {
                                     Authorization: `Bearer ${token}`
                                 }
                             });
 
                             // Kiểm tra trạng thái lưu bài
-                            const savedResponse = await axios.get(`http://localhost:5000/article/saved`, {
+                            const savedResponse = await axios.get(`${API_URL}/article/saved`, {
                                 headers: {
                                     Authorization: `Bearer ${token}`
                                 }
@@ -108,7 +108,7 @@ function Detail() {
             const token = localStorage.getItem('token');
             if (isSaved) {
                 // Gửi request DELETE để bỏ lưu bài viết
-                await axios.delete(`http://localhost:5000/article/${article._id}/unsave`, {
+                await axios.delete(`${API_URL}/article/${article._id}/unsave`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -116,7 +116,7 @@ function Detail() {
                 toast.success('Đã bỏ lưu bài viết');
             } else {
                 // Gửi request POST để lưu bài viết, không cần gửi dữ liệu
-                await axios.post(`http://localhost:5000/article/${article._id}/save`, {}, {
+                await axios.post(`${API_URL}/article/${article._id}/save`, {}, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -186,7 +186,7 @@ function Detail() {
                     </strong>
                     <div className={cx('article-image')}>
                         {article.image && (
-                            <img src={article.image} alt={article.title} />
+                            <img src={`${API_URL}${article.image}`} alt={article.title} />
                         )}
                     </div>
                     <div className={cx('content')}>

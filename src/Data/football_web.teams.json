@@ -1,0 +1,440 @@
+[{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a0f8"
+  },
+  "name": "Liverpool",
+  "shortName": "LIV",
+  "logo": "teams/1745743049185-122928348.png",
+  "stadium": "Anfield",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 21,
+    "draws": 7,
+    "losses": 1,
+    "goalsScored": 69,
+    "goalsConceded": 27,
+    "goalDifference": 42,
+    "points": 70
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T08:37:29.230Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a0f9"
+  },
+  "name": "Arsenal",
+  "shortName": "ARS",
+  "logo": "teams/1745746022738-513427798.png",
+  "stadium": "Emirates Stadium",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 16,
+    "draws": 10,
+    "losses": 3,
+    "goalsScored": 53,
+    "goalsConceded": 24,
+    "goalDifference": 29,
+    "points": 58
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:27:02.761Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a0fa"
+  },
+  "name": "Nottingham Forest",
+  "shortName": "NFO",
+  "logo": "teams/1745746602449-539551563.png",
+  "stadium": "City Ground",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 16,
+    "draws": 6,
+    "losses": 7,
+    "goalsScored": 49,
+    "goalsConceded": 35,
+    "goalDifference": 14,
+    "points": 54
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:36:42.607Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a0fb"
+  },
+  "name": "Chelsea",
+  "shortName": "CHE",
+  "logo": "teams/1745746532295-216379214.png",
+  "stadium": "Stamford Bridge",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 14,
+    "draws": 7,
+    "losses": 8,
+    "goalsScored": 53,
+    "goalsConceded": 37,
+    "goalDifference": 16,
+    "points": 49
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:35:32.319Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a0fc"
+  },
+  "name": "Manchester City",
+  "shortName": "MCI",
+  "logo": "teams/1745746438136-955645660.png",
+  "stadium": "Etihad Stadium",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 14,
+    "draws": 6,
+    "losses": 9,
+    "goalsScored": 55,
+    "goalsConceded": 40,
+    "goalDifference": 15,
+    "points": 48
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:33:58.163Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a0fd"
+  },
+  "name": "Newcastle United",
+  "shortName": "NEW",
+  "logo": "teams/1745746143376-643517794.png",
+  "stadium": "St James' Park",
+  "seasonStats": {
+    "matchesPlayed": 28,
+    "wins": 14,
+    "draws": 5,
+    "losses": 9,
+    "goalsScored": 47,
+    "goalsConceded": 38,
+    "goalDifference": 9,
+    "points": 47
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:29:03.381Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a0fe"
+  },
+  "name": "Brighton & Hove Albion",
+  "shortName": "BHA",
+  "logo": "teams/1745746663130-341728679.png",
+  "stadium": "Amex Stadium",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 12,
+    "draws": 11,
+    "losses": 6,
+    "goalsScored": 48,
+    "goalsConceded": 42,
+    "goalDifference": 6,
+    "points": 47
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:37:43.147Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a0ff"
+  },
+  "name": "Fulham",
+  "shortName": "FUL",
+  "logo": "teams/1745746928077-319441980.png",
+  "stadium": "Craven Cottage",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 12,
+    "draws": 9,
+    "losses": 8,
+    "goalsScored": 43,
+    "goalsConceded": 38,
+    "goalDifference": 5,
+    "points": 45
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:42:08.106Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a100"
+  },
+  "name": "Aston Villa",
+  "shortName": "AVL",
+  "logo": "teams/1745746968682-380505849.png",
+  "stadium": "Villa Park",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 12,
+    "draws": 9,
+    "losses": 8,
+    "goalsScored": 41,
+    "goalsConceded": 45,
+    "goalDifference": -4,
+    "points": 45
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:42:48.687Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a101"
+  },
+  "name": "AFC Bournemouth",
+  "shortName": "BOU",
+  "logo": "teams/1745747075020-605151613.png",
+  "stadium": "Vitality Stadium",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 12,
+    "draws": 8,
+    "losses": 9,
+    "goalsScored": 48,
+    "goalsConceded": 36,
+    "goalDifference": 12,
+    "points": 44
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:44:35.043Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a102"
+  },
+  "name": "Brentford",
+  "shortName": "BRE",
+  "logo": "teams/1745747099200-986469987.png",
+  "stadium": "Gtech Community Stadium",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 12,
+    "draws": 5,
+    "losses": 12,
+    "goalsScored": 50,
+    "goalsConceded": 45,
+    "goalDifference": 5,
+    "points": 41
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:44:59.216Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a103"
+  },
+  "name": "Crystal Palace",
+  "shortName": "CPL",
+  "logo": "teams/1745747231869-251856702.png",
+  "stadium": "Selhurst Park",
+  "seasonStats": {
+    "matchesPlayed": 28,
+    "wins": 10,
+    "draws": 9,
+    "losses": 9,
+    "goalsScored": 36,
+    "goalsConceded": 33,
+    "goalDifference": 3,
+    "points": 39
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:47:11.876Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a104"
+  },
+  "name": "Manchester United",
+  "shortName": "MUN",
+  "logo": "teams/1745747342127-203975145.png",
+  "stadium": "Old Trafford",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 10,
+    "draws": 7,
+    "losses": 12,
+    "goalsScored": 37,
+    "goalsConceded": 40,
+    "goalDifference": -3,
+    "points": 37
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:49:02.134Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a105"
+  },
+  "name": "Tottenham Hotspur",
+  "shortName": "TOT",
+  "logo": "teams/1745747394657-857736908.png",
+  "stadium": "Tottenham Hotspur Stadium",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 10,
+    "draws": 4,
+    "losses": 15,
+    "goalsScored": 55,
+    "goalsConceded": 43,
+    "goalDifference": 12,
+    "points": 34
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:49:54.672Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a106"
+  },
+  "name": "Everton",
+  "shortName": "EVE",
+  "logo": "teams/1745747573207-303862890.png",
+  "stadium": "Goodison Park",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 7,
+    "draws": 13,
+    "losses": 9,
+    "goalsScored": 32,
+    "goalsConceded": 36,
+    "goalDifference": -4,
+    "points": 34
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:52:53.211Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a107"
+  },
+  "name": "West Ham United",
+  "shortName": "WHU",
+  "logo": "teams/1745747516842-791211503.png",
+  "stadium": "London Stadium",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 9,
+    "draws": 7,
+    "losses": 13,
+    "goalsScored": 33,
+    "goalsConceded": 49,
+    "goalDifference": -16,
+    "points": 34
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:51:56.853Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a108"
+  },
+  "name": "Wolverhampton Wanderers",
+  "shortName": "WOL",
+  "logo": "teams/1745747548606-168079284.png",
+  "stadium": "Molineux Stadium",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 7,
+    "draws": 5,
+    "losses": 17,
+    "goalsScored": 40,
+    "goalsConceded": 58,
+    "goalDifference": -18,
+    "points": 26
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:52:28.611Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a109"
+  },
+  "name": "Ipswich Town",
+  "shortName": "IPS",
+  "logo": "teams/1745747600040-198455373.png",
+  "stadium": "Portman Road",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 3,
+    "draws": 8,
+    "losses": 18,
+    "goalsScored": 28,
+    "goalsConceded": 62,
+    "goalDifference": -34,
+    "points": 17
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:53:20.044Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a10a"
+  },
+  "name": "Leicester City",
+  "shortName": "LEI",
+  "logo": "teams/1745747618758-637424452.png",
+  "stadium": "King Power Stadium",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 4,
+    "draws": 5,
+    "losses": 20,
+    "goalsScored": 25,
+    "goalsConceded": 65,
+    "goalDifference": -40,
+    "points": 17
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:53:38.764Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "680c7d2f92f2bcdc5073a10b"
+  },
+  "name": "Southampton",
+  "shortName": "SOU",
+  "logo": "teams/1745747636957-243663274.png",
+  "stadium": "St Mary's Stadium",
+  "seasonStats": {
+    "matchesPlayed": 29,
+    "wins": 2,
+    "draws": 3,
+    "losses": 24,
+    "goalsScored": 21,
+    "goalsConceded": 70,
+    "goalDifference": -49,
+    "points": 9
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:53:56.961Z"
+  }
+}]

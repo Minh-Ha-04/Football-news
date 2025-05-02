@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import HotNews from '~/components/HotNews';
 
 const cx = classNames.bind(styles);
-
+const API_URL=process.env.REACT_APP_API_URL;
 function Result() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ function Result() {
             <h2 className={cx('title')}>Kết quả tìm kiếm cho "{searchTerm}"</h2>
                 {teamInfo && (
                     <div className={cx('team-info')} onClick={() => handleTeamClick(teamInfo)}>
-                        <img src={teamInfo.logo} alt={teamInfo.name} className={cx('team-logo')} />
+                        <img src={`${API_URL}${teamInfo.logo}`} alt={teamInfo.name} className={cx('team-logo')} />
                         <h2 className={cx('team-name')}>{teamInfo.name}</h2>
                     </div>
                 )}

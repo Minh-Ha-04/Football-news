@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
 import styles from './HotNews.module.scss';
 import classNames from 'classnames/bind';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import routes from '~/config/routes';
 
 const cx = classNames.bind(styles);
-
+const API_URL=process.env.REACT_APP_API_URL;
 function HotNews({article}) {
 
 
@@ -15,7 +14,7 @@ function HotNews({article}) {
                     <div className={cx('hot-news-item')}>
                         <div className={cx('image-container')}>
                             <img 
-                                src={article.image || 'https://via.placeholder.com/255x170'} 
+                                src={`${API_URL}${article.image}`} 
                                 alt={article.title} 
                                 className={cx('image')} 
                             />

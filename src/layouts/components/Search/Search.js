@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
-
+const API_URL=process.env.REACT_APP_API_URL;
 function Search() {
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
@@ -21,7 +21,7 @@ function Search() {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/team');
+                const response = await axios.get(`${API_URL}/team`);
                 if (response.data.success) {
                     setTeams(response.data.data);
                 }
@@ -54,7 +54,7 @@ function Search() {
     const handleSearchItemClick = async (team) => {
         try {
             // Lấy các bài viết có tag trùng với tên đội bóng
-            const response = await axios.get(`http://localhost:5000/articles/search?tag=${team.name}`);
+            const response = await axios.get(`${API_URL}/articles/search?tag=${team.name}`);
             navigate('/result', { 
                 state: { 
                     results: response.data || [], // Đảm bảo luôn có mảng, ngay cả khi không có kết quả
@@ -82,7 +82,7 @@ function Search() {
                 // Lấy tất cả bài viết liên quan đến các đội bóng trong kết quả tìm kiếm
                 const allArticles = [];
                 const searchPromises = searchResult.map(team => 
-                    axios.get(`http://localhost:5000/articles/search?tag=${team.name}`)
+                    axios.get(`${API_URL}/articles/search?tag=${team.name}`)
                 );
 
                 const responses = await Promise.all(searchPromises);
@@ -135,7 +135,7 @@ function Search() {
                                         onClick={() => handleSearchItemClick(team)}
                                         className={cx('team-item')}
                                     >
-                                        <img src={team.logo} alt={team.name} className={cx('team-logo')} />
+                                        <img src={`${API_URL}${team.logo}`} alt={team.name} className={cx('team-logo')} />
                                         <div className={cx('team-info')}>
                                             <span className={cx('team-name')}>{team.name}</span>
                                             <span className={cx('team-shortname')}>{team.shortName}</span>

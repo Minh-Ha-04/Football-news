@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import routes from '~/config/routes';
 
 const cx = classNames.bind(styles);
-
+const API_URL=process.env.REACT_APP_API_URL
 function Section() {
     const [matches, setMatches] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -19,7 +19,7 @@ function Section() {
     useEffect(() => {
         const fetchMatches = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/match');
+                const response = await axios.get(`${API_URL}/match`);
                 // Ensure we're accessing the data property from axios response
                 const upcomingMatches = response.data.data  
                     .filter(match => match.status === 'upcoming')
@@ -84,12 +84,12 @@ function Section() {
                             </div>
                             <div className={cx('content')}>
                                 <div className={cx('team')}>
-                                    <img src={match.logoHomeTeam} alt={match.homeTeam.name} className={cx('team-logo')} />
+                                    <img src={`${API_URL}${match.logoHomeTeam}`} alt={match.homeTeam.name} className={cx('team-logo')} />
                                     <span className={cx('team-name')}>{match.homeTeam.name}</span>
                                 </div>
                                 <div className={cx('vs')}>VS</div>
                                 <div className={cx('team')}>
-                                    <img src={match.logoAwayTeam} alt={match.awayTeam.name} className={cx('team-logo')} />
+                                    <img src={`${API_URL}${match.logoAwayTeam}`} alt={match.awayTeam.name} className={cx('team-logo')} />
                                     <span className={cx('team-name')}>{match.awayTeam.name}</span>
                                 </div>
                             </div>

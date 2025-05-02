@@ -25,9 +25,9 @@ const API_URL = process.env.REACT_APP_API_URL ;
 function AdminPlayer() {
     const [players, setPlayers] = useState([]);
     const [teams, setTeams] = useState([]);
+    const [selectedTeam, setSelectedTeam] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [editingPlayer, setEditingPlayer] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
     const [formData, setFormData] = useState({
         name: '',
         number: '',
@@ -65,6 +65,10 @@ function AdminPlayer() {
         }
     };
     
+    // Lọc cầu thủ theo đội bóng
+    const filteredPlayers = selectedTeam
+        ? players.filter(player => player.team?._id === selectedTeam)
+        : players;
 
     const handleAdd = () => {
         setEditingPlayer(null);
@@ -193,10 +197,24 @@ function AdminPlayer() {
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
                 <h2>Quản lý cầu thủ</h2>
-                <button className={cx('addButton')} onClick={handleAdd}>
-                    <FontAwesomeIcon icon={faPlus} />
-                    Thêm cầu thủ
-                </button>
+                <div className={cx('controls')}>
+                    <select 
+                        className={cx('team-select')}
+                        value={selectedTeam}
+                        onChange={(e) => setSelectedTeam(e.target.value)}
+                    >
+                        <option value="">Tất cả đội bóng</option>
+                        {teams.map(team => (
+                            <option key={team._id} value={team._id}>
+                                {team.name}
+                            </option>
+                        ))}
+                    </select>
+                    <button className={cx('addButton')} onClick={handleAdd}>
+                        <FontAwesomeIcon icon={faPlus} />
+                        Thêm cầu thủ
+                    </button>
+                </div>
             </div>
 
             <div className={cx('tableContainer')}>
@@ -213,34 +231,42 @@ function AdminPlayer() {
                         </tr>
                     </thead>
                     <tbody>
-                        {players.map(player => (
-                            <tr key={player._id}>
-                                <td>{player.name}</td>
-                                <td>{player.number}</td>
-                                <td>{player.position}</td>
-                                <td>{player.height} cm</td>
-                                <td>{player.weight} kg</td>
-                                <td>{player.team?.name || 'Chưa có đội'}</td>
-                                <td>
-                                    <div className={cx('actionButtons')}>
-                                        <button 
-                                            className={cx('editButton')}
-                                            onClick={() => handleEdit(player)}
-                                        >
-                                            <FontAwesomeIcon icon={faEdit} />
-                                            Sửa
-                                        </button>
-                                        <button 
-                                            className={cx('deleteButton')}
-                                            onClick={() => handleDelete(player._id)}
-                                        >
-                                            <FontAwesomeIcon icon={faTrash} />
-                                            Xóa
-                                        </button>
-                                    </div>
+                        {filteredPlayers.length > 0 ? (
+                            filteredPlayers.map(player => (
+                                <tr key={player._id}>
+                                    <td>{player.name}</td>
+                                    <td>{player.number}</td>
+                                    <td>{player.position}</td>
+                                    <td>{player.height} cm</td>
+                                    <td>{player.weight} kg</td>
+                                    <td>{player.team?.name || 'Chưa có đội'}</td>
+                                    <td>
+                                        <div className={cx('actionButtons')}>
+                                            <button 
+                                                className={cx('editButton')}
+                                                onClick={() => handleEdit(player)}
+                                            >
+                                                <FontAwesomeIcon icon={faEdit} />
+                                                Sửa
+                                            </button>
+                                            <button 
+                                                className={cx('deleteButton')}
+                                                onClick={() => handleDelete(player._id)}
+                                            >
+                                                <FontAwesomeIcon icon={faTrash} />
+                                                Xóa
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="7" style={{ textAlign: 'center', padding: '20px' }}>
+                                    {selectedTeam ? 'Không có cầu thủ nào trong đội bóng này' : 'Không có cầu thủ nào'}
                                 </td>
                             </tr>
-                        ))}
+                        )}
                     </tbody>
                 </table>
             </div>

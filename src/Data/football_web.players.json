@@ -1,0 +1,84 @@
+[{
+  "_id": {
+    "$oid": "680c9dc4b46cf53971f29d2e"
+  },
+  "name": "Delan Rice",
+  "number": 41,
+  "position": "Tiền vệ",
+  "image": "/uploads/players/1745681770254-711894837.png",
+  "height": 188,
+  "weight": 80,
+  "team": {
+    "$oid": "680c7d2f92f2bcdc5073a0f9"
+  },
+  "createdAt": {
+    "$date": "2025-04-26T08:48:04.138Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-26T15:39:37.765Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680c9e69b46cf53971f29d38"
+  },
+  "name": "Martin-Ødegaard",
+  "number": 8,
+  "position": "Tiền vệ",
+  "image": "/uploads/players/1745681784029-992160846.png",
+  "height": 178,
+  "weight": 75,
+  "team": {
+    "$oid": "680c7d2f92f2bcdc5073a0f9"
+  },
+  "createdAt": {
+    "$date": "2025-04-26T08:50:49.853Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-26T15:40:38.704Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680cb1b65a1e6e1833b578a2"
+  },
+  "name": "Trent Alexander-Arnold",
+  "number": 66,
+  "position": "Hậu vệ",
+  "image": "/uploads/players/1745745862064-628497232.png",
+  "height": 175,
+  "weight": 75,
+  "team": {
+    "$oid": "680c7d2f92f2bcdc5073a0f8"
+  },
+  "createdAt": {
+    "$date": "2025-04-26T10:13:10.533Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:24:22.098Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680cfea6009114a10923384e"
+  },
+  "name": "Andy Robertson",
+  "number": 26,
+  "position": "Hậu vệ",
+  "image": "/uploads/players/1745745892924-641309713.png",
+  "height": 178,
+  "weight": 75,
+  "team": {
+    "$oid": "680c7d2f92f2bcdc5073a0f8"
+  },
+  "createdAt": {
+    "$date": "2025-04-26T15:41:26.540Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T09:24:52.930Z"
+  },
+  "__v": 0
+}]

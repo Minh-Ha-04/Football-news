@@ -1,0 +1,351 @@
+[{
+  "_id": {
+    "$oid": "680c7e7cfa741044e4f27224"
+  },
+  "homeTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a0fb"
+  },
+  "logoHomeTeam": "/uploads/teams/1745746532295-216379214.png",
+  "awayTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a106"
+  },
+  "logoAwayTeam": "/uploads/teams/1745747573207-303862890.png",
+  "matchDate": {
+    "$date": "2025-04-26T11:30:00.000Z"
+  },
+  "stadium": "Stamford Bridge",
+  "status": "upcoming",
+  "score": null,
+  "round": 34,
+  "createdAt": {
+    "$date": "2025-04-26T06:34:36.402Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T10:33:03.325Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680c7eb0fa741044e4f2722f"
+  },
+  "homeTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a108"
+  },
+  "logoHomeTeam": "/uploads/teams/1745747548606-168079284.png",
+  "awayTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a10a"
+  },
+  "logoAwayTeam": "/uploads/teams/1745747618758-637424452.png",
+  "matchDate": {
+    "$date": "2025-04-26T14:00:00.000Z"
+  },
+  "stadium": "Molineux Stadium",
+  "status": "upcoming",
+  "score": null,
+  "round": 34,
+  "createdAt": {
+    "$date": "2025-04-26T06:35:28.996Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T10:53:40.055Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680c7f01fa741044e4f2723a"
+  },
+  "homeTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a10b"
+  },
+  "logoHomeTeam": "/uploads/teams/1745747636957-243663274.png",
+  "awayTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a0ff"
+  },
+  "logoAwayTeam": "/uploads/teams/1745746928077-319441980.png",
+  "matchDate": {
+    "$date": "2025-04-26T14:00:00.000Z"
+  },
+  "stadium": "St Mary's Stadium",
+  "status": "upcoming",
+  "score": null,
+  "round": 34,
+  "createdAt": {
+    "$date": "2025-04-26T06:36:49.886Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T10:32:55.302Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680c7f37fa741044e4f27245"
+  },
+  "homeTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a0fd"
+  },
+  "logoHomeTeam": "/uploads/teams/1745746143376-643517794.png",
+  "awayTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a109"
+  },
+  "logoAwayTeam": "/uploads/teams/1745747600040-198455373.png",
+  "matchDate": {
+    "$date": "2025-04-26T14:00:00.000Z"
+  },
+  "stadium": "St James' Park",
+  "status": "upcoming",
+  "score": null,
+  "round": 34,
+  "createdAt": {
+    "$date": "2025-04-26T06:37:43.917Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T10:32:50.869Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680c7f72fa741044e4f2725a"
+  },
+  "homeTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a0fe"
+  },
+  "logoHomeTeam": "/uploads/teams/1745746663130-341728679.png",
+  "awayTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a107"
+  },
+  "logoAwayTeam": "/uploads/teams/1745747516842-791211503.png",
+  "matchDate": {
+    "$date": "2025-04-26T14:00:00.000Z"
+  },
+  "stadium": "Amex Stadium",
+  "status": "upcoming",
+  "score": null,
+  "round": 34,
+  "createdAt": {
+    "$date": "2025-04-26T06:38:42.308Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T10:32:46.229Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680c7f9cfa741044e4f27265"
+  },
+  "homeTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a101"
+  },
+  "logoHomeTeam": "/uploads/teams/1745747075020-605151613.png",
+  "awayTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a104"
+  },
+  "logoAwayTeam": "/uploads/teams/1745747342127-203975145.png",
+  "matchDate": {
+    "$date": "2025-04-27T13:00:00.000Z"
+  },
+  "stadium": "Vitality Stadium",
+  "status": "upcoming",
+  "score": null,
+  "round": 34,
+  "createdAt": {
+    "$date": "2025-04-26T06:39:24.805Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T10:32:42.255Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680c7fb4fa741044e4f27270"
+  },
+  "homeTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a0f8"
+  },
+  "logoHomeTeam": "/uploads/teams/1745743049185-122928348.png",
+  "awayTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a105"
+  },
+  "logoAwayTeam": "/uploads/teams/1745747394657-857736908.png",
+  "matchDate": {
+    "$date": "2025-04-27T15:30:00.000Z"
+  },
+  "stadium": "Anfield",
+  "status": "upcoming",
+  "score": null,
+  "round": 34,
+  "createdAt": {
+    "$date": "2025-04-26T06:39:48.286Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T10:32:32.517Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680c7fe7fa741044e4f2727b"
+  },
+  "homeTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a0fa"
+  },
+  "logoHomeTeam": "/uploads/teams/1745746602449-539551563.png",
+  "awayTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a102"
+  },
+  "logoAwayTeam": "/uploads/teams/1745747099200-986469987.png",
+  "matchDate": {
+    "$date": "2025-04-30T18:30:00.000Z"
+  },
+  "stadium": "City Ground",
+  "status": "upcoming",
+  "score": null,
+  "round": 34,
+  "createdAt": {
+    "$date": "2025-04-26T06:40:39.693Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T10:32:28.124Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680c8014fa741044e4f27286"
+  },
+  "homeTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a0fc"
+  },
+  "logoHomeTeam": "/uploads/teams/1745746438136-955645660.png",
+  "awayTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a108"
+  },
+  "logoAwayTeam": "/uploads/teams/1745747548606-168079284.png",
+  "matchDate": {
+    "$date": "2025-04-30T19:00:00.000Z"
+  },
+  "stadium": "Etihad Stadium",
+  "status": "upcoming",
+  "score": null,
+  "round": 35,
+  "createdAt": {
+    "$date": "2025-04-26T06:41:24.005Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T10:32:23.297Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680c802efa741044e4f2729b"
+  },
+  "homeTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a100"
+  },
+  "logoHomeTeam": "/uploads/teams/1745746968682-380505849.png",
+  "awayTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a0ff"
+  },
+  "logoAwayTeam": "/uploads/teams/1745746928077-319441980.png",
+  "matchDate": {
+    "$date": "2025-05-02T11:30:00.000Z"
+  },
+  "stadium": "Villa Park",
+  "status": "upcoming",
+  "score": null,
+  "round": 35,
+  "createdAt": {
+    "$date": "2025-04-26T06:41:50.229Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T10:32:13.466Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680c8051fa741044e4f272a6"
+  },
+  "homeTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a10a"
+  },
+  "logoHomeTeam": "/uploads/teams/1745747618758-637424452.png",
+  "awayTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a10b"
+  },
+  "logoAwayTeam": "/uploads/teams/1745747636957-243663274.png",
+  "matchDate": {
+    "$date": "2025-05-02T14:00:00.000Z"
+  },
+  "stadium": "King Power Stadium",
+  "status": "upcoming",
+  "score": null,
+  "round": 35,
+  "createdAt": {
+    "$date": "2025-04-26T06:42:25.324Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T10:32:09.447Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680c8064fa741044e4f272bb"
+  },
+  "homeTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a106"
+  },
+  "logoHomeTeam": "/uploads/teams/1745747573207-303862890.png",
+  "awayTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a109"
+  },
+  "logoAwayTeam": "/uploads/teams/1745747600040-198455373.png",
+  "matchDate": {
+    "$date": "2025-05-02T14:00:00.000Z"
+  },
+  "stadium": "Goodison Park",
+  "status": "upcoming",
+  "score": null,
+  "round": 35,
+  "createdAt": {
+    "$date": "2025-04-26T06:42:44.012Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T10:32:05.564Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "680c8076fa741044e4f272c6"
+  },
+  "homeTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a0f9"
+  },
+  "logoHomeTeam": "/uploads/teams/1745746022738-513427798.png",
+  "awayTeam": {
+    "$oid": "680c7d2f92f2bcdc5073a101"
+  },
+  "logoAwayTeam": "/uploads/teams/1745747075020-605151613.png",
+  "matchDate": {
+    "$date": "2025-05-02T16:30:00.000Z"
+  },
+  "stadium": "Emirates Stadium",
+  "status": "upcoming",
+  "score": null,
+  "round": 35,
+  "createdAt": {
+    "$date": "2025-04-26T06:43:02.684Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-27T10:53:07.722Z"
+  },
+  "__v": 0
+}]

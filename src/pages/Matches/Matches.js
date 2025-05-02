@@ -13,7 +13,7 @@ import routes from '~/config/routes';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 const cx = classNames.bind(styles);
-
+const API_URL = process.env.REACT_APP_API_URL 
 function Matches() {
     const [matches, setMatches] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -25,7 +25,7 @@ function Matches() {
     useEffect(() => {
         const fetchArticles = async () => {
             try {
-                const response = await fetch('http://localhost:5000/articles');
+                const response = await fetch(`${API_URL}/articles`);
                 const data = await response.json();
                 // Sắp xếp bài viết theo thời gian đăng mới nhất
                 const sortedArticles = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -42,7 +42,7 @@ function Matches() {
     useEffect(() => {
         const fetchMatches = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/match');
+                const response = await axios.get(`${API_URL}/match`);
                 if (response.data.success) {
                     setMatches(response.data.data);
                 }
@@ -114,11 +114,11 @@ function Matches() {
                                                         })}
                                                     </div>
                                                     <div className={cx('match-teams')}>
-                                                        <div className={cx('team')}>
+                                                        <div className={cx('teamhome')}>
                                                             <span className={cx('team-name')}>
                                                                 
                                                                 {typeof match.homeTeam === 'object' ? match.homeTeam.name : match.homeTeam}
-                                                                <img src={match.logoHomeTeam} alt={match.homeTeam.name} className={cx('team-logo')} />
+                                                                <img src={`${API_URL}${match.logoHomeTeam}`} alt={match.homeTeam.name} className={cx('team-logo')} />
                                                             </span>
                                                         </div>
                                                         <div className={cx('match-score')}>
@@ -130,9 +130,9 @@ function Matches() {
                                                             {match.stadium}
                                                         </div>
                                                         </div>
-                                                        <div className={cx('team')}>
+                                                        <div className={cx('teamaway')}>
                                                             <span className={cx('team-name')}>
-                                                                <img src={match.logoAwayTeam} alt={match.awayTeam.name} className={cx('team-logo')} />
+                                                                <img src={`${API_URL}${match.logoAwayTeam}`} alt={match.awayTeam.name} className={cx('team-logo')} />
                                                                 {typeof match.awayTeam === 'object' ? match.awayTeam.name : match.awayTeam}
                                                             </span>
                                                         </div>
@@ -146,21 +146,6 @@ function Matches() {
                                 ))
                             )}
                         </div>
-                    </div>
-                    <div className={cx('hotnews')}>
-                        <h2 className={cx('header')}>Tin bóng đá mới nhẩt</h2>
-                        <div className={cx('hot-news')}>
-                        {articles.slice(0, visibleArticles).map((art) => (
-                             <HotNews key={art._id} article={art} />
-                        ))}                
-                        </div>
-                        {articles.length > visibleArticles && (
-                            <div className={cx('button')}>
-                                <Button rounded onClick={() => setVisibleArticles(prev => prev + 5)}>
-                                    Xem thêm <FontAwesomeIcon icon={faChevronDown} />
-                                </Button>
-                            </div>
-                        )}
                     </div>
                 </div>
                 <div className={cx('right')}>

@@ -1,49 +1,78 @@
 import styles from './News.module.scss';
 import classNames from 'classnames/bind';
 import Section from '~/layouts/components/Section';
-import Button from '~/components/Button';
 import Ads from '~/components/Ads';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import HotNews from '~/components/HotNews';
+import axios from 'axios';
+
 const cx = classNames.bind(styles);
+const API_URL = process.env.REACT_APP_API_URL;
 
 function News() {
     const [articles, setArticles] = useState([]);
-    const [visibleCount, setVisibleCount] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
     useEffect(() => {
         const fetchArticles = async () => {
             try {
-                const response = await fetch('http://localhost:5000/articles');
-                const data = await response.json();
+                const response = await axios.get(`${API_URL}/articles?page=${currentPage}&limit=10`);
+                const data = response.data;
                 // Sắp xếp bài viết theo thời gian đăng mới nhất
-                const sortedArticles = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                const sortedArticles = data.articles.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
                 setArticles(sortedArticles);
+                setTotalPages(data.totalPages);
             } catch (error) {
                 console.error('Error fetching articles:', error);
+            } finally {
+                console.log('finally');                
             }
         };
 
         fetchArticles();
-    }, []);
-    // Các bài viết còn lại cho phần HotNews
-    const handleLoadMore = () => {
-        setVisibleCount(prev => prev + 5); // mỗi lần click hiện thêm 5 bài
-      };
-    const remainingArticles = articles.slice(0,visibleCount);
+    }, [currentPage]);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+        // Scroll lên đầu trang
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+
     return (
         <div className={cx('news')}>
             <Section/>
             <div className={cx('container')}>
                 <div className={cx('hotnews')}>
-                    <h2 className={cx('header')}>Tin bóng đá mới nhẩt</h2>
+                    <h2 className={cx('header')}>Tin bóng đá mới nhất</h2>
                     <div className={cx('news-grid')}>
-                            {remainingArticles.map((article) => (
-                                <HotNews key={article._id} article={article} />
-                            ))}
-                        </div>
-                    <div className={cx('button')}>
-                        <Button rounded onClick={handleLoadMore}>Xem thêm</Button>
+                        {articles.map((article) => (
+                            <HotNews key={article._id} article={article} />
+                        ))}
                     </div>
+                    {/* Thông báo khi hết bài viết */}
+                    {currentPage === totalPages && totalPages > 0 && (
+                        <div className={cx('no-more-articles')}>
+                            Hết bài viết
+                        </div>
+                    )}
+                    {/* Phân trang */}
+                    <div className={cx('pagination')}>
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                            <button
+                                key={page}
+                                className={cx('page-btn', { active: currentPage === page })}
+                                onClick={() => handlePageChange(page)}
+                            >
+                                {page}
+                            </button>
+                        ))}
+                    </div>
+
+                    
                 </div>
                 <div className={cx('right')}>
                     <Ads />

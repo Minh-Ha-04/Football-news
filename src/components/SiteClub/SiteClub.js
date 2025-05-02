@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
-
+const API_URL = process.env.REACT_APP_API_URL 
 function SiteClub() {
     const [teams, setTeams] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -14,7 +14,7 @@ function SiteClub() {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/team');
+                const response = await axios.get(`${API_URL}/team`);
                 if (response.data.success) {
                     setTeams(response.data.data);
                 }
@@ -56,7 +56,7 @@ function SiteClub() {
                     .map((team) => (
                         <li className={cx('logo')} key={team._id}>
                             <Link to={`/team/${team._id}`}>
-                                <img src={team.logo} alt={team.name} />
+                                <img src={`${API_URL}${team.logo}`} alt={team.name} />
                             </Link>
                         </li>
                     ))}

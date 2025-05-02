@@ -4,13 +4,11 @@ import styles from './Dashboard.module.scss';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
-    
+import classNames from 'classnames/bind';
 // Thêm API_URL nếu chưa có
 const API_URL = process.env.REACT_APP_API_URL 
-
+const cx=classNames.bind(styles);
 const Dashboard = () => {
-    const navigate = useNavigate();
     const [isEditing, setIsEditing] = useState(false);
     const [teams, setTeams] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -218,35 +216,35 @@ const Dashboard = () => {
     };
 
     if (loading) {
-        return <div className={styles.loading}>Đang tải...</div>;
+        return <div className={cx('loading')}>Đang tải...</div>;
     }
 
     if (error) {
-        return <div className={styles.error}>{error}</div>;
+        return <div className={cx('error')}>{error}</div>;
     }
 
         return (
-            <div className={styles.dashboard}>
-                <div className={styles.header}>
-                    <h2 className={styles.title}>Quản lý bảng đội bóng</h2>
-                    <div className={styles.actions}>
-                        <button className={styles.addButton} onClick={handleAddTeam}>
+            <div className={cx('dashboard')}>
+                <div className={cx('header')}>
+                    <h2 className={cx('title')}>Quản lý bảng đội bóng</h2>
+                    <div className={cx('actions')}>
+                        <button className={cx('addButton')} onClick={handleAddTeam}>
                             <FontAwesomeIcon icon={faPlus} /> Thêm đội bóng
                         </button>
                         {!isEditing ? (
-                            <button className={styles.editButton} onClick={handleEdit}>
+                            <button className={cx('editButton')} onClick={handleEdit}>
                                 <FontAwesomeIcon icon={faEdit} /> Chỉnh sửa
                             </button>
                         ) : (
-                            <button className={styles.saveButton} onClick={handleSave}>
+                            <button className={cx('saveButton')} onClick={handleSave}>
                                 <FontAwesomeIcon icon={faSave} /> Lưu thay đổi
                             </button>
                         )}
                     </div>
                 </div>
 
-                <div className={styles.tableContainer}>
-                    <table className={styles.table}>
+                <div className={cx('tableContainer')}>
+                    <table className={cx('table')}>
                         <thead>
                             <tr>
                                 <th>Vị trí</th>
@@ -266,8 +264,8 @@ const Dashboard = () => {
                             {teams.map((team, index) => (
                                 <tr key={team._id}>
                                     <td>{index + 1}</td>
-                                    <td className={styles.teamName}>
-                                        <img src={`${API_URL}${team.logo}`} alt={team.name} className={styles.teamLogo} />
+                                    <td className={cx('teamName')}>
+                                        <img src={`${API_URL}${team.logo}`} alt={team.name} className={cx('teamLogo')} />
                                         {team.name}
                                     </td>
                                     <td>
@@ -276,7 +274,7 @@ const Dashboard = () => {
                                                 type="number"
                                                 value={team.seasonStats.matchesPlayed}
                                                 onChange={(e) => handleTeamUpdate(team._id, 'matchesPlayed', e.target.value)}
-                                                className={styles.input}
+                                                className={cx('input')}
                                             />
                                         ) : (
                                             team.seasonStats.matchesPlayed
@@ -288,7 +286,7 @@ const Dashboard = () => {
                                                 type="number"
                                                 value={team.seasonStats.wins}
                                                 onChange={(e) => handleTeamUpdate(team._id, 'wins', e.target.value)}
-                                                className={styles.input}
+                                                className={cx('input')}
                                             />
                                         ) : (
                                             team.seasonStats.wins
@@ -300,7 +298,7 @@ const Dashboard = () => {
                                                 type="number"
                                                 value={team.seasonStats.draws}
                                                 onChange={(e) => handleTeamUpdate(team._id, 'draws', e.target.value)}
-                                                className={styles.input}
+                                                className={cx('input')}
                                             />
                                         ) : (
                                             team.seasonStats.draws
@@ -312,7 +310,7 @@ const Dashboard = () => {
                                                 type="number"
                                                 value={team.seasonStats.losses}
                                                 onChange={(e) => handleTeamUpdate(team._id, 'losses', e.target.value)}
-                                                className={styles.input}
+                                                className={cx('input')}
                                             />
                                         ) : (
                                             team.seasonStats.losses
@@ -324,7 +322,7 @@ const Dashboard = () => {
                                                 type="number"
                                                 value={team.seasonStats.goalsScored || 0}
                                                 onChange={(e) => handleTeamUpdate(team._id, 'goalsScored', e.target.value)}
-                                                className={styles.input}
+                                                className={cx('input')}
                                             />
                                         ) : (
                                             team.seasonStats.goalsScored || 0
@@ -336,7 +334,7 @@ const Dashboard = () => {
                                                 type="number"
                                                 value={team.seasonStats.goalsConceded || 0}
                                                 onChange={(e) => handleTeamUpdate(team._id, 'goalsConceded', e.target.value)}
-                                                className={styles.input}
+                                                className={cx('input')}
                                             />
                                         ) : (
                                             team.seasonStats.goalsConceded || 0
@@ -347,14 +345,14 @@ const Dashboard = () => {
                                     <td>
                                         <div className={styles.actionButtons}>
                                             <button 
-                                                className={styles.editBtn}
+                                                className={cx('editBtn')}
                                                 onClick={() => handleEditTeam(team)}
                                                 title="Chỉnh sửa"
                                             >
                                                 <FontAwesomeIcon icon={faEdit} />
                                             </button>
                                             <button 
-                                                className={styles.deleteBtn}
+                                                className={cx('deleteBtn')}
                                                 onClick={() => handleDeleteTeam(team._id)}
                                                 title="Xóa"
                                             >

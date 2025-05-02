@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
-
+const API_URL = process.env.REACT_APP_API_URL 
 function Tables() {
     const [teams, setTeams] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -14,7 +14,7 @@ function Tables() {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/team');
+                const response = await axios.get(`${API_URL}/team`);
                 if (response.data.success) {
                     // Sắp xếp theo điểm số giảm dần
                     const sortedTeams = response.data.data.sort((a, b) => {
@@ -71,7 +71,7 @@ function Tables() {
                             <td className={cx('table-cell')}>{index + 1}</td>
                             <td className={cx('table-cell', 'team-name')}>
                                 <Link to={`/team/${team._id}`} className={cx('team-link')}>
-                                    <img src={team.logo} alt={team.name} className={cx('logo')} />
+                                    <img src={`${API_URL}${team.logo}`} alt={team.name} className={cx('logo')} />
                                     <span>{team.name}</span>
                                 </Link>
                             </td>
