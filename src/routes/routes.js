@@ -20,7 +20,7 @@ import MatchScoreForm from '~/pages/Admin/MatchScoreForm';
 import AdminAds from '~/pages/Admin/AdminAds';
 import Manager from '~/pages/Admin/Manager';
 import AdminPlayer from '~/pages/Admin/AdminPlayer';
-
+import Comment from '~/pages/Admin/Comment';
 import config from '~/config';
 
 // Public routes - có thể truy cập khi chưa đăng nhập
@@ -50,4 +50,5 @@ export const privateRoutes = [
     { path: config.routes.ads, component: AdminAds, layout: AdminLayout , requiredRole: 'admin'},
     { path: config.routes.manager, component: Manager, layout: AdminLayout , requiredRole: 'admin'},
     { path: config.routes.adminplayer, component: AdminPlayer, layout: AdminLayout , requiredRole: 'admin'},
+    { path: config.routes.comment, component: Comment, layout: AdminLayout , requiredRole: 'admin'},
 ];

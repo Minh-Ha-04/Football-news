@@ -18,7 +18,8 @@ const routes = {
     post: '/admin/posts',
     matchscore: '/admin/matchscore',
     ads:'/admin/ads',
-    manager:'/admin/manager'
+    manager:'/admin/manager',
+    comment:'/admin/comment'
 };
 
 export default routes;

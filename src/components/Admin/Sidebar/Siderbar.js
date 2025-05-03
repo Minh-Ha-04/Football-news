@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine, faHome, faPersonRunning, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faHome, faPersonRunning, faStar, faUser, faComment } from '@fortawesome/free-solid-svg-icons';
 import { faNewspaper, faSoccerBall } from '@fortawesome/free-regular-svg-icons';
 import routes from '~/config/routes';
 import classNames from 'classnames/bind';
@@ -40,6 +40,11 @@ const Sidebar = () => {
                 <li>
                     <Link to={routes.manager}>
                         <FontAwesomeIcon icon={faUser} /> Quản lý người dùng
+                    </Link>
+                </li>
+                <li>
+                    <Link to={routes.comment}>
+                        <FontAwesomeIcon icon={faComment} /> Quản lý góp ý
                     </Link>
                 </li>
                 
