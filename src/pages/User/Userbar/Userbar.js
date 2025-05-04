@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Userbar.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRightFromBracket, faBookBookmark, faEye, faUser, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBookmark, faEye, faUser, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
 import routes from '~/config/routes';
 import classNames from 'classnames/bind';
 import { useAuth } from '~/contexts/AuthContext';
@@ -21,10 +21,6 @@ const Userbar = () => {
         }
     };
 
-    const handleGoToDashboard = () => {
-        window.location.replace('http://localhost:3000/admin');
-    };
-
     return (
         <div className={cx('sidebar')}>
             <ul className={cx('menu')}>
@@ -35,7 +31,7 @@ const Userbar = () => {
                 </li>
                 <li>
                     <Link to={routes.saved}>
-                        <FontAwesomeIcon icon={faBookBookmark} className={cx('icon')} /> Bài viết đã lưu
+                        <FontAwesomeIcon icon={faBookmark} className={cx('icon')} /> Bài viết đã lưu
                     </Link>
                 </li>
                 <li>

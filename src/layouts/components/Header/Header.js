@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRightFromBracket, faBookBookmark, faEye, faUser, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBookmark, faEye, faUser, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
@@ -31,7 +31,7 @@ function Header() {
             to: config.routes.info,
         },
         {
-            icon: <FontAwesomeIcon icon={faBookBookmark} />,
+            icon: <FontAwesomeIcon icon={faBookmark} />,
             title: 'Tin đã lưu',
             to: config.routes.saved,
         },

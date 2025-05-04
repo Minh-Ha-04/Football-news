@@ -50,12 +50,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const initializeAuth = async () => {
             try {
-                const { success, data } = await loadUserData();
-                if (success && data?.role === 'admin') {
-                    if (!window.location.pathname.startsWith('/admin')) {
-                        window.location.replace('http://localhost:3000/admin');
-                    }
-                }
+                await loadUserData();
             } finally {
                 setLoading(false);
             }

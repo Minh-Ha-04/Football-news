@@ -25,8 +25,6 @@ function News() {
                 setTotalPages(data.totalPages);
             } catch (error) {
                 console.error('Error fetching articles:', error);
-            } finally {
-                console.log('finally');                
             }
         };
 

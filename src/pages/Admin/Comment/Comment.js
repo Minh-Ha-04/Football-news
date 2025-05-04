@@ -4,7 +4,8 @@ import classNames from 'classnames/bind';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 const API_URL = process.env.REACT_APP_API_URL;
@@ -46,6 +47,27 @@ function Comment() {
         }
     };
 
+    const handleDelete = async (commentId) => {
+        if (window.confirm('Bạn có chắc chắn muốn xóa góp ý này?')) {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.delete(`${API_URL}/comments/${commentId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                if (response.data.success) {
+                    toast.success('Xóa góp ý thành công');
+                    fetchComments();
+                }
+            } catch (error) {
+                console.error('Lỗi khi xóa góp ý:', error);
+                toast.error('Có lỗi xảy ra, vui lòng thử lại sau');
+            }
+        }
+    };
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('vi-VN', {
@@ -73,12 +95,13 @@ function Comment() {
                             <th>Bài viết</th>
                             <th>Nội dung</th>
                             <th>Thời gian</th>
+                            <th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
                         {comments.length === 0 ? (
                             <tr>
-                                <td colSpan="4" className={cx('no-data')}>
+                                <td colSpan="5" className={cx('no-data')}>
                                     Không có góp ý nào
                                 </td>
                             </tr>
@@ -88,7 +111,7 @@ function Comment() {
                                     <td>
                                         <div className={cx('user-info')}>
                                             <img 
-                                                src={comment.user?.avatar || '/images/default-avatar.png'} 
+                                                src={comment.user?.avatar} 
                                                 alt={comment.user?.name} 
                                                 className={cx('avatar')}
                                             />
@@ -99,18 +122,26 @@ function Comment() {
                                         </div>
                                     </td>
                                     <td>
-                                        <a 
-                                            href={`/article/${comment.article?.slug}`}
+                                        <Link 
+                                            to={`/detail/${comment.article?.slug}`}
                                             target="_blank"
-                                            rel="noopener noreferrer"
                                             className={cx('article-link')}
                                         >
                                             {comment.article?.title}
                                             <FontAwesomeIcon icon={faEye} className={cx('view-icon')} />
-                                        </a>
+                                        </Link>
                                     </td>
                                     <td className={cx('content')}>{comment.content}</td>
                                     <td className={cx('date')}>{formatDate(comment.createdAt)}</td>
+                                    <td>
+                                        <button 
+                                            className={cx('delete-btn')}
+                                            onClick={() => handleDelete(comment._id)}
+                                        >
+                                            <FontAwesomeIcon icon={faTrash} />
+                                            Xóa
+                                        </button>
+                                    </td>
                                 </tr>
                             ))
                         )}

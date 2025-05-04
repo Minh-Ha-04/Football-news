@@ -4,7 +4,6 @@ import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import routes from '~/config/routes';
 import Section from '~/layouts/components/Section';
-import Button from '~/components/Button';
 import HotNews from '~/components/HotNews';
 import Ads from '~/components/Ads';
 import axios from 'axios';
@@ -16,7 +15,7 @@ function Home() {
     const [articles, setArticles] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [loading, setLoading] = useState(false);
+    const [, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchArticles = async () => {

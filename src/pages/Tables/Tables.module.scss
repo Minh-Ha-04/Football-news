@@ -7,7 +7,7 @@
 .bxh {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: rgb(119, 179, 60);
     font-size: 24px;
 }
 
@@ -59,7 +59,12 @@
         align-items: center;
         gap: 10px;
         text-align: left;
+        font-weight: 500;
     }
+}
+
+.score-column{
+    font-weight: 700;
 }
 
 .logo {
@@ -89,10 +94,6 @@
     text-decoration: none;
     color: inherit;
     transition: color 0.2s ease;
-
-    &:hover {
-        color: var(--primary-color);
-    }
 }
 
 // Responsive adjustments

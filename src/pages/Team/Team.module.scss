@@ -107,6 +107,11 @@
   overflow: hidden;
   position: relative;
   min-height: 380px;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgb(119, 179, 60);
+}
 }
 
 .player-bg {

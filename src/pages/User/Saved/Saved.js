@@ -6,12 +6,11 @@ import { faBookmark, faShare } from '@fortawesome/free-solid-svg-icons';
 import Button from '~/components/Button';
 import { useAuth } from '~/contexts/AuthContext';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Article from '~/components/Article';
 
 const cx = classNames.bind(styles);
-
+const API_URL=process.env.REACT_APP_API_URL;
 function Saved() {
     const { user } = useAuth();
     const [savedArticles, setSavedArticles] = useState([]);
@@ -27,7 +26,7 @@ function Saved() {
 
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('http://localhost:5000/article/saved', {
+                const response = await axios.get(`${API_URL}/article/saved`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -59,7 +58,7 @@ function Saved() {
     const handleUnsave = async (articleId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.delete(`http://localhost:5000/article/${articleId}/unsave`, {
+            const response = await axios.delete(`${API_URL}/article/${articleId}/unsave`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -106,18 +105,13 @@ function Saved() {
                         <div key={article.article._id} className={cx('item')}>
                             <Article data={article.article} />
                             <div className={cx('media')}>
-                                <Button 
-                                    rounded 
+                                <button 
                                     className={cx('media-item')}
                                     onClick={() => handleUnsave(article.article._id)}
                                 >
                                     <FontAwesomeIcon icon={faBookmark} />
                                     Bỏ lưu
-                                </Button>
-                                <Button rounded className={cx('media-item')}>
-                                    <FontAwesomeIcon icon={faShare} />
-                                    Chia sẻ
-                                </Button>
+                                </button>
                             </div>
                             <div className={cx('saved-time')}>
                                 Đã lưu: {new Date(article.savedAt).toLocaleString('vi-VN')}

@@ -19,26 +19,6 @@ function Matches() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const [articles, setArticles] = useState([]);
-    const [visibleArticles, setVisibleArticles] = useState(5);
-
-    useEffect(() => {
-        const fetchArticles = async () => {
-            try {
-                const response = await fetch(`${API_URL}/articles`);
-                const data = await response.json();
-                // Sắp xếp bài viết theo thời gian đăng mới nhất
-                const sortedArticles = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-                setArticles(sortedArticles);
-            } catch (error) {
-                console.error('Error fetching articles:', error);
-            }
-        };
-
-        fetchArticles();
-    }, []);
-
-
     useEffect(() => {
         const fetchMatches = async () => {
             try {
@@ -67,6 +47,14 @@ function Matches() {
         return acc;
     }, {});
 
+    // Sort rounds in descending order
+    const sortedRounds = Object.keys(matchesByRound).sort((a, b) => b - a);
+
+    // Sort matches within each round by matchDate in descending order
+    sortedRounds.forEach(round => {
+        matchesByRound[round].sort((a, b) => new Date(b.matchDate) - new Date(a.matchDate));
+    });
+
     return (
         <div className={cx('matches')}>
             <Section />
@@ -83,9 +71,6 @@ function Matches() {
                             <div className={cx('left-header')}>
                                 <ul className={cx('header-nav')}>
                                     <li className={cx('header-item')}>
-                                        <FontAwesomeIcon icon={faCalendar} /> Lịch thi đấu
-                                    </li>
-                                    <li className={cx('header-item')}>
                                         <Link to={routes.tables}><FontAwesomeIcon icon={faTrophy} /> Bảng xếp hạng</Link>
                                     </li>
                                 </ul>
@@ -98,11 +83,11 @@ function Matches() {
                             ) : error ? (
                                 <div className={cx('error')}>{error}</div>
                             ) : (
-                                Object.entries(matchesByRound).map(([round, roundMatches]) => (
+                                sortedRounds.map(round => (
                                     <div key={round} className={cx('round-section')}>
                                         <h3 className={cx('round-title')}>Vòng {round}</h3>
                                         <div className={cx('matches-container')}>
-                                            {roundMatches.map((match) => (
+                                            {matchesByRound[round].map((match) => (
                                                 <div key={match._id} className={cx('match-item')}>
                                                     <div className={cx('match-time')}>
                                                         {new Date(match.matchDate).toLocaleString('vi-VN', {

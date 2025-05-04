@@ -207,12 +207,8 @@
 
                         <div className={cx('media')}>
                             <button className={cx('media-item', { saved: isSaved })} onClick={handleSave}>
-                                <FontAwesomeIcon icon={isSaved ? faBookmark : faBookBookmark} />
+                                <FontAwesomeIcon icon={faBookmark } />
                                 {isSaved ? 'Bỏ lưu' : 'Lưu bài'}
-                            </button>
-                            <button className={cx('media-item')}>
-                                <FontAwesomeIcon icon={faShare} />
-                                Chia sẻ
                             </button>
                         </div>
 
@@ -229,16 +225,12 @@
                         </div>
                         <div className={cx('media')}>
                             <button rounded className={cx('media-item', { saved: isSaved })} onClick={handleSave}>
-                                <FontAwesomeIcon icon={isSaved ? faBookmark : faBookBookmark} />
+                                <FontAwesomeIcon icon={ faBookmark} />
                                 {isSaved ? 'Bỏ lưu' : 'Lưu bài'}
                             </button>
                             <button rounded className={cx('media-item')} onClick={() => setShowFeedback(true)}>
                                 <FontAwesomeIcon icon={faPaperPlane} />
                                 Gửi góp ý
-                            </button>
-                            <button rounded className={cx('media-item')}>
-                                <FontAwesomeIcon icon={faShare} />
-                                Chia sẻ
                             </button>
                         </div>
 
