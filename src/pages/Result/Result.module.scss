@@ -134,3 +134,36 @@
         }
     }
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 20px 0;
+
+    .page-btn {
+        padding: 8px 16px;
+        border: 1px solid #ccc;
+        background-color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover:not(:disabled) {
+            background-color: #f0f0f0;
+        }
+
+        &.active {
+            background-color: rgb(120, 180, 61);
+            color: white;
+            border-color: rgb(120, 180, 61);
+        }
+
+        &.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+}

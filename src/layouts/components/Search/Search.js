@@ -97,10 +97,27 @@ function Search() {
                     }
                 });
 
+                // Loại bỏ các bài viết trùng lặp dựa trên ID
+                const uniqueArticles = allArticles.reduce((acc, current) => {
+                    const x = acc.find(item => item._id === current._id);
+                    if (!x) {
+                        return acc.concat([current]);
+                    } else {
+                        // Nếu bài viết đã tồn tại, thêm thông tin đội bóng mới vào mảng teams
+                        if (!x.teams) {
+                            x.teams = [x.teamInfo];
+                        }
+                        if (!x.teams.some(team => team._id === current.teamInfo._id)) {
+                            x.teams.push(current.teamInfo);
+                        }
+                        return acc;
+                    }
+                }, []);
+
                 // Luôn chuyển hướng đến trang kết quả, kể cả khi không có bài viết
                 navigate('/result', {
                     state: {
-                        results: allArticles,
+                        results: uniqueArticles,
                         searchTerm: searchValue,
                         teams: searchResult // Gửi thông tin tất cả đội bóng tìm thấy
                     }

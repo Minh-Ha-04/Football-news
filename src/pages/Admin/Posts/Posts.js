@@ -289,19 +289,37 @@ export default function Posts() {
                 
                 {/* Phân trang */}
                 <div className={cx('pagination')}>
-                    <button 
-                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                        disabled={currentPage === 1}
-                    >
-                        Trang trước
-                    </button>
-                    <span>Trang {currentPage} / {totalPages}</span>
-                    <button 
-                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                        disabled={currentPage === totalPages}
-                    >
-                        Trang sau
-                    </button>
+                    
+                    
+                    <div className={cx('pageNumbers')}>
+                        {[...Array(totalPages)].map((_, index) => {
+                            const pageNumber = index + 1;
+                            // Show first page, last page, current page, and pages around current page
+                            if (
+                                pageNumber === 1 ||
+                                pageNumber === totalPages ||
+                                (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
+                            ) {
+                                return (
+                                    <button
+                                        key={pageNumber}
+                                        className={cx('pageNumber', { active: pageNumber === currentPage })}
+                                        onClick={() => setCurrentPage(pageNumber)}
+                                    >
+                                        {pageNumber}
+                                    </button>
+                                );
+                            } else if (
+                                pageNumber === currentPage - 2 ||
+                                pageNumber === currentPage + 2
+                            ) {
+                                return <span key={pageNumber} className={cx('ellipsis')}>...</span>;
+                            }
+                            return null;
+                        })}
+                    </div>
+
+                   
                 </div>
             </div>
         </div>

@@ -55,7 +55,6 @@
                                     }, [])
                                     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
                                     .slice(0, 6);
-                                console.log(allRelatedArticles);
                                 setRelatedArticles(allRelatedArticles);
                             } catch (error) {
                                 console.error('Lỗi khi lấy bài viết liên quan:', error);
@@ -224,11 +223,11 @@
                             {article.content}
                         </div>
                         <div className={cx('media')}>
-                            <button rounded className={cx('media-item', { saved: isSaved })} onClick={handleSave}>
+                            <button  className={cx('media-item', { saved: isSaved })} onClick={handleSave}>
                                 <FontAwesomeIcon icon={ faBookmark} />
                                 {isSaved ? 'Bỏ lưu' : 'Lưu bài'}
                             </button>
-                            <button rounded className={cx('media-item')} onClick={() => setShowFeedback(true)}>
+                            <button  className={cx('media-item')} onClick={() => setShowFeedback(true)}>
                                 <FontAwesomeIcon icon={faPaperPlane} />
                                 Gửi góp ý
                             </button>
