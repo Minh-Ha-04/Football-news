@@ -111,7 +111,7 @@ function Comment() {
                                     <td>
                                         <div className={cx('user-info')}>
                                             <img 
-                                                src={comment.user?.avatar} 
+                                                src={`${API_URL}${comment.user?.avatar}`} 
                                                 alt={comment.user?.name} 
                                                 className={cx('avatar')}
                                             />

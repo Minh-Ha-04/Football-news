@@ -117,7 +117,7 @@ function Search() {
                 // Luôn chuyển hướng đến trang kết quả, kể cả khi không có bài viết
                 navigate('/result', {
                     state: {
-                        results: uniqueArticles,
+                        articles: uniqueArticles,
                         searchTerm: searchValue,
                         teams: searchResult // Gửi thông tin tất cả đội bóng tìm thấy
                     }
@@ -127,7 +127,7 @@ function Search() {
                 // Vẫn chuyển đến trang Result với mảng rỗng khi có lỗi
                 navigate('/result', {
                     state: {
-                        results: [],
+                        articles: [],
                         searchTerm: searchValue,
                         teams: searchResult
                     }

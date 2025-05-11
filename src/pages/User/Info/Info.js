@@ -5,7 +5,7 @@ import { useAuth } from '~/contexts/AuthContext';
 import axios from 'axios';
 
 const cx = classNames.bind(styles);
-
+const API_URL = process.env.REACT_APP_API_URL;
 function Info() {
     const { user, updateUser } = useAuth();
     const [isEditing, setIsEditing] = useState(false);
@@ -22,7 +22,7 @@ function Info() {
     useEffect(() => {
         if (user) {
             setUserInfo({
-                avatar: user.avatar || 'https://resources.premierleague.com/premierleague/photos/players/110x140/p118748.png',
+                avatar: user.avatar || 'upload/default-avatar.png',
                 nickName:user.nickName || '',
                 fullName: user.fullName || '',
                 email: user.email || '',
@@ -33,19 +33,48 @@ function Info() {
         }
     }, [user]);
 
+    const handleUploadAvatar = async (file) => {
+        const formData = new FormData();
+        formData.append('image', file);       // phải là 'image' vì backend dùng upload.single('image')
+        formData.append('type', 'user');      // để multer lưu vào đúng thư mục
+    
+        const token = localStorage.getItem('token');
+    
+        try {
+            const response = await axios.put(`${API_URL}/auth/me?type=user`, formData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+    
+            if (response.data && response.data.success) {
+                const updatedUser = response.data.data;
+                updateUser(updatedUser);
+                setUserInfo(prev => ({ ...prev, avatar: updatedUser.avatar }));
+                alert('Cập nhật ảnh đại diện thành công!');
+            }
+        } catch (err) {
+            console.error('Upload avatar failed:', err);
+            alert('Tải ảnh thất bại');
+        }
+    };
+    
+    
+
     const handleAvatarChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setUserInfo(prev => ({
-                    ...prev,
-                    avatar: reader.result
-                }));
-            };
-            reader.readAsDataURL(file);
+            const imageUrl = URL.createObjectURL(file);
+            setUserInfo(prev => ({
+                ...prev,
+                avatar: imageUrl
+            }));
+    
+            handleUploadAvatar(file);  // Gọi hàm upload khi chọn ảnh mới
         }
     };
+    
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -69,7 +98,7 @@ function Info() {
                 dateOfBirth
             };
             
-            const response = await axios.put('http://localhost:5000/auth/me', dataToSend, {
+            const response = await axios.put(`${API_URL}/auth/me`, dataToSend, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -99,7 +128,7 @@ function Info() {
         <div className={cx('content')}>
             <div className={cx('profile-section')}>
                 <div className={cx('avatar-container')}>
-                    <img src={userInfo.avatar} alt="Avatar" className={cx('avatar')} />
+                    <img src={`${API_URL}${userInfo.avatar}`} alt="Avatar" className={cx('avatar')} />
                     <div className={cx('avatar-upload')}>
                         <label htmlFor="avatar-input" className={cx('upload-button')}>
                             Đổi ảnh đại diện

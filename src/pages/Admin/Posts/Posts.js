@@ -145,7 +145,7 @@ export default function Posts() {
     const onSubmit = async (data) => {
         try {
             const formDataToSend = new FormData();
-            
+            formDataToSend.append('type', 'article');
             // Thêm các trường dữ liệu vào FormData
             formDataToSend.append('title', data.title);
             formDataToSend.append('description', data.description);

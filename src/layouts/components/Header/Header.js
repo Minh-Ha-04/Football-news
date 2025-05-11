@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket, faBookmark, faEye, faUser, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
 import Search from '../Search';
@@ -9,9 +9,8 @@ import Menu from '~/components/Popper/Menu';
 import { useAuth } from '~/contexts/AuthContext';
 import config from '~/config';
 const cx = classNames.bind(styles);
-
+const API_URL = process.env.REACT_APP_API_URL;
 function Header() {
-    const location = useLocation();
     const navigate = useNavigate();
     const { user, logout, isAuthenticated } = useAuth();
 
@@ -63,7 +62,7 @@ function Header() {
                 <Link to={config.routes.home}>
                     <img
                         className={cx('logo')}
-                        src="https://www.premierleague.com/resources/rebrand/v7.153.55/i/elements/pl-main-logo.png"
+                        src={`${API_URL}/uploads/users/default-avatar.png`}
                         alt="Premier League"
                     />
                 </Link>
@@ -91,7 +90,7 @@ function Header() {
                             <div className={cx('user-info')}>
                                 <img
                                     className={cx('user-avatar')}
-                                    src={user.avatar}
+                                    src={`${API_URL}${user.avatar}`}
                                     alt={"avatar"}
                                 />
                             </div>

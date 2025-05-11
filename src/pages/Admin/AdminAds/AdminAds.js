@@ -1,10 +1,10 @@
-import styles from './AdminAds.module.scss'
+import styles from './AdminAds.module.scss';
 import classNames from 'classnames/bind';
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 
 const cx = classNames.bind(styles);
-const API_URL = process.env.REACT_APP_API_URL ;
+const API_URL = process.env.REACT_APP_API_URL;
 
 function AdminAds() {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -41,40 +41,36 @@ function AdminAds() {
     const handleUpload = async () => {
         if (selectedImage) {
             try {
-                // Convert image to base64
-                const reader = new FileReader();
-                reader.readAsDataURL(selectedImage);
-                const base64Image = await new Promise((resolve) => {
-                    reader.onloadend = () => resolve(reader.result);
-                });
-
-                // Prepare data to send
-                const adData = {
-                    image: base64Image,
-                    fileName: selectedImage.name
+                const formData = new FormData();
+                formData.append('image', selectedImage);
+                
+                // Thêm fileName vào formData
+                const fileName = selectedImage.name; // Lấy tên file từ selectedImage
+                formData.append('fileName', fileName); // Thêm tên file vào formData
+    
+                // Lấy token từ localStorage (hoặc từ sessionStorage, tùy vào cách bạn lưu trữ)
+                const token = localStorage.getItem('token');  // Hoặc lấy từ sessionStorage nếu bạn dùng sessionStorage
+    
+                const config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization': `Bearer ${token}` // Thêm token vào header
+                    }
                 };
-
+    
                 if (editingId) {
-                    // Update existing ad
-                    const response = await axios.put(`${API_URL}/ads/${editingId}`, adData, {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    });
+                    // Cập nhật quảng cáo
+                    const response = await axios.put(`${API_URL}/ads/${editingId}`, formData, config);
                     setAdsList(adsList.map(ad => 
                         ad._id === editingId ? response.data : ad
                     ));
                     setEditingId(null);
                 } else {
-                    // Create new ad
-                    const response = await axios.post(`${API_URL}/ads`, adData, {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    });
+                    // Tạo quảng cáo mới
+                    const response = await axios.post(`${API_URL}/ads`, formData, config);
                     setAdsList([...adsList, response.data]);
                 }
-
+    
                 setSelectedImage(null);
                 setPreviewUrl(null);
                 if (fileInputRef.current) {
@@ -85,6 +81,7 @@ function AdminAds() {
             }
         }
     };
+    
 
     const handleDeleteClick = (id) => {
         setDeleteId(id);
@@ -93,7 +90,15 @@ function AdminAds() {
 
     const handleConfirmDelete = async () => {
         try {
-            await axios.delete(`${API_URL}/ads/${deleteId}`);
+            const token = localStorage.getItem('token');  // Lấy token từ localStorage
+    
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${token}`, // Thêm token vào header
+                }
+            };
+    
+            await axios.delete(`${API_URL}/ads/${deleteId}`, config);  // Thêm config vào yêu cầu DELETE
             setAdsList(adsList.filter(ad => ad._id !== deleteId));
         } catch (error) {
             console.error('Error deleting ad:', error);
@@ -101,6 +106,7 @@ function AdminAds() {
         setShowConfirm(false);
         setDeleteId(null);
     };
+    
 
     const handleCancelDelete = () => {
         setShowConfirm(false);
@@ -109,7 +115,7 @@ function AdminAds() {
 
     const handleEdit = (ad) => {
         setEditingId(ad._id);
-        setPreviewUrl(ad.image);
+        setPreviewUrl(`${API_URL}${ad.image}`);
         setSelectedImage({ name: ad.fileName });
     };
 
@@ -145,7 +151,7 @@ function AdminAds() {
                 <div className={cx('ads-grid')}>
                     {adsList.map((ad) => (
                         <div key={ad._id} className={cx('ad-item')}>
-                            <img src={ad.image} alt={ad.fileName} />
+                            <img src={`${API_URL}${ad.image}`} alt={ad.fileName}/>
                             <div className={cx('ad-actions')}>
                                 <button onClick={() => handleEdit(ad)} className={cx('edit-button')}>
                                     Thay đổi
