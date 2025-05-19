@@ -13,29 +13,48 @@ import routes from '~/config/routes';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 const cx = classNames.bind(styles);
-const API_URL = process.env.REACT_APP_API_URL 
+const API_URL = process.env.REACT_APP_API_URL;
 function Matches() {
     const [matches, setMatches] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchMatches = async () => {
-            try {
-                const response = await axios.get(`${API_URL}/match`);
-                if (response.data.success) {
-                    setMatches(response.data.data);
-                }
-            } catch (err) {
-                setError('Failed to fetch matches');
-                console.error('Error fetching matches:', err);
-            } finally {
-                setLoading(false);
+    // Đặt fetchMatches bên ngoài useEffect
+    const fetchMatches = async (page = 1) => {
+        setLoading(true);
+        try {
+            const response = await axios.get(`${API_URL}/match?page=${page}&limit=10`);
+            if (response.data.success) {
+                const newMatches = response.data.data;
+                setMatches((prevMatches) => {
+                    // Loại bỏ các trận đấu trùng lặp
+                    const updatedMatches = [
+                        ...prevMatches,
+                        ...newMatches.filter((newMatch) =>
+                            !prevMatches.some((existingMatch) => existingMatch._id === newMatch._id)
+                        ),
+                    ];
+                    return updatedMatches;
+                });
+                setCurrentPage(response.data.currentPage);
+                setTotalPages(response.data.totalPages);
             }
-        };
+        } catch (err) {
+            setError('Lỗi khi tải trận đấu');
+            console.error('Fetch error:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+    
 
-        fetchMatches();
-    }, []);
+// Gọi fetchMatches lần đầu trong useEffect
+useEffect(() => {
+    fetchMatches(1);
+}, []);
+
 
     // Group matches by round
     const matchesByRound = matches.reduce((acc, match) => {
@@ -51,7 +70,7 @@ function Matches() {
     const sortedRounds = Object.keys(matchesByRound).sort((a, b) => b - a);
 
     // Sort matches within each round by matchDate in descending order
-    sortedRounds.forEach(round => {
+    sortedRounds.forEach((round) => {
         matchesByRound[round].sort((a, b) => new Date(b.matchDate) - new Date(a.matchDate));
     });
 
@@ -71,7 +90,9 @@ function Matches() {
                             <div className={cx('left-header')}>
                                 <ul className={cx('header-nav')}>
                                     <li className={cx('header-item')}>
-                                        <Link to={routes.tables}><FontAwesomeIcon icon={faTrophy} /> Bảng xếp hạng</Link>
+                                        <Link to={routes.tables}>
+                                            <FontAwesomeIcon icon={faTrophy} /> Bảng xếp hạng
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>
@@ -83,7 +104,7 @@ function Matches() {
                             ) : error ? (
                                 <div className={cx('error')}>{error}</div>
                             ) : (
-                                sortedRounds.map(round => (
+                                sortedRounds.map((round) => (
                                     <div key={round} className={cx('round-section')}>
                                         <h3 className={cx('round-title')}>Vòng {round}</h3>
                                         <div className={cx('matches-container')}>
@@ -95,35 +116,41 @@ function Matches() {
                                                             month: '2-digit',
                                                             year: 'numeric',
                                                             hour: '2-digit',
-                                                            minute: '2-digit'
+                                                            minute: '2-digit',
                                                         })}
                                                     </div>
                                                     <div className={cx('match-teams')}>
                                                         <div className={cx('teamhome')}>
                                                             <span className={cx('team-name')}>
-                                                                
-                                                                {typeof match.homeTeam === 'object' ? match.homeTeam.name : match.homeTeam}
-                                                                <img src={`${API_URL}${match.logoHomeTeam}`} alt={match.homeTeam.name} className={cx('team-logo')} />
+                                                                {typeof match.homeTeam === 'object'
+                                                                    ? match.homeTeam.name
+                                                                    : match.homeTeam}
+                                                                <img
+                                                                    src={`${API_URL}${match.logoHomeTeam}`}
+                                                                    alt={match.homeTeam.name}
+                                                                    className={cx('team-logo')}
+                                                                />
                                                             </span>
                                                         </div>
                                                         <div className={cx('match-score')}>
-                                                        
-                                                        {match.status === 'completed'
-                                                            ? `${match.score?.home} - ${match.score?.away}`
-                                                            : '-'}
-                                                        <div className={cx('match-stadium')}>
-                                                            {match.stadium}
-                                                        </div>
+                                                            {match.status === 'completed'
+                                                                ? `${match.score?.home} - ${match.score?.away}`
+                                                                : '-'}
+                                                            <div className={cx('match-stadium')}>{match.stadium}</div>
                                                         </div>
                                                         <div className={cx('teamaway')}>
                                                             <span className={cx('team-name')}>
-                                                                <img src={`${API_URL}${match.logoAwayTeam}`} alt={match.awayTeam.name} className={cx('team-logo')} />
-                                                                {typeof match.awayTeam === 'object' ? match.awayTeam.name : match.awayTeam}
+                                                                <img
+                                                                    src={`${API_URL}${match.logoAwayTeam}`}
+                                                                    alt={match.awayTeam.name}
+                                                                    className={cx('team-logo')}
+                                                                />
+                                                                {typeof match.awayTeam === 'object'
+                                                                    ? match.awayTeam.name
+                                                                    : match.awayTeam}
                                                             </span>
                                                         </div>
-                                                        
                                                     </div>
-
                                                 </div>
                                             ))}
                                         </div>
@@ -132,7 +159,16 @@ function Matches() {
                             )}
                         </div>
                     </div>
+                    {currentPage < totalPages && (
+                    <div className={cx('load-more')}>
+                        <button className={cx('button')} onClick={() => fetchMatches(currentPage + 1)} disabled={loading}>
+                            {loading ? 'Đang tải...' : 'Xem thêm'}
+                        </button>
+                    </div>
+                )}
                 </div>
+                
+
                 <div className={cx('right')}>
                     <Ads />
                 </div>

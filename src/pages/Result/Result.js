@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Result.module.scss';
 import classNames from 'classnames/bind';
 import HotNews from '~/components/HotNews';
-import { useState, useEffect } from 'react';
+import {  useEffect } from 'react';
 
 const cx = classNames.bind(styles);
 const API_URL = process.env.REACT_APP_API_URL;
