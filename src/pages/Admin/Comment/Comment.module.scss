@@ -155,3 +155,50 @@
     font-size: 18px;
     color: #666;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 1rem;
+
+    
+
+    .pageNumbers {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+
+        .pageNumber {
+            min-width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+
+            &:hover {
+                background-color: #f0f0f0;
+                border-color: #ccc;
+            }
+
+            &.active {
+                background-color: rgb(119, 179, 60);
+                color: white;
+                border-color: rgb(119, 179, 60);
+            }
+        }
+
+        .ellipsis {
+            color: #666;
+            padding: 0 0.5rem;
+        }
+    }
+}

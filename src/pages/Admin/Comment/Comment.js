@@ -28,11 +28,11 @@ function Comment() {
             const response = await axios.get(`${API_URL}/comments`, {
                 params: {
                     page: currentPage,
-                    limit: limit
+                    limit: limit,
                 },
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
             if (response.data.success) {
@@ -53,8 +53,8 @@ function Comment() {
                 const token = localStorage.getItem('token');
                 const response = await axios.delete(`${API_URL}/comments/${commentId}`, {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 });
 
                 if (response.data.success) {
@@ -75,7 +75,7 @@ function Comment() {
             month: '2-digit',
             year: 'numeric',
             hour: '2-digit',
-            minute: '2-digit'
+            minute: '2-digit',
         });
     };
 
@@ -86,7 +86,7 @@ function Comment() {
     return (
         <div className={cx('wrapper')}>
             <h1 className={cx('title')}>Quản lý góp ý</h1>
-            
+
             <div className={cx('comments-table')}>
                 <table>
                     <thead>
@@ -110,9 +110,9 @@ function Comment() {
                                 <tr key={comment._id}>
                                     <td>
                                         <div className={cx('user-info')}>
-                                            <img 
-                                                src={`${API_URL}${comment.user?.avatar}`} 
-                                                alt={comment.user?.name} 
+                                            <img
+                                                src={`${API_URL}${comment.user?.avatar}`}
+                                                alt={comment.user?.name}
                                                 className={cx('avatar')}
                                             />
                                             <div className={cx('user-details')}>
@@ -122,7 +122,7 @@ function Comment() {
                                         </div>
                                     </td>
                                     <td>
-                                        <Link 
+                                        <Link
                                             to={`/detail/${comment.article?.slug}`}
                                             target="_blank"
                                             className={cx('article-link')}
@@ -134,10 +134,7 @@ function Comment() {
                                     <td className={cx('content')}>{comment.content}</td>
                                     <td className={cx('date')}>{formatDate(comment.createdAt)}</td>
                                     <td>
-                                        <button 
-                                            className={cx('delete-btn')}
-                                            onClick={() => handleDelete(comment._id)}
-                                        >
+                                        <button className={cx('delete-btn')} onClick={() => handleDelete(comment._id)}>
                                             <FontAwesomeIcon icon={faTrash} />
                                             Xóa
                                         </button>
@@ -149,27 +146,36 @@ function Comment() {
                 </table>
             </div>
 
-            {totalPages > 1 && (
-                <div className={cx('pagination')}>
-                    <button 
-                        className={cx('page-btn', { disabled: currentPage === 1 })}
-                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                        disabled={currentPage === 1}
-                    >
-                        Trước
-                    </button>
-                    <span className={cx('page-info')}>
-                        Trang {currentPage} / {totalPages}
-                    </span>
-                    <button 
-                        className={cx('page-btn', { disabled: currentPage === totalPages })}
-                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                        disabled={currentPage === totalPages}
-                    >
-                        Sau
-                    </button>
+            <div className={cx('pagination')}>
+                <div className={cx('pageNumbers')}>
+                    {[...Array(totalPages)].map((_, index) => {
+                        const pageNumber = index + 1;
+                        // Show first page, last page, current page, and pages around current page
+                        if (
+                            pageNumber === 1 ||
+                            pageNumber === totalPages ||
+                            (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
+                        ) {
+                            return (
+                                <button
+                                    key={pageNumber}
+                                    className={cx('pageNumber', { active: pageNumber === currentPage })}
+                                    onClick={() => setCurrentPage(pageNumber)}
+                                >
+                                    {pageNumber}
+                                </button>
+                            );
+                        } else if (pageNumber === currentPage - 2 || pageNumber === currentPage + 2) {
+                            return (
+                                <span key={pageNumber} className={cx('ellipsis')}>
+                                    ...
+                                </span>
+                            );
+                        }
+                        return null;
+                    })}
                 </div>
-            )}
+            </div>
         </div>
     );
 }
